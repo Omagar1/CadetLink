@@ -27,10 +27,18 @@
           <fieldset>
             <Legend>sign up</Legend>
             <form>
+              <label for="fname">First name:</label><br>
+              <input type="text" id="fname" name="fname" value="John"><br>
+              <label for="lname">Last name:</label><br>
+              <input type="text" id="lname" name="lname" value="Doe">
+              <div id = "radio">
+              <input type="radio" id="CFAV" name="role" value="CFAV">
+              <label for="CFAV">CFAV</label><br>
+              <input type="radio" id="cadet" name="role" value="cadet">
+              <label for="cadet">cadet</label><br>
+              <input type="submit" class = "button">
+              </div> 
             </form>
-            <button type="button" class="button" style="text-align: center;"
-            onclick="document.body.style.backgroundImage = url('./images/imperialGuardBG.jpg')">
-            Submit</button>
           </fieldset>
         </div>
       </div>
