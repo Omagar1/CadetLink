@@ -28,16 +28,31 @@
             <Legend>sign up</Legend>
             <form>
               <label for="fname">First name:</label><br>
-              <input type="text" id="fname" name="fname" value="John"><br>
+              <input type="text" id="fname" name="fname" value=""><br>
               <label for="lname">Last name:</label><br>
-              <input type="text" id="lname" name="lname" value="Doe">
+              <input type="text" id="lname" name="lname" value="">
               <div id = "radio">
               <input type="radio" id="CFAV" name="role" value="CFAV">
               <label for="CFAV">CFAV</label><br>
               <input type="radio" id="cadet" name="role" value="cadet">
               <label for="cadet">cadet</label><br>
-              <input type="submit" class = "button">
-              </div> 
+              </div>
+              <select id = rank >
+                <option value="Cdt" class = "cadet">Cadet</option>
+                <option value="l/Cpl" class = "cadet">Lance Corpral</option>
+                <option value="Cpl" class = "cadet">Corpral</option>
+                <option value="Sgt" class = "cadet">Sergent</option>
+                <option value="Ssgt" class = "cadet">Staf Sergent</option>
+                <option value="W02" class = "cadet">Warrengt Oficer class 2</option>
+                <option value="W01" class = "cadet">Warrengt Oficer class 1</option>
+                <option value="SgtCFAV" class = "CFAV">CFAV Sergent</option>
+                <option value="2lt" class = "CFAV" > 2nd Lieutenant</option>
+                <option value="lt" class = "CFAV"> Lieutenant</option>
+                <option value="Cpt" class = "CFAV">Captian</option>
+                <option value="Maj" class = "CFAV"> Major</option>
+
+              </select>
+              <input type="submit" class = "button"> 
             </form>
           </fieldset>
         </div>

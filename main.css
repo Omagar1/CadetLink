@@ -73,6 +73,15 @@
             
           }
 
+          .CFAV{
+            color: black;
+          }
+
+          option{
+            background-image: url("images/mtp.jpg");
+            background-color: rgb(72, 255, 0) ;
+          }
+
           #radio {
             width: auto !important;
             padding-right: 0px !important;
@@ -93,7 +102,7 @@
           border-radius: 4px;
         }
         .button:hover {
-          background-color: rgb(72, 255, 0); 
+          background-color: rgb(255, 47, 47); 
         }
   
         /* ----------------------------- footer stuff -----------------------------  */
