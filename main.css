@@ -5,6 +5,7 @@
 }
 
 
+
 /* ----------------------------- Header Stuff -----------------------------  */
 #header {
     background-color: rgb(59, 182, 10);
@@ -36,6 +37,7 @@
   body {
     background-image: url("images/mtp.jpg");
     background-repeat: no-repeat;
+    background-attachment: fixed;
     background-size: cover;
     margin: 0;
     height: auto;
@@ -56,6 +58,48 @@
         font-family: 'Bebas Neue', cursive;
         font-style: oblique;
       }
+
+      .dashbord{
+        padding: 1%;
+        margin: 10px 10px;
+      }
+
+      .dashbordOrders{
+        background-color: rebeccapurple;
+        padding: 1%;
+        margin: 10px 10px;
+      }
+      .dashbordUniform{
+        background-color: rgb(0, 85, 0);
+        padding: 1%;
+        margin: 10px 10px;
+      }
+      .dashbordTrips{
+        background-color: rgb(255, 136, 0);
+        padding: 1%;
+        margin: 10px 10px;
+      }
+      .dashbordVPB{
+        background-color: blue;
+        padding: 1%;
+        margin: 10px 10px;
+      }
+      ul.no-bullets {
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+      }
+      .dasbordTxt{
+        list-style-type: none;
+        text-decoration: none;
+
+      }
+      li.dasbord:hover {
+        background-color: white; 
+      }
+      .dasbordTxt:hover {
+        color: black; 
+      } 
   /* ----------------------------- Form stuff  -----------------------------  */
         fieldset{
           width: auto;

@@ -1,0 +1,9 @@
+CREATE TABLE `users` (
+  `ID` int(11) NOT NULL AUTO_INCREMENT,
+  `fname` varchar(255) NOT NULL,
+  `lastname` varchar(255) NOT NULL,
+  `rank` varchar(255) NOT NULL DEFAULT "cadet",
+  `CFAV` boolean NOT NULL DEFAULT FALSE,
+  PRIMARY KEY (`ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
