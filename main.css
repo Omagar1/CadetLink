@@ -63,7 +63,22 @@
         padding: 1%;
         margin: 10px 10px;
       }
-
+      
+      .dashbordTroop{
+        background-color: rgb(139, 141, 0);
+        padding: 1%;
+        margin: 10px 10px;
+      }
+      .dashbordSection{
+        background-color: rgb(51, 153, 114);
+        padding: 1%;
+        margin: 10px 10px;
+      }
+      .dashbordSC{
+        background-color: rgb(141, 51, 153);
+        padding: 1%;
+        margin: 10px 10px;
+      }
       .dashbordOrders{
         background-color: rebeccapurple;
         padding: 1%;
