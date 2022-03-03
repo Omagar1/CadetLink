@@ -86,7 +86,8 @@ CREATE TABLE `itemRequest` (
   `purpose` varchar(255) DEFAULT 'Uniform',
   `DateNeeded` date,
   `DateRequested`datetime,  
-  PRIMARY KEY (`ID`)
+  PRIMARY KEY (`ID`),
+  FOREIGN KEY (UserID) REFERENCES users(ID)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 CREATE TABLE `sizesRequest` (

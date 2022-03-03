@@ -1,0 +1,6 @@
+INSERT INTO `sizes`(sizeTypeID, value)
+VALUES (1,160);
+
+INSERT INTO `items`(NSN, ItemTypeID, NumIssued, NumInStore,NumReserved,NumOrdered)
+VALUES (8415-99-597-0428,1,6,7,0,0);
+VALUES (8415-99-597-0429,1,1,13,0,0);
