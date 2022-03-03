@@ -1,48 +1,49 @@
+
+#mainSignUp {
+    background-color: rgb(0, 43, 23, 0.938);
+    width: 50%; 
+    margin: auto;
+    margin-top: 12px;
+    padding: 10px;
+    border: 5px;
+    min-height: 500px;
+    text-align: center;
+    font-family: 'Bebas Neue', cursive;
+    font-style: oblique;
+  }
+
+
 /* ----------------------------- Form stuff  -----------------------------  */
 fieldset{
     width: auto;
     margin-left: auto;  /* copy right Noah inc 2022 */
     margin-right: auto;
-  } 
-  
-    input[type=text] {
-      width: 90%;
-      padding: 12px;
-      border: 1px solid #ccc;
-      border-radius: 4px;
-      resize: vertical;
-      background-color:rgb(65, 65, 65,);
-      color: black;
+  }
+    
+    input{
+        width: 90%;
+        padding: 12px;
+        margin: 12px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        box-sizing: border-box;
+        resize: vertical;
+        background-color:rgb(65, 65, 65,);
+        color: black; 
+    }
 
+    input:focus{
+        background-color: rgb(245, 234, 0) ;
+        border: 3px solid #555;
     }
-    input[type=radio] {
-      width: 90%;
-      padding: 12px;
-      border: 1px solid #ccc;
-      border-radius: 4px;
-      resize: vertical;
-      background-color:rgb(65, 65, 65,);
-      color: black;
+    input.button{
+        margin: 12px;
+    }
+    
 
-    }
-    input {
-      height: auto;
-      width: 90%;
-      
-    }
 
     .CFAV{
       color: rgb(245, 234, 0)
-    }
-
-    option{
-      background-image: url("images/mtp.jpg");
-      background-color: rgb(0, 43, 23) ;
-    }
-
-    #radio {
-      width: auto !important;
-      padding: 0% !important;
     }
 
   

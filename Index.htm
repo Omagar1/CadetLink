@@ -2,8 +2,8 @@
   <html>
     <head>
       <title>CadetLink</title>
-      <link href="main.css" rel="stylesheet" />
       <link href="loginSignup.css" rel="stylesheet" />
+      <link href="main.css" rel="stylesheet" />
       <link rel="preconnect" href="https://fonts.googleapis.com">
       <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
       <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">
@@ -16,7 +16,12 @@
       </div>
 
       <div id="navbar">
-
+        <ul class="navBarList">
+          <li class = "inline"><a href="#home" class ="navBarTxt">Home</a></li>
+          <li class = "inline"><a href="mainPage.htm"class ="navBarTxt">DashBord</a></li>
+          <li class = "inline"><a href="#contact" class ="navBarTxt">Contact an NCO</a></li>
+          <li class = "inline"><a href="#about" class ="navBarTxt" > About</a></li>
+        </ul>
       </div>
       <div id="container">
         
@@ -26,8 +31,8 @@
             <form>
                 <label for="fname">CadetNumber</label><br>
                 <input type="text" id="CNum" name="CNum" value=""><br>
-                <label for="fname">Password</label><br>
-                <input type="text" id="Pword" name="Pword" value=""><br>
+                <label for="Pwd">Password</label><br>
+                <input type="password" id="Pwd" name="Pwd" value=""><br>
                 
               <input type="submit" class = "button"> 
             </form>
