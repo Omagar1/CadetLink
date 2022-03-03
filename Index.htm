@@ -3,44 +3,35 @@
     <head>
       <title>CadetLink</title>
       <link href="main.css" rel="stylesheet" />
+      <link href="loginSignup.css" rel="stylesheet" />
       <link rel="preconnect" href="https://fonts.googleapis.com">
       <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
       <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">
+    
     </head>
 
     <body id = "test">
       <div id="header">
         <h1>CadetLink</h1>
-        
       </div>
 
       <div id="navbar">
-        <ul>
-          <li class = "inline"><a href="#home" class ="navBarTxt">Home</a></li>
-          <li class = "inline"><a href="#news"class ="navBarTxt">News</a></li>
-          <li class = "inline"><a href="#contact" class ="navBarTxt">Contact</a></li>
-          <li class = "inline"><a href="#about" class ="navBarTxt" > About</a></li>
-          <li class = "inline"><a href="#login" class ="navBarTxt" > Login</a></li>
-        </ul>
 
       </div>
       <div id="container">
         
-        <div id="main">
-            <h2>What is Cadet Link</h2>
-            <p>The operation of cadets, like the army itself requires a certain amount of logistical support, 
-            The difference is in Cadets we don’t have a whole Corp supporting us and although the efforts of 
-            our CFAV’s (Cadet Force Adult Volunteer) keep the process mostly up to date, something sometimes 
-            does still get forgotten or missed. <b>CadetLink</b> would be able to take a lot of the annoying tasks 
-            out of the logistics of cadets. Information about trips, Orders for this week, what Kit to bring 
-            (and whenever its short sleeves or not), scores for section competitions and a way for uniform issues 
-            to be logged would all be displayed in an easy-to-use central display. Other features like talking 
-            to an NCO could be implemented. Each cadet would have their own log in. the uniform issues would 
-            be logged, cross referenced against the Quartermaster’s database and would have the option to be 
-            displayed in an excel spread sheet. </p>
-            <a href="signUp.htm">
-              <button type="button" class="button" style="text-align: center;"> Start using CadetLink</button>
-            </a>
+        <div id="mainSignUp">
+          <fieldset>
+            <Legend><b>Login</b></Legend>
+            <form>
+                <label for="fname">CadetNumber</label><br>
+                <input type="text" id="CNum" name="CNum" value=""><br>
+                <label for="fname">Password</label><br>
+                <input type="text" id="Pword" name="Pword" value=""><br>
+                
+              <input type="submit" class = "button"> 
+            </form>
+          </fieldset>
         </div>
       </div>
       <div id="footer">
