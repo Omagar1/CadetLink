@@ -59,6 +59,7 @@ h1{
       #main {
         background-color: rgb(0, 43, 23, 0.938);
         margin: 10%;
+        margin-top: 50px;
         padding: 1%;
         min-height: 500px;
         text-align: center;
@@ -82,17 +83,12 @@ h1{
         padding: 1%;
         margin: 10px 10px;
       }
-      .dashbordSC{
-        background-color: rgb(141, 51, 153);
-        padding: 1%;
-        margin: 10px 10px;
-      }
       .dashbordOrders{
         background-color: rebeccapurple;
         padding: 1%;
         margin: 10px 10px;
       }
-      .dashbordUniform{
+      .dashbordKitRequest{
         background-color: rgb(0, 85, 0);
         padding: 1%;
         margin: 10px 10px;
