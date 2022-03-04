@@ -67,7 +67,7 @@ CREATE TABLE `itemType` (
 
 CREATE TABLE `items` (
   `ID` int(11) NOT NULL AUTO_INCREMENT,
-  `NSN` varchar(11),
+  `NSN` varchar(255),
   `ItemTypeID` int(11) NOT NULL,
   `NumIssued` int(11) NOT NULL, /* Number of that spesific unifom type and size given to cadets */
   `NumInStore` int(11) NOT NULL, /* Number of that spesific unifom type and size in stores */
