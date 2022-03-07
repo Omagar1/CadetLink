@@ -26,10 +26,37 @@ h1{
     margin: none;
 
   }
+  #navbarDash {
+    background-color: white;
+    padding: 20px;
+    margin: none;
+    max-height: 20px;
+
+  }
+  .profilePic{
+    border-radius: 50%;
+    border: 10px solid white;
+    margin: 0px;
+    
+  }
+  .backArrow{
+    border-radius: 50%;
+    border: 5px solid rgb(245, 234, 0) ;
+    margin: 0px;
+    
+  }
+  
   .navBarTxt {
     color: black;
     text-align: center;
     text-decoration: none;
+    margin: 0px;
+  }
+  .navBarDashTxt {
+    color: black;
+    text-align: center;
+    text-decoration: none;
+    margin: 0px;
   }
   .navBarList{
     margin: 0px;
