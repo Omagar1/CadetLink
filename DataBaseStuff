@@ -1,5 +1,7 @@
 CREATE TABLE `users` (
   `ID` int(11) NOT NULL AUTO_INCREMENT,
+  `Cnum` varchar(255) NOT NULL,
+  `Pword` varchar(255) NOT NULL, 
   `fname` varchar(255) NOT NULL,
   `lastname` varchar(255) NOT NULL,
   `rank` varchar(255) NOT NULL DEFAULT "cadet",
@@ -99,3 +101,6 @@ CREATE TABLE `sizesRequest` (
   PRIMARY KEY (ID),
   FOREIGN KEY (itemID) REFERENCES itemRequest(ID)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+/*  --------------------------------------- Querrys --------------------------------------- */
+
+SELECT * FROM items INNER JOIN items ON sizes.itemID = items.ID;
