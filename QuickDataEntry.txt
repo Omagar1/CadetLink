@@ -349,5 +349,7 @@ VALUES(77,6,3,'shoeSize'),
     (86,6,12,'shoeSize'),
     (87,6,13,'shoeSize');
 
-
+INSERT INTO `users` (fname,lname,rank,section,CFAV,Cnum,Pword)
+VALUES(Josh,Wilkinson,Cpl,2,0,12345678,Howson4life),
+    (Temi,Wagar,Ssgt,5,0,43218765,1l0veCadets),
 

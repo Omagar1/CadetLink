@@ -30,11 +30,12 @@
             <Legend><b>Login</b></Legend>
             <form action = "LProcess.php" method="post">
                 <label for="fname">CadetNumber</label><br>
-                <input type="text" id="CNum" name="CNum" value=""><br>
+                <input type="text" id="Cnum" name="Cnum" value=""><br>
                 <label for="Pwd">Password</label><br>
                 <input type="password" id="Pwd" name="Pwd" value=""><br>
                 
-              <input type="submit" class = "button"> 
+              <input type="submit" class = "button">
+              <span class="loginMsg"><?php echo @$msg;?></span> 
             </form>
           </fieldset>
         </div>
