@@ -4,7 +4,7 @@ session_start();
 
 //checks if already logged in 
 if(isset($_SESSION["loggedIn"]) and $_SESSION["loggedIn"] === true ){
-    header("location: index.htm") // if so redirects them to the dasbord page
+    header("location: index.php") // if so redirects them to the dasbord page
 
 }
 

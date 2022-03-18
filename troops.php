@@ -1,5 +1,5 @@
-<!DOCTYPE html>
-  <html>
+<!DOCTYPE phpl>
+  <phpl>
     <head>
       <title>CadetLink</title>
       <link href="main.css" rel="stylesheet" />
@@ -30,4 +30,4 @@
 
       </div>
     </body>
-  </html>
+  </phpl>

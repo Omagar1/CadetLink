@@ -1,5 +1,5 @@
-<!DOCTYPE html>
-  <html>
+<!DOCTYPE phpl>
+  <phpl>
     <head>
       <title>CadetLink</title>
       <link href="main.css" rel="stylesheet" />
@@ -16,7 +16,7 @@
       </div>
 
       <div id="navbarDash">
-          <h2 class ="navBarDashTxt"> welcome Sgt Wagar</h2>
+          <h2 class ="navBarDashTxt"> welcome <?php echo "welcome", $_SESSION['rank'] $_SESSION['fname'], $_SESSION['lname']?></h2>
           <img class = "profilePic" src="images/SgtWagar.jpg" alt="SgtDefalt" width="auto" height="150">
       </div>
 
@@ -33,11 +33,11 @@
 
             <div>
                 <ul class="no-bullets">
-                <li class ="dashbordTroop" class ="dashbord" class = "inline"><a href = "troops.htm" class = "dasbordTxt">Troop:Chard</a></li>
-                <li class ="dashbordSection" class ="dashbord" class = "inline"><a href = "section.htm" class = "dasbordTxt">4 section</a></li>
-                <li class ="dashbordOrders" class ="dashbord"><a href = "orders.htm" class = "dasbordTxt">Orders</a></li>
+                <li class ="dashbordTroop" class ="dashbord" class = "inline"><a href = "troops.php" class = "dasbordTxt">Troop:Chard</a></li>
+                <li class ="dashbordSection" class ="dashbord" class = "inline"><a href = "section.php" class = "dasbordTxt">4 section</a></li>
+                <li class ="dashbordOrders" class ="dashbord"><a href = "orders.php" class = "dasbordTxt">Orders</a></li>
                 <li class ="dashbordKitRequest" class ="dashbord"><a href = "kitRequest.php"class = "dasbordTxt">Uniform</a></li>
-                <li class ="dashbordTrips" class ="dashbord"><a href = "trips.htm"class = "dasbordTxt">Trips</a></li>
+                <li class ="dashbordTrips" class ="dashbord"><a href = "trips.php"class = "dasbordTxt">Trips</a></li>
                 <li class ="dashbordVPB" class ="dashbord"><a href = "#VPB"class = "dasbordTxt">Virtual Pocket Book</a></li>
                 </ul>
             </div>
@@ -48,4 +48,4 @@
 
       </div>
     </body>
-  </html>
+  </phpl>

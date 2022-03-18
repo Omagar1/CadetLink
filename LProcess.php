@@ -4,7 +4,7 @@ session_start();
 
 //checks if already logged in 
 if(isset($_SESSION["loggedIn"]) and ($_SESSION["loggedIn"] = true) ){
-    header("location: mainPage.htm"); // if so redirects them to the dasbord page
+    header("location: mainPage.php"); // if so redirects them to the dasbord page
 };
 
 require_once "ConnectDB.php";
@@ -27,17 +27,17 @@ if ($uname != "" Or $pword != ""){
             $_SESSION['lname'] = $row['lname'];
             $_SESSION['rank'] = $row['rank'];
             $_SESSION['section'] = $row['section'];
-            header("location: mainPage.htm");
+            header("location: mainPage.php");
           } else {
             $msg = "Invalid Cadet Number or Password!";
-            header("location: index.htm");
+            header("location: index.php");
           }
     } catch (PDOException $e) {
         echo "Error : ".$e->getMessage();
     }
 }else {
     $msg = "Both fields are required!";
-    header("location: index.htm");
+    header("location: index.php");
 };
 
 ?>

@@ -1,5 +1,5 @@
-<!DOCTYPE html>
-  <html>
+<!DOCTYPE phpl>
+  <phpl>
     <head>
       <title>CadetLink</title>
       <link href="loginSignup.css" rel="stylesheet" />
@@ -18,9 +18,9 @@
       <div id="navbar">
         <ul class="navBarList">
           <li class = "inline"><a href="#home" class ="navBarTxt">Home</a></li>
-          <li class = "inline"><a href="mainPage.htm"class ="navBarTxt">DashBoard</a></li>
+          <li class = "inline"><a href="mainPage.php"class ="navBarTxt">DashBoard</a></li>
           <li class = "inline"><a href="#contact" class ="navBarTxt">Contact an NCO</a></li>
-          <li class = "inline"><a href="about.htm" class ="navBarTxt" > About</a></li>
+          <li class = "inline"><a href="about.php" class ="navBarTxt" > About</a></li>
         </ul>
       </div>
       <div id="container">
@@ -35,8 +35,9 @@
                 <input type="password" id="Pwd" name="Pwd" value=""><br>
                 
               <input type="submit" class = "button">
-              <span class="loginMsg"><?php echo @$msg;?></span> 
+              <p> Errors: <?php echo @$msg;?></p>
             </form>
+            <?php echo @$msg;?>
           </fieldset>
         </div>
       </div>
@@ -44,4 +45,4 @@
 
       </div>
     </body>
-  </html>
+  </phpl>
