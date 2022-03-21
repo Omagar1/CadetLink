@@ -16,10 +16,7 @@
 
       <div id="navbar">
         <ul class="navBarList">
-          <li class = "inline"><a href="#home" class ="navBarTxt">Home</a></li>
-          <li class = "inline"><a href="#news"class ="navBarTxt">News</a></li>
-          <li class = "inline"><a href="#contact" class ="navBarTxt">Contact</a></li>
-          <li class = "inline"><a href="#about" class ="navBarTxt" > About</a></li>
+          
           <li class = "inline"><a href="index.htm" class ="navBarTxt" > Login</a></li>
         </ul>
 
@@ -38,7 +35,7 @@
             to an NCO could be implemented. Each cadet would have their own log in. the uniform issues would 
             be logged, cross referenced against the Quartermaster’s database and would have the option to be 
             displayed in an excel spread sheet. </p>
-            <a href="signUp.htm">
+            <a href="signUp.php">
               <button type="button" class="button" style="text-align: center;"> Start using CadetLink</button>
             </a>
         </div>

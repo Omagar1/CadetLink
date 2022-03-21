@@ -27,9 +27,13 @@ if ($uname != "" Or $pword != ""){
             $_SESSION['lname'] = $row['lname'];
             $_SESSION['rank'] = $row['rank'];
             $_SESSION['section'] = $row['section'];
+            $_SESSION['profilePicURL'] = $row['profilePicURL'];
+            $msg = ""; // declars blank varible to remove erro in index.php  
+            $_SESSION['msg'] = $msg;
             header("location: mainPage.php");
           } else {
             $msg = "Invalid Cadet Number or Password!";
+            $_SESSION['msg'] = $msg;
             header("location: index.php");
           }
     } catch (PDOException $e) {
@@ -37,6 +41,7 @@ if ($uname != "" Or $pword != ""){
     }
 }else {
     $msg = "Both fields are required!";
+    $_SESSION['msg'] = $msg;
     header("location: index.php");
 };
 

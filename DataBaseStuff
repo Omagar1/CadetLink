@@ -7,6 +7,7 @@ CREATE TABLE `users` (
   `rank` varchar(255) NOT NULL DEFAULT "cadet",
   `section` int(11) NOT NULL DEFAULT 1,
   `CFAV` boolean NOT NULL DEFAULT FALSE,
+  `profilePicURL` varchar(255) NOT NULL DEFAULT "images/defaltProfilePic.jpg",
   PRIMARY KEY (`ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 /* --------------------------------------- troop Tables --------------------------------------- */

@@ -1,5 +1,5 @@
-<!DOCTYPE phpl>
-  <phpl>
+<!DOCTYPE html>
+  <html>
     <head>
       <title>CadetLink</title>
       <link href="loginSignup.css" rel="stylesheet" />
@@ -7,7 +7,9 @@
       <link rel="preconnect" href="https://fonts.googleapis.com">
       <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
       <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">
-    
+      <?php
+      session_start();
+      ?>
     </head>
 
     <body id = "test">
@@ -17,10 +19,8 @@
 
       <div id="navbar">
         <ul class="navBarList">
-          <li class = "inline"><a href="#home" class ="navBarTxt">Home</a></li>
-          <li class = "inline"><a href="mainPage.php"class ="navBarTxt">DashBoard</a></li>
-          <li class = "inline"><a href="#contact" class ="navBarTxt">Contact an NCO</a></li>
-          <li class = "inline"><a href="about.php" class ="navBarTxt" > About</a></li>
+          <li class = "inline"><a href="mainPage.php"class ="navBarTxt"> Example DashBoard</a></li>
+          <li class = "inline"><a href="About.php" class ="navBarTxt" >What is Cadetlink?</a></li>
         </ul>
       </div>
       <div id="container">
@@ -35,9 +35,10 @@
                 <input type="password" id="Pwd" name="Pwd" value=""><br>
                 
               <input type="submit" class = "button">
-              <p> Errors: <?php echo @$msg;?></p>
+              <p> <?php echo $_SESSION['msg'];?></p>
             </form>
-            <?php echo @$msg;?>
+            <button class ="button" onclick ="getElementById('demo').innerHTML= Contact Your CFAV to Reset your details;">Forgot your Cadet Number or Password?</button>
+            <p id="reveil"></p>
           </fieldset>
         </div>
       </div>
@@ -45,4 +46,4 @@
 
       </div>
     </body>
-  </phpl>
+  </html>

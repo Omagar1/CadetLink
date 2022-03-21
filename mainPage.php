@@ -1,5 +1,5 @@
-<!DOCTYPE phpl>
-  <phpl>
+<!DOCTYPE html>
+  <html>
     <head>
       <title>CadetLink</title>
       <link href="main.css" rel="stylesheet" />
@@ -7,6 +7,9 @@
       <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
       <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <?php
+      session_start();
+      ?>
     </head>
 
     <body id = "test">
@@ -16,8 +19,10 @@
       </div>
 
       <div id="navbarDash">
-          <h2 class ="navBarDashTxt"> welcome <?php echo "welcome", $_SESSION['rank'] $_SESSION['fname'], $_SESSION['lname']?></h2>
-          <img class = "profilePic" src="images/SgtWagar.jpg" alt="SgtDefalt" width="auto" height="150">
+          <h2 class ="navBarDashTxt"> welcome <?php echo $_SESSION['rank']. " ";
+            echo $_SESSION['fname']. " ";
+            echo $_SESSION['lname'];?></h2>
+          <img class = "profilePic" src="images/<?php echo $_SESSION['profilePicURL'];?>" alt="SgtDefalt" width="auto" height="150">
       </div>
 
       <div id="container">
@@ -34,7 +39,7 @@
             <div>
                 <ul class="no-bullets">
                 <li class ="dashbordTroop" class ="dashbord" class = "inline"><a href = "troops.php" class = "dasbordTxt">Troop:Chard</a></li>
-                <li class ="dashbordSection" class ="dashbord" class = "inline"><a href = "section.php" class = "dasbordTxt">4 section</a></li>
+                <li class ="dashbordSection" class ="dashbord" class = "inline"><a href = "section." class = "dasbordTxt">4 section</a></li>
                 <li class ="dashbordOrders" class ="dashbord"><a href = "orders.php" class = "dasbordTxt">Orders</a></li>
                 <li class ="dashbordKitRequest" class ="dashbord"><a href = "kitRequest.php"class = "dasbordTxt">Uniform</a></li>
                 <li class ="dashbordTrips" class ="dashbord"><a href = "trips.php"class = "dasbordTxt">Trips</a></li>
@@ -48,4 +53,4 @@
 
       </div>
     </body>
-  </phpl>
+  </html>
