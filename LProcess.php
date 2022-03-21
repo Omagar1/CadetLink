@@ -27,10 +27,16 @@ if ($uname != "" Or $pword != ""){
             $_SESSION['lname'] = $row['lname'];
             $_SESSION['rank'] = $row['rank'];
             $_SESSION['section'] = $row['section'];
+            $_SESSION['CFAV'] = $row['CFAV'];
             $_SESSION['profilePicURL'] = $row['profilePicURL'];
-            $msg = ""; // declars blank varible to remove erro in index.php  
+            $msg = ""; // declars blank varible to remove error in index.php  
             $_SESSION['msg'] = $msg;
-            header("location: mainPage.php");
+            echo $_SESSION['CFAV'];
+            if ($_SESSION['CFAV'] == 1){ // Admin Check
+                header("location: adminMainPage.php"); // if true redirects them to an Admin page
+            }else{
+                header("location: mainPage.php");   
+            }
           } else {
             $msg = "Invalid Cadet Number or Password!";
             $_SESSION['msg'] = $msg;
