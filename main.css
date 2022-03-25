@@ -4,7 +4,7 @@
     
 }
 /* ----------------------------- table stuff  -----------------------------  */
-/*table {
+table {
   border: 1px solid black;
   border-collapse: collapse;
 }
@@ -16,13 +16,16 @@ td{
 th{
   color: black;
   background-color: white;
+  position: sticky;
+  top: 0; /* Don't forget this, required for the stickiness */
+  box-shadow: 0 2px 2px -1px rgba(0, 0, 0, 0.4);
 }
 .tableDisplay{
   width: 100%;
 }
 tr:nth-child(even) {
   background-color: #f2f2f2;
-} */
+} 
 
 
 
@@ -58,8 +61,8 @@ h1{
   .profilePic{
     border-radius: 50%;
     height: auto;
-    width: 100%;
-    border: 5% solid white;
+    width: 10%;
+    border: 10px solid white;
     margin: 1px;
     margin-top: -40px;    
   }
@@ -112,7 +115,7 @@ h1{
         margin: 10%;
         margin-top: 50px;
         padding: 1%;
-        min-height: 500px;
+        height: auto;
         text-align: center;
         font-family: 'Bebas Neue', cursive;
         font-style: oblique;
