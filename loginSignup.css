@@ -39,6 +39,36 @@ fieldset{
     input.button{
         margin: 12px;
     }
+    select{
+      width: 90%;
+        padding: 12px;
+        margin: 12px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        box-sizing: border-box;
+        resize: vertical;
+        background-color:rgb(65, 65, 65,);
+        color: black; 
+    }
+     select:focus{
+      background-color: rgb(245, 234, 0) ;
+      border: 3px solid #555;
+    }
+    option{
+      width: 90%;
+        padding: 12px;
+        margin: 12px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        box-sizing: border-box;
+        resize: vertical;
+        background-color:rgb(65, 65, 65,);
+        color: black; 
+    }
+     option:focus{
+      background-color: rgb(245, 234, 0) ;
+      border: 3px solid #555;
+    }
     
 
 

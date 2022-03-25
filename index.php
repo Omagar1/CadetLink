@@ -29,7 +29,7 @@
           <fieldset>
             <Legend><b>Login</b></Legend>
             <form action = "LProcess.php" method="post">
-                <label for="fname">CadetNumber</label><br>
+                <label for="Cnum">CadetNumber</label><br>
                 <input type="text" id="Cnum" name="Cnum" value=""><br>
                 <label for="Pwd">Password</label><br>
                 <input type="password" id="Pwd" name="Pwd" value=""><br>
