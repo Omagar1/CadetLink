@@ -46,8 +46,8 @@
               <label for="Size">Nato Size</label><br>
               <input type="text" id="Size" name="Size" value=""><br>
 
-              <label for="Perpose">Perpose</label><br>
-              <select id="Perpose" name="Perpose">
+              <label for="purpose">purpose</label><br>
+              <select id="purpose" name="purpose">
                 <option value="GOOK">Grown Out of Old Kit</option>
                 <option value="NI">Was Never Issued</option>
                 <option value="LOK">Lost Old Kit</option>
