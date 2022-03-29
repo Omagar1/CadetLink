@@ -1,3 +1,10 @@
+ <?php
+      session_start();
+      //checks if not logged in 
+      if(isset($_SESSION["loggedIn"]) and ($_SESSION["loggedIn"] != true) ){
+        header("location: index.php"); // if so redirects them to the loginpage page
+      };
+      ?>
 <!DOCTYPE html>
   <html>
     <head>
@@ -7,9 +14,6 @@
       <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
       <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <?php
-      session_start();
-      ?>
     </head>
 
     <body id = "test">
@@ -19,10 +23,16 @@
       </div>
 
       <div id="navbarDash">
+          <form method="get" action="LOProcess.php">
+              <button type="submit" id ="logOut">LogOut</button>
+          </form>
           <h2 class ="navBarDashTxt"> welcome <?php echo $_SESSION['rank']. " ";
             echo $_SESSION['fname']. " ";
             echo $_SESSION['lname'];?></h2>
           <img class = "profilePic" src="images/<?php echo $_SESSION['profilePicURL'];?>" alt="SgtDefalt" width="auto" height="150">
+          <form method="get" action="LOProcess.php">
+              <button type="submit">LogOut</button>
+          </form>
       </div>
 
       <div id="container">
@@ -32,7 +42,7 @@
             <p>reminders for next Cadet Session</p>
             <ul>
                 <li>Iron Kit !</li>
-                <li>Bring notepad and Pen!</li>
+                <li>Bring notepad and Pen!</li> 
                 <li>Dinner is at Benenden!</li> <!-- for tjwa only --> 
             </ul>
 
