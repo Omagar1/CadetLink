@@ -94,6 +94,9 @@ h1{
   .inline {
     display: inline;
   }
+  #logOut{
+    text-align: right;
+  }
   /* ----------------------------- Body stuff -----------------------------  */
   body {
     background-image: url("images/mtp.jpg");
@@ -103,6 +106,10 @@ h1{
     margin: 0;
     height: auto;
   }
+  .error{
+    color: red;
+  }
+  
 
     #container{ 
       min-height: 100%;

@@ -10,6 +10,10 @@
 
       <?php
       session_start();
+      //checks if not logged in 
+      if(isset($_SESSION["loggedIn"]) and ($_SESSION["loggedIn"] != true) ){
+        header("location: index.php"); // if so redirects them to the loginpage page
+      };
       echo "<table class = 'tableDisplay' >";
       echo "<tr><th>Id</th><th>NSN</th><th>ItemTypeID</th><th>NumIssued</th><th>NumInStore</th><th>NumReserved</th><th>NumOrdered</th><th>itemID</th><th>sizetypeID</th><th>value</th><th>unit</th></tr>";
 
@@ -44,7 +48,7 @@
         <h2 class ="navBarDashTxt"> welcome <?php echo $_SESSION['rank']. " ";
             echo $_SESSION['fname']. " ";
             echo $_SESSION['lname'];?></h2>
-        <img class = "profilePic" src="images/SgtWagar.jpg" alt="SgtDefalt" width="auto" height="150">
+        <img class = "profilePic" src="images/<?php echo $_SESSION['profilePicURL'];?>" alt="SgtDefalt" width="auto" height="150">
       </div>
       <div id="container">
           <div id="main">

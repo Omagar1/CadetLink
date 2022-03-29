@@ -36,10 +36,15 @@
                 <input type="password" id="Pwd" name="Pwd" value=""><br>
                 
               <input type="submit" class = "button">
-              <p> <?php echo $_SESSION['msg'];?></p>
+              <p><b class = "error"> <?php if (isset($_SESSION["msg"]) != ""){
+               echo $_SESSION['msg'];
+              }else{
+
+              }
+               ?></b></p>
             </form>
-            <button class ="button" onclick ="getElementById('demo').innerHTML= Contact Your CFAV to Reset your details;">Forgot your Cadet Number or Password?</button>
-            <p id="reveil"></p>
+            <button class ="button" onclick ="getElementById('reveil').innerHTML= Contact Your CFAV to Reset your details;">Forgot your Cadet Number or Password?</button>
+            <p id="reveil">test</p>
           </fieldset>
         </div>
       </div>

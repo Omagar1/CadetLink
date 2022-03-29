@@ -65,6 +65,16 @@ if ($UniformType != "" or $purpose != "" or $NumRequested != "" ){
             $shoeSize = $SizeArray[0];
             addtoSizeRequest($itemID, 7, $seat, "shoeSize", $conn);
         }
+        // find out if Kit requested Matches with Stock
+        $qry = "SELECT `ItemTypeID` FROM `items` UNION ALL SELECT `ItemTypeID` FROM `itemRequest`;";
+        $stmt = $conn->prepare($qry);
+        $stmt->execute();
+        //testing 
+        $result = $stmt->fetchAll();
+        var_dump($result);
+        foreach(new TableRows(new RecursiveArrayIterator($stmt->fetchAll())) as $k=>$v) {
+            echo $v;
+          }
         
     } catch (PDOException $e) {
         echo "Error : ".$e->getMessage();
