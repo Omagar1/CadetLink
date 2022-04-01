@@ -96,6 +96,9 @@ h1{
   }
   #logOut{
     text-align: right;
+    margin-left: 900px;
+    margin-top: -90000000px;
+
   }
   /* ----------------------------- Body stuff -----------------------------  */
   body {

@@ -9,6 +9,7 @@
   <html>
     <head>
       <title>CadetLink</title>
+      <!--<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css"> why are you so anoying ?!?!?!?!--> 
       <link href="main.css" rel="stylesheet" />
       <link rel="preconnect" href="https://fonts.googleapis.com">
       <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -23,15 +24,12 @@
       </div>
 
       <div id="navbarDash">
-          <form method="get" action="LOProcess.php">
-              <button type="submit" id ="logOut">LogOut</button>
-          </form>
-          <h2 class ="navBarDashTxt"> welcome <?php echo $_SESSION['rank']. " ";
+          <h2 class ="w3-twothird, navBarDashTxt"> Welcome <?php echo $_SESSION['rank']. " ";
             echo $_SESSION['fname']. " ";
             echo $_SESSION['lname'];?></h2>
-          <img class = "profilePic" src="images/<?php echo $_SESSION['profilePicURL'];?>" alt="SgtDefalt" width="auto" height="150">
+          <img class = "w3-quarter, profilePic" src="images/<?php echo $_SESSION['profilePicURL'];?>" alt="SgtDefalt" width="auto" height="150">
           <form method="get" action="LOProcess.php">
-              <button type="submit">LogOut</button>
+              <button type="submit" class = "w3-threequarter, button">LogOut</button>
           </form>
       </div>
 
