@@ -60,7 +60,8 @@ CREATE TABLE `itemRequest` (
   `NumRequested` int(11) NOT NULL,
   `purpose` varchar(255) DEFAULT 'Uniform',
   `DateNeeded` date,
-  `DateRequested`datetime,  
+  `DateRequested`datetime, 
+  `status` varchar(255),
   PRIMARY KEY (`ID`),
  /*FOREIGN KEY (UserID) REFERENCES users(ID)*/
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;

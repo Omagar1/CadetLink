@@ -16,7 +16,7 @@ if ($uname != "" Or $pword != ""){
         $qry = "SELECT * FROM users WHERE Cnum = :Cnum AND Pword = :Pwd ; ";
         $stmt = $conn->prepare($qry);
         $stmt->bindParam('Cnum', $uname, PDO::PARAM_STR); // asiging varibles to SQL statement 
-        $stmt->bindValue('Pwd', $pword, PDO::PARAM_STR);  // asiging varibles to SQL statement 
+        $stmt->bindParam('Pwd', $pword, PDO::PARAM_STR);  // asiging varibles to SQL statement 
         $stmt->execute();
         $count = $stmt->rowCount();
         $row   = $stmt->fetch(PDO::FETCH_ASSOC);

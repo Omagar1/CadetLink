@@ -33,7 +33,20 @@
         
         <div id="main">
             <h2>Kit Request Page - Work in Progress </h2>
+
+            <a href=#kitRequest.php >
+              <button class ="button buttonPressed">Make A Request</button>
+            </a>
+            <a href=myRequests.php >
+              <button class ="button">My Requests</button>
+            </a>
           <fieldset>
+            <p><b class = "error"> <?php if (isset($_SESSION["msg"]) != ""){
+               echo $_SESSION['msg'];
+              }else{
+
+              }
+            ?></b></p>
             <form action = "KRProcess.php" method="post">
               <label for="UniformType">UniformType</label><br>
               <select id="UniformType" name="UniformType">
@@ -50,7 +63,7 @@
               <label for="Size">Nato Size</label><br>
               <input type="text" id="Size" name="Size" value=""><br>
 
-              <label for="purpose">purpose</label><br>
+              <label for="purpose">Purpose</label><br>
               <select id="purpose" name="purpose">
                 <option value="GOOK">Grown Out of Old Kit</option>
                 <option value="NI">Was Never Issued</option>
@@ -58,14 +71,15 @@
                 <option value="OKWD">Old Kit Was Damged</option>
               </select><br>
 
+              <label for="NumRequested">How Many?</label><br>
               <select id="NumRequested" name="NumRequested">
                 <option value="1">1</option>
                 <option value="2">2</option>
               </select><br>
               <input type="submit" class = "button">
-            </fieldset>
+              
             </form>
-          
+            </fieldset>
 
             
         </div>
