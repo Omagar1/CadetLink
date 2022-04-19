@@ -118,7 +118,7 @@ function onOrder($itemID, $NumRequested, $itemRequestID, $con){
     $stmt->execute([$itemID]);
     $result = $stmt->fetchAll(); // result is an array of arrays 
     $resultArr = resultToVal($result);
-    var_dump($resultArr);
+    //var_dump($resultArr); test 
     $oldNumOrdered = $resultArr[1];
     // updating items table 
     $newNumOrdered  = $oldNumNumOrdered + $NumRequested;

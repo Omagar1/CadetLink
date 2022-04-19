@@ -17,17 +17,20 @@
         header("location: index.php"); // if so redirects them to the loginpage page
       };
 
-      // get the look up table for Item Type
-      $sql = "SELECT * FROM itemType";
-      $stmt = $conn->prepare($sql);
-      $stmt->execute();
-
       // Qry to find requests of this User
       $currentUserID = $_SESSION['UserID'];
       $sql = "SELECT * FROM itemRequest WHERE userID = ?";
       $stmt = $conn->prepare($sql);
       $stmt->execute([$currentUserID]);
       $count = $stmt->rowCount();
+
+      $empty = 0;
+      if ($count == 0){
+        $empty = 1;
+      }else{
+
+      }
+
       
       // initialising colum arrays
       $IDArr = [];
@@ -58,7 +61,9 @@
         // echo htmlspecialchars($row['DateRequested'])."<br>"; 
         // echo htmlspecialchars($row['status'])."<br>"; 
       }
-     //var_dump($IDArr); 
+     //var_dump($IDArr); // works 
+     //var_dump($ItemTypeIDArr); // broken
+     
 
      // Qry to find the sizes of their requests
      function sizesCompression($UserID,$ItemID,$con){
@@ -76,6 +81,49 @@
 
 
      }
+     // get the look up table for Item Type
+     $sql = "SELECT ItemTypeName FROM itemType";
+     $stmt = $conn->prepare($sql);
+     $stmt->execute();
+     $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+     //var_dump($result); // test 
+
+     // getting the data in a usable form 
+     $lenResult = count($result);
+     $loop = 0; 
+     $ItemTypeNameArr =["test"];// initialising with value at start of array so the Index matches the ID 
+     while($loop < $lenResult){
+        $temp = implode($result[$loop]);
+        //echo $temp . " hello <br>"; // test 
+        array_push($ItemTypeNameArr,$temp );
+        $loop = $loop + 1;
+     }
+
+    //var_dump($ItemTypeNameArr); // test
+    
+
+    // matching the ID to the name
+    $lenItemTypeIDArr = count($ItemTypeIDArr);
+    $lenItemTypeNameArr = count($ItemTypeNameArr);
+    $loop = 0;
+    $loopID = 1;
+    while ($loop < $lenItemTypeIDArr){
+      while ($loopID <= $lenItemTypeNameArr){
+        if ($ItemTypeIDArr[$loop] == $loopID){
+          //echo $ItemTypeIDArr[$loop] . "<br>";
+          $ItemTypeIDArr[$loop] = $ItemTypeNameArr[$loopID];
+          //echo $ItemTypeIDArr[$loop] . "<br>";
+          break; 
+        }else{
+          $loopID = $loopID + 1;
+        }
+      }
+      $loop = $loop + 1;
+    }
+    // $ItemTypeIDArr
+    
+
+
     
      
 
@@ -111,7 +159,13 @@
               <button class ="button buttonPressed">My Requests</button>
             </a>
             <fieldset>
+            <?php
+               if ($empty == 1){
+                 echo "<b class ='error'> you have no Requests<b>";
+               }else{
+            ?>
               <table class = "tableDisplay">
+                
 
                 <tr>
                   <th>ID</th>
@@ -122,14 +176,17 @@
                   <th>DateRequested</th>
                   <th>status</th>
                   <th>size</th>
+                  <th>Remove?</th>
                 </tr>
                 
                 <?php 
                 $loop = 0;
+                //var_dump($IDArr); //test
+                // echo $empty; // test
                 
                 while($loop < $count){ 
                 echo "<tr>";
-                   echo "<td>" .  $IDArr[$loop] . "</td>";
+                   echo "<td>" .  $IDArr[$loop] . "</td>" ;
                    echo "<td>" .  $ItemTypeIDArr[$loop] . "</td>";
                    echo "<td>" .  $NumRequestedArr[$loop] . "</td>"; 
                    echo "<td>" .  $purposeArr[$loop]. "</td>"; 
@@ -137,14 +194,22 @@
                    echo "<td>" .  $DateRequestedArr[$loop]. "</td>"; 
                    echo "<td>" . $statusArr[$loop]. "</td>";
                    echo "<td>" . sizesCompression($currentUserID,$IDArr[$loop],$conn). "</td>";
-                echo "<tr>";
+                   echo "<td>
+                   <form method='post' action ='deleteRow.php'>
+                   <input type='hidden' id = 'Xdata' name='Xdata' value=' $IDArr[$loop] '/>
+                   <input type='submit' name='X' value='X'/>
+                   </form>
+                   </td>";
+                   //echo "<td><a href=deleteRow.php> <button class ='button'>X</button </a></td>";// Old button
+                echo "</tr>";
                 
                 $loop = $loop + 1;
-                } 
+                }
+                }
                 ?>
 
               </table>
-      
+              
               
             </fieldset>
         
