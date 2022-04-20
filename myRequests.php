@@ -91,7 +91,9 @@
      // getting the data in a usable form 
      $lenResult = count($result);
      $loop = 0; 
-     $ItemTypeNameArr =["test"];// initialising with value at start of array so the Index matches the ID 
+     $ItemTypeNameArr =["test"]; // initialising with value at start of array so the Index matches the ID 
+
+     // creates  array $ItemTypeNameArray out of the result 
      while($loop < $lenResult){
         $temp = implode($result[$loop]);
         //echo $temp . " hello <br>"; // test 
@@ -105,20 +107,24 @@
     // matching the ID to the name
     $lenItemTypeIDArr = count($ItemTypeIDArr);
     $lenItemTypeNameArr = count($ItemTypeNameArr);
+    //echo $lenItemTypeIDArr. "<br>";
+    //echo $lenItemTypeNameArr . "<br>";
     $loop = 0;
     $loopID = 1;
     while ($loop < $lenItemTypeIDArr){
       while ($loopID <= $lenItemTypeNameArr){
         if ($ItemTypeIDArr[$loop] == $loopID){
-          //echo $ItemTypeIDArr[$loop] . "<br>";
+          //echo $ItemTypeIDArr[$loop] . "<br>"; // test 
           $ItemTypeIDArr[$loop] = $ItemTypeNameArr[$loopID];
-          //echo $ItemTypeIDArr[$loop] . "<br>";
+          //echo $ItemTypeIDArr[$loop] . "<br>"; // test 
           break; 
         }else{
           $loopID = $loopID + 1;
         }
       }
-      $loop = $loop + 1;
+      $loop = $loop + 1;// incrimenting loop var
+      $loopID = 1 ; // need to reset the loop ID 
+      //echo "I ran <br>"; // test 
     }
     // $ItemTypeIDArr
     

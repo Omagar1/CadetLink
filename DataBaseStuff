@@ -37,6 +37,7 @@ CREATE TABLE `sizeType` (
 CREATE TABLE `itemType` (
   `ID` int(11) NOT NULL AUTO_INCREMENT,
   `ItemTypeName` varchar(255),
+  `NumSizesExpected` int(11),
   PRIMARY KEY (ID)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
