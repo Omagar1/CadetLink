@@ -41,12 +41,12 @@
               <button class ="button">My Requests</button>
             </a>
           <fieldset>
-            <p><b class = "error"> <?php if (isset($_SESSION["msg"]) != ""){
+            <?php if (isset($_SESSION["msg"]) != ""){
                echo $_SESSION['msg'];
               }else{
 
               }
-            ?></b></p>
+            ?>
             <form action = "KRProcess.php" method="post">
               <label for="UniformType">UniformType</label><br>
               <select id="UniformType" name="UniformType">
