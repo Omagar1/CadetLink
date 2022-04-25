@@ -1,7 +1,7 @@
 <?php 
 // starts session
 session_start();
-$errors = false;
+$errors = false;// make global
 
 
 require_once "ConnectDB.php";
@@ -96,10 +96,10 @@ function addRequest($itemID, $NumRequested, $itemRequestID, $con){
         $stmt->execute([$newNumInStore, $newNumRequested, $itemID]);
         
         // updating itemRequest table 
-        $qry = "UPDATE itemRequest SET `status` = 'RAC' WHERE ID = ?;"; // RAC 
-        //
+        $qry = "UPDATE itemRequest SET StockID =?, `status` = 'TO BE ISSUED' WHERE ID = ?;"; 
+        
         $stmt = $con->prepare($qry);
-        $stmt->execute([$itemRequestID]);
+        $stmt->execute([$itemID, $itemRequestID]);
         return(1); // task succeded sucsesfuly
 
     }
@@ -113,18 +113,19 @@ function onOrder($itemID, $NumRequested, $itemRequestID, $con){
     $stmt = $con->prepare($qry);
     $stmt->execute([$itemID]);
     $result = $stmt->fetchAll(); // result is an array of arrays 
-    $resultArr = resultToVal($result);
-    //var_dump($resultArr); test 
-    $oldNumOrdered = $resultArr[1];
+    //$resultArr = resultToVal($result);
+    //var_dump($resultArr); // test 
+    $oldNumOrdered = $result["NumOrdered"];
     // updating items table 
     $newNumOrdered  = $oldNumNumOrdered + $NumRequested;
     $qry = "UPDATE items SET NumOrdered =? WHERE ID = ?;";
     $stmt = $con->prepare($qry);
     $stmt->execute([$newNumOrdered, $itemID]);
     // updating itemRequest table 
-    $qry = "UPDATE itemRequest SET `status` = 'OnO' WHERE ID = ?;";
+    $qry = "UPDATE itemRequest SET StockID =?,`status` = 'AWAITING ORDER' WHERE ID = ?;";
     $stmt = $con->prepare($qry);
-    $stmt->execute([$itemRequestID]);
+    echo "itemID: ". $itemID. "<br>ItemRequestedID: ". $itemRequestID;
+    $stmt->execute([$itemID, $itemRequestID]);
     return(1); // task succeded sucsesfuly  
 }
 // valadtates the sizes input
@@ -136,15 +137,13 @@ function SizesValadation($NumExpexted, $input){
     //checks if the number of sizes is what is expexted 
     if ($lenInputArr != $NumExpexted){
         echo $lenInputArr . "<br>" . $NumExpexted . "<br>";
-        $errors = true;
+        $GLOBALS['errors'] = true;
         $msg = " <p><b class = 'error'>Either Too Few Or Too Many Sizes Given For Selected Item!</b></p>";
         $_SESSION['msg'] = $msg;
         echo $msg ."<br>";
         echo "input Arr:";
         var_dump($inputArr); //test
-
-
-        //header("location: kitRequest.php");
+        return (false);
     }else{
         $loop = 0;
         echo "i ran 4";
@@ -159,16 +158,17 @@ function SizesValadation($NumExpexted, $input){
             $temp = $inputArr[$loop];
             echo "<br> temp: ". $temp. "<br> is_numeric:". is_numeric($temp)."<br>";
             if(is_numeric($temp) != 1){
-                $errors = true;
+                echo "i ran 6";
+                $GLOBALS['errors'] = true;
                 $msg = "<p><b class = 'error'> Sizes Must Only Contain Intigers Seperated By A / </b></p>";
                 $_SESSION['msg'] = $msg;
-                //header("location: kitRequest.php");
+                return (false);
             // checks if the sizes is too long
             }elseif (strlen($inputArr[$loop])>3){
-                $errors = true;
+                $GLOBALS['errors'] = true;
                 $msg = "<p><b class = 'error'>Too Large Of A Size Inputed To Be Accepted</b></p>";
                 $_SESSION['msg'] = $msg;
-                //header("location: kitRequest.php");
+                return (false);
             }else{
                 //pass valadation
             }
@@ -214,19 +214,18 @@ var_dump($NumSizesExpectedArr);
 
 if ($UniformType == "" or $Size == "" or $purpose == "" or $NumRequested == "" ){
     echo "i Ran 1 <br>";
-    $errors = true;
+    $GLOBALS['errors'] = true;
     $msg = "<p><b class = 'error'>All Fields Are Required!</b></p>";
     $_SESSION['msg'] = $msg;
-    //header("location: kitRequest.php");
 }else {
     echo "i Ran 2 <br>";
     $NumSizesExpected = $NumSizesExpectedArr[$UniformType];
     echo $NumSizesExpected. "<br>"; //test
     if (SizesValadation($NumSizesExpected, $Size) != true){
-        $errors = true;
-        $msg = " <p><b class = 'error'>aaaah STOP TRYING TO BREAK MY CODE! </b></p>";
-        $_SESSION['msg'] = $msg;
-        //header("location: kitRequest.php"); 
+        $GLOBALS['errors'] = true;
+        //$msg = " <p><b class = 'error'>aaaah STOP TRYING TO BREAK MY CODE! </b></p>"; // last line of defence
+        //$_SESSION['msg'] = $msg;
+         
     }else{
 
     }
@@ -235,12 +234,13 @@ if ($UniformType == "" or $Size == "" or $purpose == "" or $NumRequested == "" )
 
 //----------------------------------- main code -----------------------------------
 
-if ($errors === false){
+if ($GLOBALS['errors'] == true){
     echo "yay I RAN ERROR: ";
     echo $msg;
     header("location: kitRequest.php");
 }else{
-    echo "NOOO I RAN";
+    echo "NOOO I RAN <br>";
+    echo "errors: ". $errors."<br>";
     try{
         // addding items to ItemRequest table
         $UserID = $_SESSION['UserID'];
@@ -320,14 +320,6 @@ if ($errors === false){
             
         }
         header("location: kitRequest.php");
-
-
-
-
-
-
-
-
 
             //echo "$value <br>";
         //testing
