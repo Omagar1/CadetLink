@@ -65,10 +65,11 @@
 
               <label for="purpose">Purpose</label><br>
               <select id="purpose" name="purpose">
-                <option value="GOOK">Grown Out of Old Kit</option>
-                <option value="NI">Was Never Issued</option>
-                <option value="LOK">Lost Old Kit</option>
-                <option value="OKWD">Old Kit Was Damged</option>
+                <option value="GROWN OUT OF OLD KIT">Grown Out of Old Kit</option>
+                <option value="NEVER ISSUED">Was Never Issued</option>
+                <option value="LOST OLD KIT">Lost Old Kit</option>
+                <option value="OLD KIT WAS DAMAGED">Old Kit Was Damged</option>
+                <option value="OTHER">Other</option>
               </select><br>
 
               <label for="NumRequested">How Many?</label><br>

@@ -50,7 +50,7 @@
         array_push($ItemTypeIDArr,$row['ItemTypeID']);
         array_push($NumRequestedArr,$row['NumRequested']);
         array_push($purposeArr,$row['purpose']);
-        array_push($DateNeededArr,$row['DateNeeded']);
+        //array_push($DateNeededArr,$row['DateNeeded']);
         array_push($DateRequestedArr,$row['DateRequested']);
         array_push($statusArr,$row['status']);
         //test
@@ -178,7 +178,7 @@
                   <th>ItemTypeID</th>
                   <th>NumRequested</th>
                   <th>purpose</th>
-                  <th>DateNeeded</th>
+                  <!-- <th>DateNeeded</th> -->
                   <th>DateRequested</th>
                   <th>status</th>
                   <th>size</th>
@@ -196,7 +196,7 @@
                    echo "<td>" .  $ItemTypeIDArr[$loop] . "</td>";
                    echo "<td>" .  $NumRequestedArr[$loop] . "</td>"; 
                    echo "<td>" .  $purposeArr[$loop]. "</td>"; 
-                   echo "<td>" .  $DateNeededArr[$loop]. "</td>"; 
+                   //echo "<td>" .  $DateNeededArr[$loop]. "</td>"; 
                    echo "<td>" .  $DateRequestedArr[$loop]. "</td>"; 
                    echo "<td>" . $statusArr[$loop]. "</td>";
                    echo "<td>" . sizesCompression($currentUserID,$IDArr[$loop],$conn). "</td>";

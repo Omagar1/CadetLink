@@ -3,39 +3,157 @@
     <head>
       <title>CadetLink</title>
       <link href="main.css" rel="stylesheet" />
+      <link href="loginSignup.css" rel="stylesheet" />
       <link rel="preconnect" href="https://fonts.googleapis.com">
       <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
       <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-      <?php
+    <?php
       session_start();
-      //checks if not logged in 
+      // connects to database
+      require_once "ConnectDB.php";
+      //checks if not logged in  - broken 
       if(isset($_SESSION["loggedIn"]) and ($_SESSION["loggedIn"] != true) ){
         header("location: index.php"); // if so redirects them to the loginpage page
       };
-      echo "<table class = 'tableDisplay' >";
-      echo "<tr><th>Id</th><th>NSN</th><th>ItemTypeID</th><th>NumIssued</th><th>NumInStore</th><th>NumReserved</th><th>NumOrdered</th><th>itemID</th><th>sizetypeID</th><th>value</th><th>unit</th></tr>";
 
-      class TableRows extends RecursiveIteratorIterator {
-          function __construct($it) {
-              parent::__construct($it, self::LEAVES_ONLY);
-          }
+      // Qry to find requests of this User
+      
+      $sql = "SELECT * FROM itemRequest;";
+      $stmt = $conn->prepare($sql);
+      $stmt->execute();
+      $count = $stmt->rowCount();
 
-          function current() {
-              return "<td>" . parent::current(). "</td>";
-          }
+      $empty = 0;
+      if ($count == 0){
+        $empty = 1;
+      }else{
 
-          function beginChildren() {
-              echo "<tr>";
-          }
+      }
 
-          function endChildren() {
-              echo "</tr>" . "\n";
-          }
+      
+      // initialising colum arrays
+      $IDArr = [];
+      $StockIDArr = [];
+      $UserIDArr = [];
+      $ItemTypeIDArr = [];
+      $NumRequestedArr = [];
+      $purposeArr = [];
+      $DateNeededArr = [];
+      $DateRequestedArr = [];
+      $statusArr = [];
+       
+      // add the value in Each row's data to their respective colums Arrays this is done so data can be modified prior to display 
+      while($row = $stmt->fetch(PDO::FETCH_ASSOC)){
+        //echo $row['ID'] . "<br>"; test
+        array_push($IDArr,$row['ID']);
+        //var_dump($IDArr); test
+        //echo "<br>"; test
+        array_push($StockIDArr,$row['StockID']);
+        array_push($UserIDArr,$row['UserID']);
+        array_push($ItemTypeIDArr,$row['ItemTypeID']);
+        array_push($NumRequestedArr,$row['NumRequested']);
+        array_push($purposeArr,$row['purpose']);
+        array_push($DateNeededArr,$row['DateNeeded']);
+        array_push($DateRequestedArr,$row['DateRequested']);
+        array_push($statusArr,$row['status']);
+        //test
+        // echo htmlspecialchars($row['ItemTypeID'])."<br>"; 
+        // echo htmlspecialchars($row['NumRequested'])."<br>"; 
+        // echo htmlspecialchars($row['purpose'])."<br>"; 
+        // echo htmlspecialchars($row['DateNeeded'])."<br>"; 
+        // echo htmlspecialchars($row['DateRequested'])."<br>"; 
+        // echo htmlspecialchars($row['status'])."<br>"; 
+      }
+     //var_dump($IDArr); // works 
+     //var_dump($ItemTypeIDArr); // broken
+     
+
+     // Qry to find the sizes of their requests
+     function sizesCompressionAdmin($ItemID,$con){
+      $sql = "SELECT sizesRequest.itemID, sizesRequest.value 
+      FROM sizesRequest INNER JOIN itemRequest ON sizesRequest.ItemID = itemRequest.ID  
+      WHERE sizesRequest.itemID = ?;";
+      $stmt = $con->prepare($sql);
+      $stmt->execute([$ItemID]);
+      // Making the sizse into the format =~ xx/yy/zz
+      $arr = []; //initialising
+      while($row = $stmt->fetch(PDO::FETCH_ASSOC)){
+        array_push($arr,$row['value']);
+      }
+      return(implode("/",$arr));
+
+
+     }
+     function findName($IDuser, $con){
+      $sql = "SELECT `rank`, fname, lname FROM users WHERE ID =?;";
+      $stmt = $con->prepare($sql);
+      $stmt->execute([$IDuser]);
+      $result = $stmt->fetch(PDO::FETCH_ASSOC);
+      $fullName = implode(" ",$result);
+      return($fullName);
+     }
+
+     // ---------------------------------------------------main code---------------------------------------------------
+
+     // get the look up table for Item Type
+     $sql = "SELECT ItemTypeName FROM itemType;";
+     $stmt = $conn->prepare($sql);
+     $stmt->execute();
+     $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+     //var_dump($result); // test 
+
+     // getting the data in a usable form 
+     $lenResult = count($result);
+     $loop = 0; 
+     $ItemTypeNameArr =["test"]; // initialising with value at start of array so the Index matches the ID 
+
+     // creates  array $ItemTypeNameArray out of the result 
+     while($loop < $lenResult){
+        $temp = implode($result[$loop]);
+        //echo $temp . " hello <br>"; // test 
+        array_push($ItemTypeNameArr,$temp);
+        $loop = $loop + 1;
+     }
+
+    //var_dump($ItemTypeNameArr); // test
+    
+
+    // matching the ID to the name
+    $lenItemTypeIDArr = count($ItemTypeIDArr);
+    $lenItemTypeNameArr = count($ItemTypeNameArr);
+    //echo $lenItemTypeIDArr. "<br>";
+    //echo $lenItemTypeNameArr . "<br>";
+    $loop = 0;
+    $loopID = 1;
+    while ($loop < $lenItemTypeIDArr){
+      while ($loopID <= $lenItemTypeNameArr){
+        if ($ItemTypeIDArr[$loop] == $loopID){
+          //echo $ItemTypeIDArr[$loop] . "<br>"; // test 
+          $ItemTypeIDArr[$loop] = $ItemTypeNameArr[$loopID];
+          //echo $ItemTypeIDArr[$loop] . "<br>"; // test 
+          break; 
+        }else{
+          $loopID = $loopID + 1;
         }
-      ?>
-        
+      }
+      $loop = $loop + 1;// incrimenting loop var
+      $loopID = 1 ; // need to reset the loop ID 
+      //echo "I ran <br>"; // test 
+    }
+    // $ItemTypeIDArr
+    
+
+
+    
+     
+
+
+
+     
+    ?>
+
+
     </head>
 
     <body id = "test">
@@ -51,58 +169,85 @@
         <img class = "profilePic" src="images/<?php echo $_SESSION['profilePicURL'];?>" alt="SgtDefalt" width="auto" height="150">
       </div>
       <div id="container">
-          <div id="main">
-            <h1>Virtual Stores</h1>
-          </div>
-          <?php
-          $servername = "2-12.co.uk";
-          $username = "jrowden";
-          $password = "tjwa1234";
-          $dbname = "CadetLinkDB";
+        
+        <div id="main">
+            <h2>Virtual stores - Work in Progress </h2>
 
-          try {
-            $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
-            $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-            $stmt = $conn->prepare("
-            SELECT *
-            FROM items
-            INNER JOIN sizes
-            ON items.ID = sizes.itemID;");
-            $stmt->execute();
+            <a href=#Requests.php >
+              <button class ="button buttonPressed">Requests</button>
+            </a>
+            <a href=Stock.php >
+              <button class ="button ">Stock</button>
+            </a>
+            <a href=kitRequest.php >
+              <button class ="button ">Make A Request</button>
+            </a>
+            <fieldset>
+            <?php
+               if ($empty == 1){
+                 echo "<b class ='error'> you have no Requests<b>";
+               }else{
+            ?>
+              <table class = "tableDisplay">
+                
 
-            // set the resulting array to associative
-            //$result = $stmt->setFetchMode(PDO::FETCH_ASSOC);
-            $result = $stmt->fetchAll();
-            var_dump($result);
-           
-            foreach ($result as $k => $v) {
-             echo $k;
-             echo "<br>";
-             echo $v[1];
-             echo "<br><br>";
-             }
+                <tr>
+                  <th>ID</th>
+                  <th>StockID</th>
+                  <th>UserID</th>
+                  <th>Name</th>
+                  <th>ItemTypeID</th>
+                  <th>NumRequested</th>
+                  <th>purpose</th>
+                  <th>DateNeeded</th>
+                  <th>DateRequested</th>
+                  <th>status</th>
+                  <th>size</th>
+                  <th>Remove?</th>
+                </tr>
+                
+                <?php 
+                $loop = 0;
+                //var_dump($IDArr); //test
+                // echo $empty; // test
+              
+                
+                while($loop < $count){ 
+                echo "<tr>";
+                   echo "<td>" .  $IDArr[$loop] . "</td>" ;
+                   echo "<td>" .  $StockIDArr[$loop] . "</td>";
+                   echo "<td>" .  $UserIDArr[$loop] . "</td>";
+                   echo "<td>" .  findName($UserIDArr[$loop], $conn). "</td>";
+                   echo "<td>" .  $ItemTypeIDArr[$loop] . "</td>";
+                   echo "<td>" .  $NumRequestedArr[$loop] . "</td>"; 
+                   echo "<td>" .  $purposeArr[$loop]. "</td>"; 
+                   echo "<td>" .  $DateNeededArr[$loop]. "</td>"; 
+                   echo "<td>" .  $DateRequestedArr[$loop]. "</td>"; 
+                   echo "<td>" . $statusArr[$loop]. "</td>";
+                   echo "<td>" . sizesCompressionAdmin($IDArr[$loop],$conn). "</td>";
+                   echo "<td>
+                   <form method='post' action ='deleteRow.php'>
+                   <input type='hidden' id = 'Xdata' name='Xdata' value=' $IDArr[$loop] '/>
+                   <input type='submit' name='X' value='X'/>
+                   </form>
+                   </td>";
+                   //echo "<td><a href=deleteRow.php> <button class ='button'>X</button </a></td>";// Old button
+                echo "</tr>";
+                
+                $loop = $loop + 1;
+                }
+                }
+                ?>
 
-            // setup table and heading row
-
-            // foreach - echo out each row
-            foreach(new TableRows(new RecursiveArrayIterator($stmt->fetchAll())) as $k=>$v) {
-              echo $v;
-            }
-
-            // end the table here
-
-          } catch(PDOException $e) {
-            echo "Error: " . $e->getMessage();
-          }
-          $conn = null;
-          echo "</table>";
-      
-          //style='width: 150px; border: 1px solid black; background-color: rgb(0, 43, 23, 0.938);'
-          //style='border: solid 1px black;'
-          ?>
+              </table>
+              
+              
+            </fieldset>
+        
+          
 
             
-        
+        </div>
       </div>
       <div id="footer">
 
