@@ -1,13 +1,12 @@
-<!DOCTYPE html>
-  <html>
-    <head>
-      <title>CadetLink</title>
-      <link href="main.css" rel="stylesheet" />
-      <link href="loginSignup.css" rel="stylesheet" />
-      <link rel="preconnect" href="https://fonts.googleapis.com">
-      <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-      <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">
-      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<html>
+  <head>
+    <title>CadetLink</title>
+    <link href="main.css" rel="stylesheet" />
+    <link href="loginSignup.css" rel="stylesheet" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <?php
       session_start();
       // connects to database
@@ -16,14 +15,13 @@
       if(isset($_SESSION["loggedIn"]) and ($_SESSION["loggedIn"] != true) ){
         header("location: index.php"); // if so redirects them to the loginpage page
       };
-    }
     function findName($IDuser, $con){
-     $sql = "SELECT `rank`, fname, lname FROM users WHERE ID =?;";
-     $stmt = $con->prepare($sql);
-     $stmt->execute([$IDuser]);
-     $result = $stmt->fetch(PDO::FETCH_ASSOC);
-     $fullName = implode(" ",$result);
-     return($fullName);
+      $sql = "SELECT `rank`, fname, lname FROM users WHERE ID =?;";
+      $stmt = $con->prepare($sql);
+      $stmt->execute([$IDuser]);
+      $result = $stmt->fetch(PDO::FETCH_ASSOC);
+      $fullName = implode(" ",$result);
+      return($fullName);
     }
 
       // Qry to find requests of this User
@@ -43,77 +41,73 @@
       
       // initialising colum arrays
       $IDArr = [];
-      $StockIDArr = [];
-      $UserIDArr = [];
+      $NSNArr = [];
       $ItemTypeIDArr = [];
-      $NumRequestedArr = [];
-      $purposeArr = [];
-      $DateNeededArr = [];
-      $DateRequestedArr = [];
-      $statusArr = [];
-       
+      $NumIssuedArr = [];
+      $NumInStoreArr = [];
+      $NumReservedArr = [];
+      $NumOrderedArr = [];
+      
+        
       // add the value in Each row's data to their respective colums Arrays this is done so data can be modified prior to display 
       while($row = $stmt->fetch(PDO::FETCH_ASSOC)){
         //echo $row['ID'] . "<br>"; test
         array_push($IDArr,$row['ID']);
-        //var_dump($IDArr); test
-        //echo "<br>"; test
-        array_push($StockIDArr,$row['StockID']);
-        array_push($UserIDArr,$row['UserID']);
+        array_push($NSNArr,$row['NSN']);
         array_push($ItemTypeIDArr,$row['ItemTypeID']);
-        array_push($NumRequestedArr,$row['NumRequested']);
-        array_push($purposeArr,$row['purpose']);
-        array_push($DateNeededArr,$row['DateNeeded']);
-        array_push($DateRequestedArr,$row['DateRequested']);
-        array_push($statusArr,$row['status']);
+        array_push($NumIssuedArr,$row['NumIssued']);
+        array_push($NumInStoreArr,$row['NumInStore']);
+        array_push($NumReservedArr,$row['NumReserved']);
+        array_push($NumOrderedArr,$row['NumOrdered']);
         //test
         // echo htmlspecialchars($row['ItemTypeID'])."<br>"; 
-        // echo htmlspecialchars($row['NumRequested'])."<br>"; 
+        // echo htmlspecialchars($row['NumOrdered'])."<br>"; 
         // echo htmlspecialchars($row['purpose'])."<br>"; 
         // echo htmlspecialchars($row['DateNeeded'])."<br>"; 
         // echo htmlspecialchars($row['DateRequested'])."<br>"; 
         // echo htmlspecialchars($row['status'])."<br>"; 
       }
-     //var_dump($IDArr); // works 
-     //var_dump($ItemTypeIDArr); // broken
-     
+      //var_dump($IDArr); // works 
+      //var_dump($ItemTypeIDArr); // broken
+      
 
-     // Qry to find the sizes of their requests
-     function sizesCompressionAdmin($ItemID,$con){
-      $sql = "SELECT sizesRequest.itemID, sizesRequest.value 
-      FROM sizesRequest INNER JOIN itemRequest ON sizesRequest.ItemID = itemRequest.ID  
-      WHERE sizesRequest.itemID = ?;";
-      $stmt = $con->prepare($sql);
-      $stmt->execute([$ItemID]);
-      // Making the sizse into the format =~ xx/yy/zz
-      $arr = []; //initialising
-      while($row = $stmt->fetch(PDO::FETCH_ASSOC)){
-        array_push($arr,$row['value']);
+      // Qry to find the sizes of their requests
+      function sizesCompressionAdmin($ItemID,$con){
+        $sql = "SELECT sizes.itemID, sizes.value 
+        FROM sizes INNER JOIN items ON sizes.ItemID = items.ID  
+        WHERE sizes.itemID = ?;";
+        $stmt = $con->prepare($sql);
+        $stmt->execute([$ItemID]);
+        // Making the sizse into the format =~ xx/yy/zz
+        $arr = []; //initialising
+        while($row = $stmt->fetch(PDO::FETCH_ASSOC)){
+          array_push($arr,$row['value']);
+        }
+        return(implode("/",$arr));
       }
-      return(implode("/",$arr));
 
 
-     // ---------------------------------------------------main code---------------------------------------------------
+      // ---------------------------------------------------main code---------------------------------------------------
 
-     // get the look up table for Item Type
-     $sql = "SELECT ItemTypeName FROM itemType;";
-     $stmt = $conn->prepare($sql);
-     $stmt->execute();
-     $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
-     //var_dump($result); // test 
+      // get the look up table for Item Type
+      $sql = "SELECT ItemTypeName FROM itemType;";
+      $stmt = $conn->prepare($sql);
+      $stmt->execute();
+      $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+      //var_dump($result); // test 
 
-     // getting the data in a usable form 
-     $lenResult = count($result);
-     $loop = 0; 
-     $ItemTypeNameArr =["test"]; // initialising with value at start of array so the Index matches the ID 
+      // getting the data in a usable form 
+      $lenResult = count($result);
+      $loop = 0; 
+      $ItemTypeNameArr =["test"]; // initialising with value at start of array so the Index matches the ID 
 
-     // creates  array $ItemTypeNameArray out of the result 
-     while($loop < $lenResult){
+      // creates  array $ItemTypeNameArray out of the result 
+      while($loop < $lenResult){
         $temp = implode($result[$loop]);
         //echo $temp . " hello <br>"; // test 
         array_push($ItemTypeNameArr,$temp);
         $loop = $loop + 1;
-     }
+      }
 
     //var_dump($ItemTypeNameArr); // test
     
@@ -141,121 +135,74 @@
       //echo "I ran <br>"; // test 
     }
     // $ItemTypeIDArr
-    
-
-
-    
-     
-
-
-
-     
     ?>
+  </head>
 
+  <body id = "test">
+    <div id="header">
+      <h1>CadetLink</h1>
+    </div>
 
-    </head>
+    <div id="navbarDash">
+      <h2 class ="navBarDashTxt"> welcome <?php echo $_SESSION['rank']. " ";
+          echo $_SESSION['fname']. " ";
+          echo $_SESSION['lname'];?></h2>
+      <img class = "profilePic" src="images/<?php echo $_SESSION['profilePicURL'];?>" alt="SgtDefalt" width="auto" height="150">
+    </div>
+    <div id="container">
+      
+      <div id="main">
+          <h2>Virtual stores - Work in Progress </h2>
 
-    <body id = "test">
-      <div id="header">
-        <h1>CadetLink</h1>
-        
-      </div>
-
-      <div id="navbarDash">
-        <h2 class ="navBarDashTxt"> welcome <?php echo $_SESSION['rank']. " ";
-            echo $_SESSION['fname']. " ";
-            echo $_SESSION['lname'];?></h2>
-        <img class = "profilePic" src="images/<?php echo $_SESSION['profilePicURL'];?>" alt="SgtDefalt" width="auto" height="150">
-      </div>
-      <div id="container">
-        
-        <div id="main">
-            <h2>Virtual stores - Work in Progress </h2>
-
-            <a href=virtualStores.php >
-              <button class ="button">Requests</button>
-            </a>
-            <a href=#Stock.php >
-              <button class ="button buttonPressed">Stock</button>
-            </a>
-            <a href=kitRequest.php >
-              <button class ="button ">Make A Request</button>
-            </a>
-            <fieldset>
-            <?php
-               if ($empty == 1){
-                 echo "<b class ='error'> you have no Requests<b>";
-               }else{
-            ?>
+          <a href=virtualStores.php >
+            <button class ="button">Requests</button>
+          </a>
+          <a href=#Stock.php >
+            <button class ="button buttonPressed">Stock</button>
+          </a>
+          <a href=kitRequest.php >
+            <button class ="button ">Make A Request</button>
+          </a>
+          <fieldset>
               <table class = "tableDisplay">
-                
-
                 <tr>
                   <th>ID</th>
-                  <th>StockID</th>
-                  <th>UserID</th>
-                  <th>Name</th>
+                  <th>NSN</th>
                   <th>ItemTypeID</th>
-                  <th>NumRequested</th>
-                  <th>purpose</th>
-                  <th>DateNeeded</th>
-                  <th>DateRequested</th>
-                  <th>status</th>
-                  <th>size</th>
-                  <th>Remove?</th>
+                  <th>NumIssued</th>
+                  <th>NumInStore</th>
+                  <th>NumOrdered</th>
+                  <th>NumReserved</th>
+                  <th>Size</th>
                 </tr>
-                
                 <?php 
-                $loop = 0;
-                //var_dump($IDArr); //test
-                // echo $empty; // test
+                  $loop = 0;
+                  //var_dump($IDArr); //test
+                  // echo $empty; // test
               
-                
-                while($loop < $count){ 
-                echo "<tr>";
-                   echo "<td>" .  $IDArr[$loop] . "</td>" ;
-                   echo "<td>" .  $StockIDArr[$loop] . "</td>";
-                   echo "<td>" .  $UserIDArr[$loop] . "</td>";
-                   echo "<td>" .  findName($UserIDArr[$loop], $conn). "</td>";
-                   echo "<td>" .  $ItemTypeIDArr[$loop] . "</td>";
-                   echo "<td>" .  $NumRequestedArr[$loop] . "</td>"; 
-                   echo "<td>" .  $purposeArr[$loop]. "</td>"; 
-                   echo "<td>" .  $DateNeededArr[$loop]. "</td>"; 
-                   echo "<td>" .  $DateRequestedArr[$loop]. "</td>"; 
-                   echo "<td>" . $statusArr[$loop]. "</td>";
-                   echo "<td>" . sizesCompressionAdmin($IDArr[$loop],$conn). "</td>";
-                   echo "<td>
-                   <form method='post' action ='Issued.php'>
-                   <input type='hidden' id = 'Xdata' name='Xdata' value=' $IDArr[$loop] '/>
-                   <input type='submit' name='X' value='X'/>
-                   </form>
-                   </td>";
-                   echo "<td>
-                   <form method='post' action ='deleteRow.php'>
-                   <input type='hidden' id = 'Xdata' name='Xdata' value=' $IDArr[$loop] '/>
-                   <input type='submit' name='X' value='X'/>
-                   </form>
-                   </td>";
-                   //echo "<td><a href=deleteRow.php> <button class ='button'>X</button </a></td>";// Old button
-                echo "</tr>";
-                
-                $loop = $loop + 1;
-                }
-                }
-                ?>
+                // actuly what displays 
+                  while($loop < $count){ 
+                  echo "<tr>";
+                      echo "<td>" .  $IDArr[$loop] . "</td>" ;
+                      echo "<td>" .  $NSNArr[$loop] . "</td>";
+                      echo "<td>" .  $ItemTypeIDArr[$loop] . "</td>";
+                      echo "<td>" .  $NumIssuedArr[$loop] . "</td>"; 
+                      echo "<td>" .  $NumInStoreArr[$loop]. "</td>";  
+                      echo "<td>" .  $NumReservedArr[$loop]. "</td>";
+                      echo "<td>" .  $NumOrderedArr[$loop]. "</td>"; 
+                      echo "<td>" . sizesCompressionAdmin($IDArr[$loop],$conn). "</td>";
+                  echo "</tr>";
+                  
+                  $loop = $loop + 1;
+                  }
+                  ?>
 
               </table>
-              
-              
-            </fieldset>
-        
-          
-
-            
-        </div>
+          </fieldset>
       </div>
-      <div id="footer">
+    </div>
+    <div id="footer">
 
-      </div>
-    </body>
-  </html>
+    </div>
+  </body>
+</html>
