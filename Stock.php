@@ -16,10 +16,19 @@
       if(isset($_SESSION["loggedIn"]) and ($_SESSION["loggedIn"] != true) ){
         header("location: index.php"); // if so redirects them to the loginpage page
       };
+    }
+    function findName($IDuser, $con){
+     $sql = "SELECT `rank`, fname, lname FROM users WHERE ID =?;";
+     $stmt = $con->prepare($sql);
+     $stmt->execute([$IDuser]);
+     $result = $stmt->fetch(PDO::FETCH_ASSOC);
+     $fullName = implode(" ",$result);
+     return($fullName);
+    }
 
       // Qry to find requests of this User
       
-      $sql = "SELECT * FROM itemRequest;";
+      $sql = "SELECT * FROM items;";
       $stmt = $conn->prepare($sql);
       $stmt->execute();
       $count = $stmt->rowCount();
@@ -83,16 +92,6 @@
       }
       return(implode("/",$arr));
 
-
-     }
-     function findName($IDuser, $con){
-      $sql = "SELECT `rank`, fname, lname FROM users WHERE ID =?;";
-      $stmt = $con->prepare($sql);
-      $stmt->execute([$IDuser]);
-      $result = $stmt->fetch(PDO::FETCH_ASSOC);
-      $fullName = implode(" ",$result);
-      return($fullName);
-     }
 
      // ---------------------------------------------------main code---------------------------------------------------
 
@@ -173,11 +172,11 @@
         <div id="main">
             <h2>Virtual stores - Work in Progress </h2>
 
-            <a href=#Requests.php >
-              <button class ="button buttonPressed">Requests</button>
+            <a href=virtualStores.php >
+              <button class ="button">Requests</button>
             </a>
-            <a href=Stock.php >
-              <button class ="button ">Stock</button>
+            <a href=#Stock.php >
+              <button class ="button buttonPressed">Stock</button>
             </a>
             <a href=kitRequest.php >
               <button class ="button ">Make A Request</button>
@@ -203,7 +202,6 @@
                   <th>DateRequested</th>
                   <th>status</th>
                   <th>size</th>
-                  <th>Issued?</th>
                   <th>Remove?</th>
                 </tr>
                 
@@ -227,9 +225,9 @@
                    echo "<td>" . $statusArr[$loop]. "</td>";
                    echo "<td>" . sizesCompressionAdmin($IDArr[$loop],$conn). "</td>";
                    echo "<td>
-                   <form method='post' action ='IProcess.php'>
-                   <input type='hidden' id = 'Idata' name='Idata' value=' $IDArr[$loop] '/>
-                   <input type='submit' name='I' value='✓'/>
+                   <form method='post' action ='Issued.php'>
+                   <input type='hidden' id = 'Xdata' name='Xdata' value=' $IDArr[$loop] '/>
+                   <input type='submit' name='X' value='X'/>
                    </form>
                    </td>";
                    echo "<td>
