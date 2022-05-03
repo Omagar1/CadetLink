@@ -25,6 +25,7 @@
       <div id="navbarDash">
         <h2 class ="navBarDashTxt"> welcome Sgt sleep paralysis demon</h2>
         <img class = "profilePic" src="images/<?php echo $_SESSION['profilePicURL'];?>" alt="SgtDefalt" width="auto" height="150">
+        <button onclick="history.go(-1);">Back </button>
       </div>
       <div id="container">
         

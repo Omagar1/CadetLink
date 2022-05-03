@@ -103,11 +103,8 @@ function addRequest($itemID, $NumRequested, $itemRequestID, $con){
         return(1); // task succeded sucsesfuly
 
     }
-    
-    
-
-
 }
+
 function onOrder($itemID, $NumRequested, $itemRequestID, $con){
     $qry = "SELECT NumOrdered FROM items WHERE ID = ?;" ;
     $stmt = $con->prepare($qry);
@@ -128,109 +125,13 @@ function onOrder($itemID, $NumRequested, $itemRequestID, $con){
     $stmt->execute([$itemID, $itemRequestID]);
     return(1); // task succeded sucsesfuly  
 }
-// valadtates the sizes input
-function SizesValadation($NumExpexted, $input){
-    echo "i ran 3";
-    $inputArr = explode("/",$input);
-    $lenInputArr = count($inputArr);
-
-    //checks if the number of sizes is what is expexted 
-    if ($lenInputArr != $NumExpexted){
-        echo $lenInputArr . "<br>" . $NumExpexted . "<br>";
-        $GLOBALS['errors'] = true;
-        $msg = " <p><b class = 'error'>Either Too Few Or Too Many Sizes Given For Selected Item!</b></p>";
-        $_SESSION['msg'] = $msg;
-        echo $msg ."<br>";
-        echo "input Arr:";
-        var_dump($inputArr); //test
-        return (false);
-    }else{
-        $loop = 0;
-        echo "i ran 4";
-        echo "lenInputArr: ".$lenInputArr ."<br>";
-        while ($loop < $lenInputArr){
-            var_dump($inputArr); //test
-
-            echo $inputArr[$loop];
-            echo "i ran 5";
-            echo "<br> is nummeric: ".is_numeric($inputArr[$loop]);
-            // checks if the sizes contains letters or other charecters
-            $temp = $inputArr[$loop];
-            echo "<br> temp: ". $temp. "<br> is_numeric:". is_numeric($temp)."<br>";
-            if(is_numeric($temp) != 1){
-                echo "i ran 6";
-                $GLOBALS['errors'] = true;
-                $msg = "<p><b class = 'error'> Sizes Must Only Contain Intigers Seperated By A / </b></p>";
-                $_SESSION['msg'] = $msg;
-                return (false);
-            // checks if the sizes is too long
-            }elseif (strlen($inputArr[$loop])>3){
-                $GLOBALS['errors'] = true;
-                $msg = "<p><b class = 'error'>Too Large Of A Size Inputed To Be Accepted</b></p>";
-                $_SESSION['msg'] = $msg;
-                return (false);
-            }else{
-                //pass valadation
-            }
-            $loop = $loop + 1;
-        }
-        return(true);
-    }
-
-
-}
-
-
 
 // gets values from Form
-$UniformType = trim($_POST['UniformType']);
+$ItemType = trim($_POST['ItemType']);
 $Size = trim($_POST['Size']);
 $purpose = trim($_POST['purpose']);
 $NumRequested = trim($_POST['NumRequested']);
 echo $Size ."<br>";
-
-
-
-// -----------------------------------valadation -----------------------------------
-
-//qry to find the number expected for Each Size type 
-$sql = "SELECT NumSizesExpected FROM itemType";
-$stmt = $conn->prepare($sql);
-$stmt->execute();
-$result = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
-$NumSizesExpectedArr =["test"]; // initialising with value at start of array so the Index matches the uniformTypeID 
-$lenResult = count($result);
-$loop = 0;
-// creates  array $NumSizesExpectedArr out of the result 
-while($loop < $lenResult){
-$temp = implode($result[$loop]);
-    //echo $temp . " hello <br>"; // test 
-    array_push($NumSizesExpectedArr,$temp );
-    $loop = $loop + 1;
-}
-var_dump($NumSizesExpectedArr);
-
-
-if ($UniformType == "" or $Size == "" or $purpose == "" or $NumRequested == "" ){
-    echo "i Ran 1 <br>";
-    $GLOBALS['errors'] = true;
-    $msg = "<p><b class = 'error'>All Fields Are Required!</b></p>";
-    $_SESSION['msg'] = $msg;
-}else {
-    echo "i Ran 2 <br>";
-    $NumSizesExpected = $NumSizesExpectedArr[$UniformType];
-    echo $NumSizesExpected. "<br>"; //test
-    if (SizesValadation($NumSizesExpected, $Size) != true){
-        $GLOBALS['errors'] = true;
-        //$msg = " <p><b class = 'error'>aaaah STOP TRYING TO BREAK MY CODE! </b></p>"; // last line of defence
-        //$_SESSION['msg'] = $msg;
-         
-    }else{
-
-    }
-
-}
 
 //----------------------------------- main code -----------------------------------
 
@@ -249,22 +150,22 @@ if ($GLOBALS['errors'] == true){
         $qry = "INSERT INTO `itemRequest` (`UserID`, `ItemTypeID`,`NumRequested`,`purpose`,`DateRequested`) VALUES (?,?,?,?,?)";
         //echo $qry;
         $stmt = $conn->prepare($qry);
-        //echo $UserID ."<br>".$UniformType."<br>". $NumRequested ."<br>".$purpose."<br>". $dateTimeRequested. "<br>";
-        $stmt->execute([$UserID,$UniformType,$NumRequested,$purpose,$dateTimeRequested]);
+        //echo $UserID ."<br>".$ItemType."<br>". $NumRequested ."<br>".$purpose."<br>". $dateTimeRequested. "<br>";
+        $stmt->execute([$UserID,$ItemType,$NumRequested,$purpose,$dateTimeRequested]);
         // gets ID of last item added 
         $itemRequestID = $conn->lastInsertId();
 
         // getting the Size in a Usable format and then adding them to the sizeRequest table    
         $SizeArray = explode("/",$Size); // create array out of sizes ie:  xx/yy/zz => [0] = xx [1] = yy [2] = zz
         // var_dump($SizeArray); // test
-        if ($UniformType == 1 or $UniformType == 2 or $UniformType == 3 or $UniformType == 4){ // for torso items
+        if ($ItemType == 1 or $ItemType == 2 or $ItemType == 3 or $ItemType == 4){ // for torso items
             $height = $SizeArray[0];
             addtoSizeRequest($itemRequestID, 1, $height, "cm", $conn);
             $chest = $SizeArray[1];
             addtoSizeRequest($itemRequestID, 2, $chest, "cm", $conn);
             $SizeNum = 2;// for later function  
 
-        } elseif ($UniformType == 5){ // for trousers
+        } elseif ($ItemType == 5){ // for trousers
             $waist = $SizeArray[0];
             addtoSizeRequest($itemRequestID, 3, $waist, "cm", $conn);
             $insideLeg = $SizeArray[1];
@@ -273,12 +174,12 @@ if ($GLOBALS['errors'] == true){
             addtoSizeRequest($itemRequestID, 5, $seat, "cm", $conn);
             $SizeNum = 3; // for later function  
 
-        }elseif ($UniformType == 8 or $UniformType == 9){ // for headdress
+        }elseif ($ItemType == 8 or $ItemType == 9){ // for headdress
             $headSize = $SizeArray[0];
             addtoSizeRequest($itemRequestID, 6, $headSize, "cm", $conn);
             $SizeNum = 1; // for later function  
 
-        }elseif ($UniformType == 7){ // for boots 
+        }elseif ($ItemType == 7){ // for boots 
             $shoeSize = $SizeArray[0];
             addtoSizeRequest($itemRequestID, 7, $shoeSize, "shoeSize", $conn);
             $SizeNum = 1; // for later function  
@@ -289,11 +190,11 @@ if ($GLOBALS['errors'] == true){
 
         // find out if Kit requested Matches with Stock
         $qry = "SELECT sizes.itemID FROM ((sizes INNER JOIN sizesRequest ON sizes.value = sizesRequest.value) INNER JOIN items ON sizes.itemID = items.ID)  WHERE sizesRequest.itemID = :LItemID AND ItemTypeID = :itemTypeID ; ";
-        echo "the uniformType is" . $UniformType. "<br>";
+        echo "the uniformType is" . $ItemType. "<br>";
         $stmt = $conn->prepare($qry);
         echo $itemRequestID. "<br>";
         $stmt->bindParam(':LItemID', $itemRequestID);
-        $stmt->bindParam(':itemTypeID', $UniformType);
+        $stmt->bindParam(':itemTypeID', $ItemType);
         $stmt->execute();
         $result = $stmt->fetchAll(); // result is an array of arrays 
         

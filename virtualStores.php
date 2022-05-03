@@ -225,7 +225,6 @@
                     <input type='submit' name='X' value='X'/>
                     </form>
                     </td>";
-                    //echo "<td><a href=deleteRow.php> <button class ='button'>X</button </a></td>";// Old button
                   echo "</tr>";
                   
                   $loop = $loop + 1;

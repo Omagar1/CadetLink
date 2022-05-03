@@ -10,10 +10,130 @@
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
       <?php
       session_start();
+      
       //checks if not logged in 
       if(isset($_SESSION["loggedIn"]) and ($_SESSION["loggedIn"] != true) ){
         header("location: index.php"); // if so redirects them to the loginpage page
       };
+      require_once "ConnectDB.php";
+
+      function sizesCompressionAdmin($ItemID,$con){
+        $sql = "SELECT sizes.itemID, sizes.value 
+        FROM sizes INNER JOIN items ON sizes.ItemID = items.ID  
+        WHERE sizes.itemID = ?;";
+        $stmt = $con->prepare($sql);
+        $stmt->execute([$ItemID]);
+        // Making the sizes into the format =~ xx/yy/zz
+        $arr  = []; //initializing
+        while($result = $stmt->fetch(PDO::FETCH_ASSOC)){
+          array_push($arr,$result['value']);
+        }
+        return(implode("/",$arr));
+      }
+
+      function SizesValidation($NumExpected, $input){
+        //echo"i ran 3";
+        $inputArr = explode("/",$input);
+        $lenInputArr = count($inputArr);
+        
+    
+        //checks if the number of sizes is what is Expected 
+        if ($lenInputArr != $NumExpected){
+             echo "len:".$lenInputArr . "<br> numExpt: " . $NumExpected . "<br>";
+            //
+            $msg = " <p><b class = 'error'>Either Too Few Or Too Many Sizes Given For Selected Item!</b></p>";
+            $_SESSION['msg'] = $msg;
+            //echo$msg ."<br>";
+            //echo"input Arr:";
+            //var_dump($inputArr); //test
+            return (false);
+        }else{
+            $loop = 0;
+            //echo"i ran 4";
+            //echo"lenInputArr: ".$lenInputArr ."<br>";
+            while ($loop < $lenInputArr){
+                //var_dump($inputArr); //test
+    
+                //echo$inputArr[$loop];
+                //echo"i ran 5"; // test 
+                //echo"<br> is nummeric: ".is_numeric($inputArr[$loop]); //test
+                // checks if the sizes contains letters or other charecters
+                $temp = $inputArr[$loop];
+                //echo"<br> temp: ". $temp. "<br> is_numeric:". is_numeric($temp)."<br>";
+                if(is_numeric($temp) != 1){
+                    //echo"i ran 6";
+                    //
+                    $msg = "<p><b class = 'error'> Sizes Must Only Contain Intigers Seperated By A / </b></p>";
+                    $_SESSION['msg'] = $msg;
+                    return (false);
+                // checks if the sizes is too long
+                }elseif (strlen($inputArr[$loop])>3){
+                    //
+                    $msg = "<p><b class = 'error'>Too Large Of A Size Inputed To Be Accepted</b></p>";
+                    $_SESSION['msg'] = $msg;
+                    return (false);
+                }else{
+                    //pass valadation
+                }
+                $loop = $loop + 1;
+            }
+            return(true);
+        }
+    
+    
+    }
+    function getNumExpected($ItemTypeID, $con){
+      //qry to find the number expected for the ItemType We want 
+      // we do not need to check if there are more than one result because ItemTypeValidation already assures there is only one 
+      $sql = "SELECT NumSizesExpected FROM itemType WHERE ID =? ;";
+      $stmt = $con->prepare($sql);
+      $stmt->execute([$ItemTypeID]);
+      $result = $stmt->fetch(PDO::FETCH_ASSOC);
+      return(implode($result));
+    }
+    
+// -----------------------------------validation -----------------------------------
+if (isset($_POST['submitKR'])){
+  // getting the variables
+  $ItemTypeID = trim($_POST['ItemType']);
+  $Size = trim($_POST['Size']);
+  $purpose = trim($_POST['purpose']);
+  $NumRequested = trim($_POST['NumRequested']);
+  echo $ItemTypeID ."<br>";
+  echo $Size ."<br>";
+  echo $purpose ."<br>";
+  echo $NumRequested ."<br>";
+
+  // set up for validating sizes
+  $NumSizesExpected = getNumExpected($ItemTypeID, $conn);
+  // general validation
+  if ($ItemTypeID == "" or $Size == ""  or $purpose == ""  or $NumRequested == ""){
+      echo"i Ran 1 <br>"; // test 
+      
+      $msg = "<p><b class = 'error'>Fields Must Not Be Empty </b></p>";
+      $_SESSION['msg'] = $msg;
+  }elseif (SizesValidation($NumSizesExpected, $Size) != true){
+      // do nothing
+      //echo"i Ran 2 <br>"; // test 
+  }else{
+  // send data to process page
+    //echo"i Ran 3 <br>"; // test 
+    ?>
+    <form Id = "AutoSendForm" action = "KRProcess.php" method="post">
+    <input type="hidden" id="ItemType" name="ItemType" value="<?php echo $ItemTypeID; ?>">
+    <input type="hidden" id="Size" name="Size" value="<?php echo $Size; ?>">
+    <input type="hidden" id="purpose" name="purpose" value="<?php echo $purpose; ?>">
+    <input type="hidden" id="NumRequested" name="NumRequested" value="<?php echo $NumRequested; ?>">    
+    </form>
+
+    <script type="text/javascript">
+    document.getElementById("AutoSendForm").submit(); // auto submits form                        ^
+    </script><?php
+
+  }
+}else{
+
+}
       ?>
     </head>
 
@@ -47,17 +167,17 @@
 
               }
             ?>
-            <form action = "KRProcess.php" method="post">
-              <label for="UniformType">UniformType</label><br>
-              <select id="UniformType" name="UniformType">
+            <form action = "kitRequest.php" method="post">
+              <label for="ItemType">ItemType</label><br>
+              <select id="ItemType" name="ItemType">
                 <option value="1">Shirt Combat</option>
                 <option value="2">Smock</option>
                 <option value="3">Undershirt(Fleece)</option>
                 <option value="4">Static T-Shirt</option>
                 <option value="5">Trousers Combat</option>
                 <option value="7">Boots</option>
-                <option value="8">Beret</option>
-                <option value="9">Cap MTP</option>
+                <option value="8">Cap MTP</option>
+                <option value="9">Beret</option>
               </select><br>
 
               <label for="Size">Nato Size</label><br>
@@ -77,7 +197,7 @@
                 <option value="1">1</option>
                 <option value="2">2</option>
               </select><br>
-              <input type="submit" class = "button">
+              <input type="submit" class = "button" name = "submitKR"  id = "submitKR">
               
             </form>
             </fieldset>
