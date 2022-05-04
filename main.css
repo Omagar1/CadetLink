@@ -32,30 +32,30 @@ tr:nth-child(even) {
 /* ----------------------------- Header Stuff -----------------------------  */
 #header {
     background-color: rgb(0, 43, 23);
-    padding: 0%;
-    margin: 0;
+    /* padding: 0%;
+    margin: 0; */
     font-family: 'Bebas Neue', cursive;
     font-style: oblique;
     text-align: center;
   }
 h1{
-  margin: 0px;
-  margin-top: 10px;
+  /* margin: 0px;
+  margin-top: 10px; */
 }
   /* ----------------------------- Navbar Stuff -----------------------------  */
   #navbar {
     background-color: white;
-    padding: 0%;
+    /* padding: 0%;
     margin: none;
-    height: auto;
+    height: auto; */
 
   }
   #navbarDash {
     background-color: white;
-    padding: 20px;
+    /* padding: 20px;
     margin: none;
     max-height: 20px;
-    height: auto;
+    height: auto; */
 
   }
   .profilePic{
@@ -95,9 +95,9 @@ h1{
     display: inline;
   }
   #logOut{
-    text-align: right;
+    /* text-align: right;
     margin-left: 900px;
-    margin-top: -90000000px;
+    margin-top: -90000000px; */
 
   }
   /* ----------------------------- Body stuff -----------------------------  */
@@ -106,8 +106,8 @@ h1{
     background-repeat: no-repeat;
     background-attachment: fixed;
     background-size: cover;
-    margin: 0;
-    height: auto;
+    /* margin: 0;
+    height: auto; */
   }
   .error{
     color: red;
@@ -201,21 +201,21 @@ h1{
     background-color: white; 
     border: none;
     color:black;
-    padding: 15px 32px;
+    /* padding: 15px 32px;
     text-align: center;
     text-decoration: none;
     display: inline-block;
     margin: 15px;
     font-size: 16px;
-    border-radius: 4px;
+    border-radius: 4px; */
   }
   input[type=button], input[type=submit], input[type=reset] {
     background-color: white;
     border: none;
     color: black;
-    padding: 16px 32px;
+    /* padding: 16px 32px; */
     text-decoration: none;
-    margin: 4px 2px;
+    /* margin: 4px 2px; */
     cursor: pointer;
   }
   .button:hover {

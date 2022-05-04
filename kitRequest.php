@@ -12,7 +12,7 @@
       session_start();
       
       //checks if not logged in 
-      if(isset($_SESSION["loggedIn"]) and ($_SESSION["loggedIn"] != true) ){
+      if(!isset($_SESSION["loggedIn"]) and ($_SESSION["loggedIn"] != true) ){
         header("location: index.php"); // if so redirects them to the loginpage page
       };
       require_once "ConnectDB.php";
@@ -170,16 +170,15 @@ if (isset($_POST['submitKR'])){
             <form action = "kitRequest.php" method="post">
               <label for="ItemType">ItemType</label><br>
               <select id="ItemType" name="ItemType">
-                <option value="1">Shirt Combat</option>
-                <option value="2">Smock</option>
-                <option value="3">Undershirt(Fleece)</option>
-                <option value="4">Static T-Shirt</option>
-                <option value="5">Trousers Combat</option>
-                <option value="7">Boots</option>
-                <option value="8">Cap MTP</option>
-                <option value="9">Beret</option>
+                <?php
+                $sql = "SELECT * FROM itemType;";
+                $stmt = $conn->prepare($sql);
+                $stmt->execute();
+                while($row = $stmt->fetch(PDO::FETCH_ASSOC)){
+                  echo "<option value=".$row["ID"].">".$row["ItemTypeName"]."</option>";
+                }
+                ?>
               </select><br>
-
               <label for="Size">Nato Size</label><br>
               <input type="text" id="Size" name="Size" value=""><br>
 
@@ -188,7 +187,7 @@ if (isset($_POST['submitKR'])){
                 <option value="GROWN OUT OF OLD KIT">Grown Out of Old Kit</option>
                 <option value="NEVER ISSUED">Was Never Issued</option>
                 <option value="LOST OLD KIT">Lost Old Kit</option>
-                <option value="OLD KIT WAS DAMAGED">Old Kit Was Damged</option>
+                <option value="OLD KIT WAS DAMAGED">Old Kit Was Damaged</option>
                 <option value="OTHER">Other</option>
               </select><br>
 

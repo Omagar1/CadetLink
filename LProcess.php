@@ -29,6 +29,7 @@ if ($uname != "" Or $pword != ""){
             $_SESSION['section'] = $row['section'];
             $_SESSION['CFAV'] = $row['CFAV'];
             $_SESSION['profilePicURL'] = $row['profilePicURL'];
+            $_SESSION['loggedIn'] = true;
             $msg = ""; // declars blank varible to remove error in index.php  
             $_SESSION['msg'] = $msg;
             echo $_SESSION['CFAV'];

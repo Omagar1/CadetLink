@@ -10,7 +10,7 @@
       <?php
       session_start();
       //checks if not logged in 
-      if(isset($_SESSION["loggedIn"]) and ($_SESSION["loggedIn"] != true) ){
+     if(!isset($_SESSION["loggedIn"]) and ($_SESSION["loggedIn"] != true) ){
         header("location: index.php"); // if so redirects them to the loginpage page
       };
       ?>

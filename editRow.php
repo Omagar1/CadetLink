@@ -12,7 +12,7 @@
       // connects to database
       require_once "ConnectDB.php";
       //checks if not logged in  - broken 
-      if(isset($_SESSION["loggedIn"]) and ($_SESSION["loggedIn"] != true) ){
+     if(!isset($_SESSION["loggedIn"]) and ($_SESSION["loggedIn"] != true) ){
         header("location: index.php"); // if so redirects them to the loginpage page
       };
       if (isset($_POST['submit'])){

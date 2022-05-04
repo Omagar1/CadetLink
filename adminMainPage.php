@@ -40,7 +40,7 @@
                 <ul class="no-bullets">
                 <li class ="dashbordTroop" class ="dashbord" class = "inline"><a href = "troops.php" class = "dasbordTxt">Troop:Chard</a></li>
                 <li class ="dashbordSection" class ="dashbord" class = "inline"><a href = "section." class = "dasbordTxt">4 section</a></li>
-                <li class ="dashbordOrders" class ="dashbord"><a href = "orders.php" class = "dasbordTxt">Orders</a></li>
+                <li class ="dashbordOrders" class ="dashbord"><a href = "ordersAdmin.php" class = "dasbordTxt">Orders</a></li>
                 <li class ="dashbordKitRequest" class ="dashbord"><a href = "virtualStores.php"class = "dasbordTxt">Virtual Stores</a></li>
                 <li class ="dashbordTrips" class ="dashbord"><a href = "trips.php"class = "dasbordTxt">Trips</a></li>
                 <li class ="dashbordVPB" class ="dashbord"><a href = "#VPB"class = "dasbordTxt">Virtual Pocket Book</a></li>
