@@ -45,36 +45,36 @@
       }
 
       function SizesValidation($NumExpected, $input){
-        echo "i ran 3";
+        //echo "i ran 3";
         $inputArr = explode("/",$input);
         $lenInputArr = count($inputArr);
-        var_dump($NumExpected);
+        //var_dump($NumExpected);
     
         //checks if the number of sizes is what is Expected 
         if ($lenInputArr != $NumExpected){
-            echo $lenInputArr . "<br>" . $NumExpected . "<br>";
+            //echo $lenInputArr . "<br>" . $NumExpected . "<br>";
             //
             $msg = " <p><b class = 'error'>Either Too Few Or Too Many Sizes Given For Selected Item!</b></p>";
             $_SESSION['msg'] = $msg;
-            echo $msg ."<br>";
-            echo "input Arr:";
-            var_dump($inputArr); //test
+            //echo $msg ."<br>";
+            //echo "input Arr:";
+            //var_dump($inputArr); //test
             return (false);
         }else{
             $loop = 0;
-            echo "i ran 4";
-            echo "lenInputArr: ".$lenInputArr ."<br>";
+            //echo "i ran 4";
+            //echo "lenInputArr: ".$lenInputArr ."<br>";
             while ($loop < $lenInputArr){
-                var_dump($inputArr); //test
+                //var_dump($inputArr); //test
     
-                echo $inputArr[$loop];
-                echo "i ran 5"; // test 
-                echo "<br> is nummeric: ".is_numeric($inputArr[$loop]); //test
+                //echo $inputArr[$loop];
+                //echo "i ran 5"; // test 
+                //echo "<br> is nummeric: ".is_numeric($inputArr[$loop]); //test
                 // checks if the sizes contains letters or other charecters
                 $temp = $inputArr[$loop];
-                echo "<br> temp: ". $temp. "<br> is_numeric:". is_numeric($temp)."<br>";
+                //echo "<br> temp: ". $temp. "<br> is_numeric:". is_numeric($temp)."<br>";
                 if(is_numeric($temp) != 1){
-                    echo "i ran 6";
+                    //echo "i ran 6";
                     //
                     $msg = "<p><b class = 'error'> Sizes Must Only Contain Intigers Seperated By A / </b></p>";
                     $_SESSION['msg'] = $msg;
@@ -144,7 +144,7 @@ if (isset($_POST['submitER'])){
   $NumSizesExpected = getNumExpected($ItemType, $conn);
   // general validation
   if ($itemID == "" or $NSN == ""  or $ItemType == ""  or $NumIssued == ""  or $NumInStore == ""  or $NumReserved == ""  or $NumOrdered == "" or $Size == ""){
-      echo "i Ran 1 <br>"; // test 
+      //echo "i Ran 1 <br>"; // test 
       
       $msg = "<p><b class = 'error'>Fields Must Not Be Empty </b></p>";
       $_SESSION['msg'] = $msg;

@@ -1,0 +1,37 @@
+* {
+    color: white;
+    font-family: 'Courier New', monospace;
+    
+}
+b{
+    color: rgb(245, 234, 0)
+}
+h1{
+    color: white;
+}
+h2{
+    color: black;
+}
+
+.bg-green{
+    background-color: rgb(0, 43, 23);
+}
+.bg-white{
+    background-color: white;
+}
+.bg-yellow{
+    background-color: rgb(245, 234, 0)
+}
+.bg-mtp{
+    background-image: url("images/mtp.jpg");
+}
+.txt-black{
+    color: black;
+}
+.txt-green{
+    color: rgb(0, 43, 23);
+}
+.txt-yellow{
+    color:rgb(245, 234, 0);
+}
+

@@ -202,12 +202,12 @@
                    echo "<td>" . $statusArr[$loop]. "</td>";
                    echo "<td>" . sizesCompression($currentUserID,$IDArr[$loop],$conn). "</td>";
                    echo "<td>
-                   <form method='post' action ='deleteRow.php'>
+                   <form method='post' action ='deleteRowRequests.php'>
                    <input type='hidden' id = 'Xdata' name='Xdata' value=' $IDArr[$loop] '/>
                    <input type='submit' name='X' value='X'/>
                    </form>
                    </td>";
-                   //echo "<td><a href=deleteRow.php> <button class ='button'>X</button </a></td>";// Old button
+                   //echo "<td><a href=deleteRowRequests.php> <button class ='button'>X</button </a></td>";// Old button
                 echo "</tr>";
                 
                 $loop = $loop + 1;

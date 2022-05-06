@@ -1,233 +1,242 @@
 * {
-    color: white;
-    font-family: 'Courier New', monospace;
-    
+  color: white;
+  font-family: 'Courier New', monospace;
+  
 }
 /* ----------------------------- table stuff  -----------------------------  */
 table {
-  border: 1px solid black;
-  border-collapse: collapse;
+border: 1px solid black;
+border-collapse: collapse;
 }
 td{
-  width: 150px; 
-  border: 1px solid black; 
-  background-color: rgb(0, 43, 23, 0.938);
+width: 150px; 
+border: 1px solid black; 
+background-color: rgb(0, 43, 23, 0.938);
 }
 th{
-  color: black;
-  background-color: white;
-  position: sticky;
-  top: 0; /* Don't forget this, required for the stickiness */
-  box-shadow: 0 2px 2px -1px rgba(0, 0, 0, 0.4);
+color: black;
+background-color: white;
+position: sticky;
+top: 0; /* Don't forget this, required for the stickiness */
+box-shadow: 0 2px 2px -1px rgba(0, 0, 0, 0.4);
 }
 .tableDisplay{
-  width: 100%;
+width: 100%;
 }
 tr:nth-child(even) {
-  background-color: #f2f2f2;
+background-color: #f2f2f2;
 } 
 
 
 
 /* ----------------------------- Header Stuff -----------------------------  */
 #header {
-    background-color: rgb(0, 43, 23);
-    /* padding: 0%;
-    margin: 0; */
-    font-family: 'Bebas Neue', cursive;
-    font-style: oblique;
-    text-align: center;
-  }
-h1{
-  /* margin: 0px;
-  margin-top: 10px; */
+  background-color: rgb(0, 43, 23);
+  padding: 0%;
+  margin: 0;
+  font-family: 'Bebas Neue', cursive;
+  font-style: oblique;
+  text-align: center;
 }
-  /* ----------------------------- Navbar Stuff -----------------------------  */
-  #navbar {
-    background-color: white;
-    /* padding: 0%;
-    margin: none;
-    height: auto; */
+h1{
+margin: 0px;
+margin-top: 10px;
+}
+/* ----------------------------- Navbar Stuff -----------------------------  */
+#navbar {
+  background-color: white;
+  padding: 0%;
+  margin: none;
+  height: auto;
 
-  }
-  #navbarDash {
-    background-color: white;
-    /* padding: 20px;
-    margin: none;
-    max-height: 20px;
-    height: auto; */
+}
+#navbarDash {
+  background-color: white;
+  padding: 20px;
+  margin: none;
+  max-height: 20px;
+  height: auto;
 
-  }
-  .profilePic{
-    border-radius: 50%;
-    height: auto;
-    width: 10%;
-    border: 10px solid white;
-    margin: 1px;
-    margin-top: -40px;    
-  }
-  .backArrow{
-    border-radius: 50%;
-    border: 5px solid rgb(245, 234, 0) ;
-    margin: 0px;
-    
-  }
+}
+.profilePic{
+  border-radius: 50%;
+  height: auto;
+  width: 10%;
+  border: 10px solid white;
+  margin: 1px;
+  margin-top: -40px;    
+}
+.backArrow{
+  border-radius: 50%;
+  border: 5px solid rgb(245, 234, 0) ;
+  margin: 0px;
   
-  .navBarTxt {
-    color: black;
-    text-align: center;
-    text-decoration: none;
-    margin: 0px;
-  }
-  .navBarDashTxt {
-    color: black;
-    text-align: center;
-    text-decoration: none;
-    margin: 0px;
-  }
-  .navBarList{
-    margin: 0px;
-  }
-  .navBarTxt:hover {
-    background-color: rgb(245, 234, 0); 
-  }
-  .inline {
-    display: inline;
-  }
-  #logOut{
-    /* text-align: right;
-    margin-left: 900px;
-    margin-top: -90000000px; */
+}
 
-  }
-  /* ----------------------------- Body stuff -----------------------------  */
-  body {
-    background-image: url("images/mtp.jpg");
-    background-repeat: no-repeat;
-    background-attachment: fixed;
-    background-size: cover;
-    /* margin: 0;
-    height: auto; */
-  }
-  .error{
-    color: red;
-  }
-  .success{
-    color: greenyellow;
-  }
-  
+.navBarTxt {
+  color: black;
+  text-align: center;
+  text-decoration: none;
+  margin: 0px;
+}
+.navBarDashTxt {
+  color: black;
+  text-align: center;
+  text-decoration: none;
+  margin: 0px;
+}
+.navBarList{
+  margin: 0px;
+}
+.navBarTxt:hover {
+  background-color: rgb(245, 234, 0); 
+}
+.inline {
+  display: inline;
+}
+#logOut{
+  text-align: right;
+  margin-left: 900px;
+  margin-top: -90000000px;
 
-    #container{ 
-      min-height: 100%;
-      background-color: none;
-      border: none;
+}
+/* ----------------------------- Body stuff -----------------------------  */
+body {
+  background-image: url("images/mtp.jpg");
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
+  margin: 0;
+  height: auto;
+}
+.error{
+  color: red;
+}
+.success{
+  color: greenyellow;
+}
+
+
+
+  #container{ 
+    min-height: 100%;
+    background-color: none;
+    border: none;
+  }
+
+    #main {
+      background-color: rgb(0, 43, 23, 0.938);
+      margin: 5%;
+      margin-top: 50px;
+      padding: 1%;
+      height: auto;
+      width: auto;
+      text-align: center;
+      font-family: 'Bebas Neue', cursive;
+      font-style: oblique;
     }
 
-      #main {
-        background-color: rgb(0, 43, 23, 0.938);
-        margin: 5%;
-        margin-top: 50px;
-        padding: 1%;
-        height: auto;
-        width: auto;
-        text-align: center;
-        font-family: 'Bebas Neue', cursive;
-        font-style: oblique;
-      }
 
+    .dashbord{
+      padding: 1%;
+      margin: 10px 10px;
+    }
+    
+    .dashbordTroop{
+      background-color: rgb(139, 141, 0);
+      padding: 1%;
+      margin: 10px 10px;
+    }
+    .dashbordSection{
+      background-color: rgb(51, 153, 114);
+      padding: 1%;
+      margin: 10px 10px;
+    }
+    .dashbordOrders{
+      background-color: rebeccapurple;
+      padding: 1%;
+      margin: 10px 10px;
+    }
+    .dashbordKitRequest{
+      background-color: rgb(0, 85, 0);
+      padding: 1%;
+      margin: 10px 10px;
+    }
+    .dashbordTrips{
+      background-color: rgb(255, 136, 0);
+      padding: 1%;
+      margin: 10px 10px;
+    }
+    .dashbordVPB{
+      background-color: blue;
+      padding: 1%;
+      margin: 10px 10px;
+    }
+    ul.no-bullets {
+      list-style-type: none;
+      margin: 0;
+      padding: 0;
+    }
+    .dasbordTxt{
+      list-style-type: none;
+      text-decoration: none;
 
-      .dashbord{
-        padding: 1%;
-        margin: 10px 10px;
-      }
-      
-      .dashbordTroop{
-        background-color: rgb(139, 141, 0);
-        padding: 1%;
-        margin: 10px 10px;
-      }
-      .dashbordSection{
-        background-color: rgb(51, 153, 114);
-        padding: 1%;
-        margin: 10px 10px;
-      }
-      .dashbordOrders{
-        background-color: rebeccapurple;
-        padding: 1%;
-        margin: 10px 10px;
-      }
-      .dashbordKitRequest{
-        background-color: rgb(0, 85, 0);
-        padding: 1%;
-        margin: 10px 10px;
-      }
-      .dashbordTrips{
-        background-color: rgb(255, 136, 0);
-        padding: 1%;
-        margin: 10px 10px;
-      }
-      .dashbordVPB{
-        background-color: blue;
-        padding: 1%;
-        margin: 10px 10px;
-      }
-      ul.no-bullets {
-        list-style-type: none;
-        margin: 0;
-        padding: 0;
-      }
-      .dasbordTxt{
-        list-style-type: none;
-        text-decoration: none;
+    }
+    li.dasbord:hover {
+      background-color: white; 
+    }
+    .dasbordTxt:hover {
+      color: black; 
+    } 
+    #radio{
+      margin: 0%;
+      display: inline;
+    }
 
-      }
-      li.dasbord:hover {
-        background-color: white; 
-      }
-      .dasbordTxt:hover {
-        color: black; 
-      } 
-      #radio{
-        margin: 0%;
-        display: inline;
-      }
+    b{
+      color: rgb(245, 234, 0)
+    }
+/* ----------------------------- Button stuff  -----------------------------  */
 
-      b{
-        color: rgb(245, 234, 0)
-      }
-  /* ----------------------------- Button stuff  -----------------------------  */
+.button {
+  background-color: white; 
+  border: none;
+  color:black;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  margin: 15px;
+  font-size: 16px;
+  border-radius: 4px;
+}
+input[type=button], input[type=submit], input[type=reset] {
+  background-color: white;
+  border: none;
+  color: black;
+  padding: 16px 32px;
+  text-decoration: none;
+  margin: 4px 2px;
+  cursor: pointer;
+}
+.button:hover {
+   color: rgb(245, 234, 0); 
+   background-color: rgb(0,78,66) ;
+}
+.buttonPressed{
+  color: rgb(245, 234, 0); 
+  background-color: rgb(0,78,66) ;
+}
+.smallButton{
+  border: none;
+  border-radius: 2px;
+  width: 2px;
+  height: 2px;
+  background-color: white; 
+  color:black;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
 
-  .button {
-    background-color: white; 
-    border: none;
-    color:black;
-    /* padding: 15px 32px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    margin: 15px;
-    font-size: 16px;
-    border-radius: 4px; */
-  }
-  input[type=button], input[type=submit], input[type=reset] {
-    background-color: white;
-    border: none;
-    color: black;
-    /* padding: 16px 32px; */
-    text-decoration: none;
-    /* margin: 4px 2px; */
-    cursor: pointer;
-  }
-  .button:hover {
-     color: rgb(245, 234, 0); 
-     background-color: rgb(0,78,66) ;
-  }
-  .buttonPressed{
-    color: rgb(245, 234, 0); 
-    background-color: rgb(0,78,66) ;
-  }
+}
 
-  
-
-
-      

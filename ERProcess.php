@@ -1,4 +1,5 @@
 <?php
+echo "Loading....";
 session_start();
 $errors = false;// global
 
@@ -8,8 +9,8 @@ function updateSize($itemID, $sizeTypeID, $value, $Requests, $con){
     $qry = "UPDATE sizes SET `value`= ? WHERE itemID = ? AND sizeTypeID = ? ;";
     $stmt = $con->prepare($qry);
     $stmt->execute([$value, $itemID, $sizeTypeID]);
-    echo "completed <br>";
-    echo $Requests;
+    //echo"completed <br>";
+    //echo$Requests;
     if ($Requests == true){
         $qry = "UPDATE sizesRequest  INNER JOIN itemRequest ON sizesRequest.itemID = itemRequest.ID SET `value`= ? WHERE itemRequest.stockID = ? AND sizesRequest.sizeTypeID = ? ;";
         $stmt = $con->prepare($qry);
@@ -56,11 +57,11 @@ $SizeArray = explode("/",$Size); // create array out of sizes ie:  xx/yy/zz => [
     // var_dump($SizeArray); // test
 if ($ItemTypeID == 1 or $ItemTypeID == 2 or $ItemTypeID == 3 or $ItemTypeID == 4){ // for torso items
     $height = $SizeArray[0];
-    echo "height: " .$height . "<br>";
+    //echo"height: " .$height . "<br>";
     updateSize($itemID, 1, $height, $Requests, $conn);
     $chest = $SizeArray[1];
     updateSize($itemID, 2, $chest, $Requests, $conn);
-    echo "chest: " .$chest . "<br>";            
+    //echo"chest: " .$chest . "<br>";            
 
 } elseif ($ItemTypeID == 5){ // for trousers
     $waist = $SizeArray[0];
@@ -78,10 +79,10 @@ if ($ItemTypeID == 1 or $ItemTypeID == 2 or $ItemTypeID == 3 or $ItemTypeID == 4
     $shoeSize = $SizeArray[0];
     updateSize($itemID, 7, $shoeSize, $Requests, $conn);
 }
-//header("location: Stock.php");
+header("location: Stock.php");
   
 } catch (PDOException $e) {
-    echo "Error : ".$e->getMessage();
+    echo"Error : ".$e->getMessage();
 }
 
 ?>
