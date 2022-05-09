@@ -143,7 +143,7 @@ if (isset($_POST['submitER'])){
   // set up for validating sizes
   $NumSizesExpected = getNumExpected($ItemType, $conn);
   // general validation
-  if ($itemID == "" or $NSN == ""  or $ItemType == ""  or $NumIssued == ""  or $NumInStore == ""  or $NumReserved == ""  or $NumOrdered == "" or $Size == ""){
+  if ($itemID == "" or $ItemType == ""  or $NumIssued == ""  or $NumInStore == ""  or $NumReserved == ""  or $NumOrdered == "" or $Size == ""){
       //echo "i Ran 1 <br>"; // test 
       
       $msg = "<p><b class = 'error'>Fields Must Not Be Empty </b></p>";
