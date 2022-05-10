@@ -9,6 +9,17 @@
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
       <?php
       session_start();
+      // system to destroy msg variable when its not wanted
+      if (isset($_SESSION['previous'])) {
+        if (basename($_SERVER['PHP_SELF']) != $_SESSION['previous']) {
+             unset($_SESSION['msg']);
+        }else{
+
+        }
+      }else{
+
+      }
+      $_SESSION['previous'] = basename($_SERVER['PHP_SELF']);
       ?>
     </head>
 

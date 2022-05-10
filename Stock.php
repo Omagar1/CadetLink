@@ -21,6 +21,18 @@
         header("location: index.php"); // if so redirects them to the loginpage page
       };
 
+      // system to destroy msg variable when its not wanted
+      if (isset($_SESSION['previous'])) {
+        if (basename($_SERVER['PHP_SELF']) != $_SESSION['previous']) {
+             unset($_SESSION['msg']);
+        }else{
+
+        }
+      }else{
+
+      }
+      $_SESSION['previous'] = basename($_SERVER['PHP_SELF']);
+
     // Qry to find the sizes of their requests
     function sizesCompressionAdmin($ItemID,$con){
       $sql = "SELECT sizes.itemID, sizes.value 

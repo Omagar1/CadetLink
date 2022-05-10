@@ -12,13 +12,25 @@
       // connects to database
       require_once "ConnectDB.php";
       //checks if not logged in 
-     if(!isset($_SESSION["loggedIn"]) and ($_SESSION["loggedIn"] != true) ){
+      if(!isset($_SESSION["loggedIn"]) and ($_SESSION["loggedIn"] != true) ){
         header("location: index.php"); // if so redirects them to the loginpage page
       };
+
+      // system to destroy msg variable when its not wanted
+      if (isset($_SESSION['previous'])) {
+        if (basename($_SERVER['PHP_SELF']) != $_SESSION['previous']) {
+              unset($_SESSION['msg']);
+        }else{
+
+        }
+      }else{
+
+      }
+      $_SESSION['previous'] = basename($_SERVER['PHP_SELF']);
       if (isset($_POST['submit'])){
         // validation
 
-        }
+      }
 // ---------------------------------------------------functions---------------------------------------------------
     
     function sizesCompressionAdmin($ItemID,$con){

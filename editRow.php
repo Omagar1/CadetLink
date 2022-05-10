@@ -15,10 +15,19 @@
      if(!isset($_SESSION["loggedIn"]) and ($_SESSION["loggedIn"] != true) ){
         header("location: index.php"); // if so redirects them to the loginpage page
       };
-      if (isset($_POST['submit'])){
-        // validation
+      // system to destroy msg variable when its not wanted
+      if (isset($_SESSION['previous'])) {
+        if (basename($_SERVER['PHP_SELF']) != $_SESSION['previous']) {
+             unset($_SESSION['msg']);
+        }else{
 
         }
+      }else{
+
+      }
+      $_SESSION['previous'] = basename($_SERVER['PHP_SELF']);
+
+      
 // ---------------------------------------------------functions---------------------------------------------------
     
     function sizesCompressionAdmin($ItemID,$con){

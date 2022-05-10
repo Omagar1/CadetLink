@@ -9,6 +9,17 @@
       <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">
       <?php
       session_start();
+      // system to destroy msg variable when its not wanted
+      if (isset($_SESSION['previous'])) {
+        if (basename($_SERVER['PHP_SELF']) != $_SESSION['previous']) {
+             unset($_SESSION['msg']);
+        }else{
+
+        }
+      }else{
+
+      }
+      $_SESSION['previous'] = basename($_SERVER['PHP_SELF']);
       ?>
       <script>
         function processForm(){
