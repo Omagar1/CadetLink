@@ -165,7 +165,7 @@ if (isset($_POST['submitER'])){
 }else{
 // ---------------------------------------------------main code---------------------------------------------------
   $itemID = $_POST['editRow'];
-  // Qry to find requests of this User
+  // Qry to find the rest of the data 
   
   $sql = "SELECT * FROM items WHERE ID = ?;";
   $stmt = $conn->prepare($sql);
@@ -229,7 +229,11 @@ if (isset($_POST['submitER'])){
                   $stmt = $conn->prepare($sql);
                   $stmt->execute();
                   while($row = $stmt->fetch(PDO::FETCH_ASSOC)){
-                    echo "<option value=".$row["ID"].">".$row["ItemTypeName"]."</option>";
+                    if ($row["ID"] == $ItemTypeID){
+                      echo "<option value='".$row["ID"]."' selected>".$row["ItemTypeName"]."</option>";
+                    }else{
+                      echo "<option value=".$row["ID"].">".$row["ItemTypeName"]."</option>";
+                    }
                   }
                   ?>
                 </select><br></td>
