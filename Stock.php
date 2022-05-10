@@ -9,11 +9,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <?php
       session_start();
+      // initializing variables
       $sizeFindUsed = false;
       $count = 0;
+    
+      
       // connects to database
       require_once "ConnectDB.php";
-      //checks if not logged in  - broken 
+      //checks if not logged in
      if(!isset($_SESSION["loggedIn"]) and ($_SESSION["loggedIn"] != true) ){
         header("location: index.php"); // if so redirects them to the loginpage page
       };
@@ -123,11 +126,14 @@ $NumOrderedArr = [];
 
 if (isset($_POST['find'])){
   $findItemTypeID = $_POST["ItemType"];
-  $findSize1 = $_POST["Size1"];
-  $findSize2 = $_POST["Size2"];
-  $findSize3 = $_POST["Size3"];
+  $findSize1 = trim($_POST["Size1"]);
+  $findSize2 = trim($_POST["Size2"]);
+  $findSize3 = trim($_POST["Size3"]);
 
-  if ($findItemTypeID != 0 /* */ and $findSize1 != "" and $findSize2 != "" and $findSize3 != ""){
+  
+   
+
+  if ($findItemTypeID != 0 /* */ and $findSize1 == "" and $findSize2 == "" and $findSize3 == ""){
 
     $sql = "SELECT * FROM items WHERE ItemTypeID = ?;";
     $stmt = $conn->prepare($sql);
@@ -401,12 +407,31 @@ while ($loop < $lenItemTypeIDArr){
                 }
                 ?>
               </select><br>
+              <?php
+              
+              ?>
               <label >Nato Size</label><br>
-              <input type="text" id="Size1" name="Size1" value="">
-              <input type="text" id="Size2" name="Size2" value="">
-              <input type="text" id="Size3" name="Size3" value="">
+              <input type="text" id="Size1" name="Size1" value="<?php 
+              if (isset($findSize1)){
+                echo $findSize1; 
+              }else{
+                echo ""; 
+              } ?>">
+              <input type="text" id="Size2" name="Size2" value="<?php
+              if (isset($findSize2)){
+                echo $findSize2; 
+              }else{
+                echo ""; 
+              } ?>">
+              <input type="text" id="Size3" name="Size3" value="<?php
+               if (isset($findSize3)){
+                echo $findSize3; 
+               }else{
+                 echo ""; 
+               }?>">
               <br>
               <input type="submit" class = "button" value="find" name="find">
+              
               
             </form>
               <table class = "tableDisplay">
@@ -421,8 +446,12 @@ while ($loop < $lenItemTypeIDArr){
                   <th>Size</th>
                   <th>edit?</th>
                   <th>delete?</th>
-
                 </tr>
+                <form method='post' action ='addNewStock.php'>
+                <input type="hidden" id = "sub1NumInStore" name="sub1NumInStore" value="$IDArr[$loop]"/>
+                <input type="submit" class="button" name="addNew" value="Add New"/>
+                </form>
+
                 <?php 
                   $loop = 0;
                   ////var_dump($IDArr); //test

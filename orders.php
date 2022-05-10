@@ -10,7 +10,7 @@
       <?php
       session_start();
       //checks if not logged in 
-      if(isset($_SESSION["loggedIn"]) and ($_SESSION["loggedIn"] != true) ){
+     if(!isset($_SESSION["loggedIn"]) and ($_SESSION["loggedIn"] != true) ){
         header("location: index.php"); // if so redirects them to the loginpage page
       };
       ?>
@@ -25,6 +25,7 @@
       <div id="navbarDash">
         <h2 class ="navBarDashTxt"> welcome Sgt sleep paralysis demon</h2>
         <img class = "profilePic" src="images/<?php echo $_SESSION['profilePicURL'];?>" alt="SgtDefalt" width="auto" height="150">
+        <button onclick="history.go(-1);">Back </button>
       </div>
       <div id="container">
         
