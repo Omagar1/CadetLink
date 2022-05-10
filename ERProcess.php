@@ -24,7 +24,7 @@ try{
 // getting the variables
 $itemID = $_POST['ID'];
 $NSN = $_POST['NSN'];
-$ItemTypeID = $_POST['ItemType'];
+$ItemTypeID = $_POST['ItemTypeID'];
 $NumIssued = $_POST['NumIssued'];
 $NumInStore = $_POST['NumInStore'];
 $NumReserved = $_POST['NumReserved'];
