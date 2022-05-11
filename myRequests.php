@@ -152,7 +152,15 @@
             echo $_SESSION['fname']. " ";
             echo $_SESSION['lname'];?></h2>
         <img class = "profilePic" src="images/<?php echo $_SESSION['profilePicURL'];?>" alt="SgtDefalt" width="auto" height="150">
-        <button onclick="history.go(-1);">Back </button>
+        <form action ="<?php
+        if($_SESSION['troop']=="CFAV"){
+          echo "adminMainPage.php";
+        }else{
+          echo "mainPage.php";
+        }
+        ?>">
+      <input type="submit" class = "smallButton" value="«" name="dashButton">
+      </form>
       </div>
       <div id="container">
         

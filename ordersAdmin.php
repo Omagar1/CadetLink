@@ -23,7 +23,9 @@
       </div>
 
       <div id="navbarDash">
-        <h2 class ="navBarDashTxt"> welcome Sgt sleep paralysis demon</h2>
+        <h2 class ="navBarDashTxt"> welcome <?php echo $_SESSION['rank']. " ";
+            echo $_SESSION['fname']. " ";
+            echo $_SESSION['lname'];?></h2></h2>
         <img class = "profilePic" src="images/<?php echo $_SESSION['profilePicURL'];?>" alt="SgtDefalt" width="auto" height="150">
         <form action ="<?php
         if($_SESSION['troop']=="CFAV"){
@@ -38,7 +40,13 @@
       <div id="container">
         
         <div id="main">
-            <h2>trips page - Work in Progress </h2>
+            <h2>Orders Page - Work in Progress </h2>
+            <form action="upload.php" method="post" enctype="multipart/form-data">
+                Select image to upload:
+            <input type="file" name="fileToUpload" id="fileToUpload">
+            <br>
+            <input type="submit" value="Upload file" name="submit">
+            </form>
             
         </div>
       </div>

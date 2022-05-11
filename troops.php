@@ -25,6 +25,15 @@
       <div id="navbarDash">
         <h2 class ="navBarDashTxt"> welcome Sgt sleep paralysis demon</h2>
         <img class = "profilePic" src="images/<?php echo $_SESSION['profilePicURL'];?>" alt="SgtDefalt" width="auto" height="150">
+        <form action ="<?php
+        if($_SESSION['troop']=="CFAV"){
+          echo "adminMainPage.php";
+        }else{
+          echo "mainPage.php";
+        }
+        ?>">
+        <input type="submit" class = "smallButton" value="«" name="dashButton">
+        </form>
       </div>
       <div id="container">
         

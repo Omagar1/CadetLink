@@ -390,6 +390,17 @@ while ($loop < $lenItemTypeIDArr){
           echo $_SESSION['fname']. " ";
           echo $_SESSION['lname'];?></h2>
       <img class = "profilePic" src="images/<?php echo $_SESSION['profilePicURL'];?>" alt="SgtDefalt" width="auto" height="150">
+      <form action ="<?php
+      if($_SESSION['troop']=="CFAV"){
+        echo "adminMainPage.php";
+      }else{
+        echo "mainPage.php";
+      }
+      ?>">
+      <input type="submit" class = "smallButton" value="«" name="dashButton">
+      </form>
+
+
     </div>
     <div id="container">
       
@@ -423,21 +434,27 @@ while ($loop < $lenItemTypeIDArr){
               
               ?>
               <label >Nato Size</label><br>
-              <input type="text" id="Size1" name="Size1" value="<?php 
-              if (isset($findSize1)){
-                echo $findSize1; 
+              <input type="text" id="Size1" name="Size1" placeholder = "Size 1" value="<?php 
+              if($findSize1 == 0){
+                echo "";
+              }elseif (isset($findSize1)){
+                echo $findSize1;
               }else{
                 echo ""; 
               } ?>">
-              <input type="text" id="Size2" name="Size2" value="<?php
-              if (isset($findSize2)){
-                echo $findSize2; 
+              <input type="text" id="Size2" name="Size2" placeholder = "Size 2" value="<?php
+              if($findSize2 == 0){
+                echo "";
+              }elseif (isset($findSize2)){
+                echo $findSize2;
               }else{
                 echo ""; 
               } ?>">
-              <input type="text" id="Size3" name="Size3" value="<?php
-               if (isset($findSize3)){
-                echo $findSize3; 
+              <input type="text" id="Size3" name="Size3" placeholder = "Size 3" value="<?php
+               if($findSize3== 0){
+                echo "";
+               }elseif (isset($findSize3)){
+                echo $findSize3;
                }else{
                  echo ""; 
                }?>">
@@ -460,7 +477,6 @@ while ($loop < $lenItemTypeIDArr){
                   <th>delete?</th>
                 </tr>
                 <form method='post' action ='addNewStock.php'>
-                <input type="hidden" id = "sub1NumInStore" name="sub1NumInStore" value="$IDArr[$loop]"/>
                 <input type="submit" class="button" name="addNew" value="Add New"/>
                 </form>
 

@@ -27,13 +27,13 @@ if ($uname != "" Or $pword != ""){
             $_SESSION['lname'] = $row['lname'];
             $_SESSION['rank'] = $row['rank'];
             $_SESSION['section'] = $row['section'];
-            $_SESSION['CFAV'] = $row['CFAV'];
+            $_SESSION['troop'] = $row['troop'];
             $_SESSION['profilePicURL'] = $row['profilePicURL'];
             $_SESSION['loggedIn'] = true;
             $msg = ""; // declars blank varible to remove error in index.php  
             $_SESSION['msg'] = $msg;
-            echo $_SESSION['CFAV'];
-            if ($_SESSION['CFAV'] == 1){ // Admin Check
+
+            if ($_SESSION['troop'] == "CFAV"){ // Admin Check
                 header("location: adminMainPage.php"); // if true redirects them to an Admin page
             }else{
                 header("location: mainPage.php");   
