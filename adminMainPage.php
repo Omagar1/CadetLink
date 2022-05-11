@@ -34,6 +34,9 @@
             echo $_SESSION['fname']. " ";
             echo $_SESSION['lname'];?></h2>
           <img class = "profilePic" src="images/<?php echo $_SESSION['profilePicURL'];?>" alt="SgtDefalt" width="auto" height="150">
+          <form method="get" action="LOProcess.php">
+              <button type="submit" class = "w3-threequarter, button">LogOut</button>
+          </form>
       </div>
 
       <div id="container">

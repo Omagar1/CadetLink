@@ -47,7 +47,7 @@
       <div id="container">
         
         <div id="main">
-            <h2>your Dashbord</h2>
+            <h2>your Dashboard</h2>
             <p>reminders for next Cadet Session</p>
             <ul>
                 <li>Iron Kit !</li>
@@ -60,7 +60,7 @@
                 <li class ="dashbordTroop" class ="dashbord" class = "inline"><a href = "troops.php" class = "dasbordTxt">Troop:Chard</a></li>
                 <li class ="dashbordSection" class ="dashbord" class = "inline"><a href = "section." class = "dasbordTxt">4 section</a></li>
                 <li class ="dashbordOrders" class ="dashbord"><a href = "orders.php" class = "dasbordTxt">Orders</a></li>
-                <li class ="dashbordKitRequest" class ="dashbord"><a href = "kitRequest.php"class = "dasbordTxt">Uniform</a></li>
+                <li class ="dashbordKitRequest" class ="dashbord"><a href = "kitRequest.php"class = "dasbordTxt">Kit Request</a></li>
                 <li class ="dashbordTrips" class ="dashbord"><a href = "trips.php"class = "dasbordTxt">Trips</a></li>
                 <li class ="dashbordVPB" class ="dashbord"><a href = "#VPB"class = "dasbordTxt">Virtual Pocket Book</a></li>
                 </ul>
