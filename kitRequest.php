@@ -51,7 +51,7 @@
     
         //checks if the number of sizes is what is Expected 
         if ($lenInputArr != $NumExpected){
-             echo "len:".$lenInputArr . "<br> numExpt: " . $NumExpected . "<br>";
+            //echo "len:".$lenInputArr . "<br> numExpt: " . $NumExpected . "<br>";//test 
             //
             $msg = " <p><b class = 'error'>Either Too Few Or Too Many Sizes Given For Selected Item!</b></p>";
             $_SESSION['msg'] = $msg;
@@ -111,10 +111,10 @@ if (isset($_POST['submitKR'])){
   $Size = trim($_POST['Size']);
   $purpose = trim($_POST['purpose']);
   $NumRequested = trim($_POST['NumRequested']);
-  echo $ItemTypeID ."<br>";
-  echo $Size ."<br>";
-  echo $purpose ."<br>";
-  echo $NumRequested ."<br>";
+  // echo $ItemTypeID ."<br>";
+  // echo $Size ."<br>";
+  // echo $purpose ."<br>";
+  // echo $NumRequested ."<br>";
 
   // set up for validating sizes
   $NumSizesExpected = getNumExpected($ItemTypeID, $conn);

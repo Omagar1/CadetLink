@@ -41,14 +41,13 @@ $rankArr = [];
 $fnameArr = [];
 $lnameArr = [];
 $troopArr = [];
-$CFAVArr = [];
 
 
 if (isset($_POST['find'])){
-  $troop = $_POST["troopArr"];
-  $rank = trim($_POST["Size1"]);
-  $fname = trim($_POST["Size2"]);
-  $lname = trim($_POST["Size3"]);
+  $troop = $_POST["troop"];
+  $rank = trim($_POST["rank"]);
+  $fname = trim($_POST["fname"]);
+  $lname = trim($_POST["lname"]);
   
   //with all
   if($rank != "" and $fname != "" and $lname != "" and $troop != 0){
@@ -137,7 +136,6 @@ while($row = $stmt->fetch(PDO::FETCH_ASSOC)){
   array_push($fnameArr,$row['fname']);
   array_push($lnameArr,$row['lname']);
   array_push($troopArr,$row['troop']);
-  array_push($CFAVArr,$row['CFAV']);
 }
 
 ?>
@@ -153,25 +151,24 @@ while($row = $stmt->fetch(PDO::FETCH_ASSOC)){
           echo $_SESSION['fname']. " ";
           echo $_SESSION['lname'];?></h2>
       <img class = "profilePic" src="images/<?php echo $_SESSION['profilePicURL'];?>" alt="SgtDefalt" width="auto" height="150">
+      <form action ="<?php
+      if($_SESSION['troop']=="CFAV"){
+        echo "adminMainPage.php";
+      }else{
+        echo "mainPage.php";
+      }
+      ?>">
+      <input type="submit" class = "smallButton" value="«" name="dashButton">
+      </form>
     </div>
     <div id="container">
       
       <div id="main">
-          <h2>Virtual stores - Work in Progress </h2>
-
-          <a href=virtualStores.php >
-            <button class ="button">Requests</button>
-          </a>
-          <a href=#Stock.php >
-            <button class ="button buttonPressed">Stock</button>
-          </a>
-          <a href=kitRequest.php >
-            <button class ="button ">Make A Request</button>
-          </a>
+          <h2>User Management System - Work in Progress </h2>
           <fieldset>
-            <form action = "Stock.php" method="post">
-            <label for="troopArr">troopArr</label><br>
-            <select id="troopArr" name="troopArr">
+            <form action = "manageUsers.php" method="post">
+            <label for="troop">troop</label><br>
+            <select id="troop" name="troop">
               <option value="0">No Filter</option>
               <?php
                 $sql = "SELECT * FROM troops;";
@@ -186,23 +183,23 @@ while($row = $stmt->fetch(PDO::FETCH_ASSOC)){
               
               ?>
               <label >Rank and Name</label><br>
-              <input type="text" id="rank" name="rank" value="<?php 
+              <input type="text" id="rank" name="rank" placeholder = "Rank" value="<?php 
               if (isset($rank)){
                 echo $rank; 
               }else{
-                echo "Rank"; 
+                echo " "; 
               } ?>">
-              <input type="text" id="fname" name="fname" value="<?php
+              <input type="text" id="fname" name="fname" placeholder = "First Name" value="<?php
               if (isset($fname)){
                 echo $fname; 
               }else{
-                echo "First Name"; 
+                echo " "; 
               } ?>">
-              <input type="text" id="lname" name="lname" value="<?php
+              <input type="text" id="lname" name="lname" placeholder = "Last Name" value="<?php
                if (isset($lname)){
                 echo $lname; 
                }else{
-                 echo "Last Name"; 
+                 echo " "; 
                }?>">
               <br>
               <input type="submit" class = "button" value="find" name="find">
@@ -217,11 +214,15 @@ while($row = $stmt->fetch(PDO::FETCH_ASSOC)){
                   <th>first name</th>
                   <th>last name</th>
                   <th>troop</th>
-                  <th>CFAV</th>
                   <th>Password reset</th>
                   <th>edit?</th>
                   <th>delete?</th>
                 </tr>
+
+                <form method='post' action ='addUsers.php'>
+                <input type="submit" class="button" name="addNew" value="Add New"/>
+                </form>
+
                 <?php 
                   $loop = 0;
                   ////var_dump($IDArr); //test
@@ -236,7 +237,6 @@ while($row = $stmt->fetch(PDO::FETCH_ASSOC)){
                       echo "<td>" .  $fnameArr[$loop] . "</td>"; 
                       echo "<td>" .  $lnameArr[$loop] . "</td>";
                       echo "<td>" .  $troopArr[$loop]. "</td>";
-                      echo "<td>" .  $CFAVArr[$loop]. "</td>"; 
                       echo "<td> Coming Soon</td>";
                       echo "<td>
                       <form method='post' action ='#editUsers.php'>

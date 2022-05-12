@@ -351,5 +351,25 @@ VALUES(77,6,3,'shoeSize'),
 
 INSERT INTO `users` (fname,lname,rank,section,CFAV,Cnum,Pword)
 VALUES(Josh,Wilkinson,Cpl,2,0,12345678,Howson4life),
-    (Temi,Wagar,Ssgt,5,0,43218765,1l0veCadets),
+    (Temi,Wagar,Ssgt,5,0,43218765,1l0veCadets);
+
+INSERT INTO `troops` (troopName)
+VALUES('Chard'),
+    ('Kitchener'),
+    ('Gundulf'),
+    ('Archibald'),
+    ('CFAV');
+INSERT INTO `ranks` (rank)
+VALUES('Cdt'),
+    ('l/Cpl'),
+    ('Cpl'),
+    ('Sgt'),
+    ('Ssgt'),
+    ('W02'),
+    ('W01'),
+    ('SgtCFAV'),
+    ('2lt'),
+    ('lt'),
+    ('Cpt'),
+    ('Maj');
 
