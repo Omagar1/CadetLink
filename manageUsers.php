@@ -237,15 +237,18 @@ while($row = $stmt->fetch(PDO::FETCH_ASSOC)){
                       echo "<td>" .  $fnameArr[$loop] . "</td>"; 
                       echo "<td>" .  $lnameArr[$loop] . "</td>";
                       echo "<td>" .  $troopArr[$loop]. "</td>";
-                      echo "<td> Coming Soon</td>";
+                      echo "<td> <form method='post' action ='resetPWord.php'>
+                      <input type='hidden' id = 'resetPWord' name='resetPWord' value=' $IDArr[$loop] '/>
+                      <input type='submit' name='RP' value='Reset Password'/>
+                      </form>";
                       echo "<td>
-                      <form method='post' action ='#editUsers.php'>
-                      <input type='hidden' id = 'editRow' name='editRow' value=' $IDArr[$loop] '/>
-                      <input type='submit' name='eR' value='edit'/>
+                      <form method='post' action ='editUser.php'>
+                      <input type='hidden' id = 'editUser' name='editUser' value=' $IDArr[$loop] '/>
+                      <input type='submit' name='eU' value='edit'/>
                       </form>
                       </td>";
                       echo "<td>
-                      <form method='post' action ='#deleteRowUsers.php'>
+                      <form method='post' action ='deleteUser.php'>
                       <input type='hidden' id = 'Xdata' name='Xdata' value=' $IDArr[$loop] '/>
                       <input type='submit' name='X' value='X'/>
                       </form>
