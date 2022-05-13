@@ -43,18 +43,18 @@
 // -----------------------------------validation -----------------------------------
 if (isset($_POST['submitAU'])){
   // getting the variables
+  $userID = $_POST['ID'];
   $Cnum = $_POST['Cnum'];
-  $Pwd = $_POST['Pwd'];
   $rank = $_POST['rank'];
   $fname = $_POST['fname'];
   $lname = $_POST['lname'];
   $troop = $_POST['troop'];
   // general validation
-  // checks to see if there is a Cnum with the same number as it the user entered one 
+  // checks to see if there is a Cnum with the same number as it the user entered one apart from for that user ID
   if($Cnum != ""){
-    $sql = "SELECT * FROM users WHERE Cnum =?;";
+    $sql = "SELECT * FROM users WHERE Cnum =? AND ID !=?;";
     $stmt = $conn->prepare($sql);
-    $stmt->execute([$Cnum]);
+    $stmt->execute([$Cnum, $userID]);
     $result = $stmt->fetch(PDO::FETCH_ASSOC);
     if($result != false){
       $CnumUsed = true; 
@@ -65,7 +65,7 @@ if (isset($_POST['submitAU'])){
   }else{
 
   }
-  if ($Cnum == ""  or $Pwd == ""or $rank == ""  or $fname == ""  or $lname == ""  or $troop == ""){
+  if ($Cnum == "" or $rank == ""  or $fname == ""  or $lname == ""  or $troop == ""){
     //echo "i Ran 1 <br>"; // test 
     $msg = "<p><b class = 'error'>Fields Must Not Be Empty </b></p>";
     $_SESSION['msg'] = $msg;
@@ -77,13 +77,12 @@ if (isset($_POST['submitAU'])){
     $msg = "<p><b class = 'error'>Cnum Already Used</b></p>";
     $_SESSION['msg'] = $msg;
   }else{
-  // hashes password 
-  $PwdHashed = password_hash($Pwd, PASSWORD_DEFAULT);
   // send data to process page
     ?>
-    <form Id = "AutoSendForm" action = "AUProcess.php" method="post">
+    <form Id = "AutoSendForm" action = "EUProcess.php" method="post">
+    <input type="hidden" id="ID" name="ID" value="<?php echo $userID; ?>">
     <input type="hidden" id="Cnum" name="Cnum" value="<?php echo $Cnum; ?>">
-    <input type="hidden" id="Pwd" name="Pwd" value="<?php echo $PwdHashed; ?>">
+    <input type="hidden" id="Pwd" name="Pwd" value="<?php echo $Pwd; ?>">
     <input type="hidden" id="rank" name="rank" value="<?php echo $rank;?>">
     <input type="hidden" id="fname" name="fname" value="<?php echo $fname; ?>">
     <input type="hidden" id="lname" name="lname" value="<?php echo $lname; ?>">
@@ -97,8 +96,21 @@ if (isset($_POST['submitAU'])){
   }
 }else{
   
-// ---------------------------------------------------main code--------------------------------------------------- {
+// ---------------------------------------------------main code--------------------------------------------------- 
+$userID = $_POST['editUser'];
+// Qry to find the rest of the data 
 
+$sql = "SELECT * FROM users WHERE ID = ?;";
+$stmt = $conn->prepare($sql);
+$stmt->execute([$userID]);
+$result = $stmt->fetch(PDO::FETCH_ASSOC);
+
+// initialising Column arrays
+$Cnum = $result['Cnum'];
+$rank = $result['rank'];
+$fname = $result['fname'];
+$lname = $result['lname'];
+$troop = $result['troop'];
 }
 
       
@@ -142,10 +154,10 @@ if (isset($_POST['submitAU'])){
                   <th>Column Name</th>
                   <th>Data</th>
             </tr>
-            <form action = "addUsers.php" method="post">
+            <form action = "editUser.php" method="post">
             <tr>
                 <td>ID</td>
-                <td><input type="text" id="ID" name="ID" value="Auto Generated"readonly><br></td> <!-- cannot be edited -->
+                <td><input type="text" id="ID" name="ID" value="<?php echo $userID;?>"readonly><br></td> <!-- cannot be edited -->
             <tr>
             <tr>
                 <td>Cadet Number</td>
@@ -159,14 +171,8 @@ if (isset($_POST['submitAU'])){
                 <br></td>
             <tr>
             <tr>
-                <td>Password <input type="checkbox" onclick="showPwd()" class= "button" value = "👁"></td>
-                <td><input type="password" id="PwdInput" name="Pwd" value="<?php
-                if(isset($Pwd)){
-                  echo $Pwd;
-                }else{
-                  echo"Password";
-                }
-                ?>"><br></td>
+                <td>Password </td>
+                <td> Reset - Coming Soon <br></td>
             <tr>
             <tr>
                 <td>Rank</td>
@@ -177,9 +183,9 @@ if (isset($_POST['submitAU'])){
                   $stmt->execute();
                   while($row = $stmt->fetch(PDO::FETCH_ASSOC)){
                     if ($row["rank"] == $rank){
-                      echo "<option value=".$row["rank"]."selected>".$row["rank"]."</option>";
+                      echo "<option value='".$row["rank"]."'selected>".$row["rank"]."</option>";
                     }else{
-                      echo "<option value=".$row["rank"].">".$row["rank"]."</option>";
+                      echo "<option value='".$row["rank"]."'>".$row["rank"]."</option>";
                     }
                   }
                   ?>
@@ -214,7 +220,7 @@ if (isset($_POST['submitAU'])){
                   $stmt->execute();
                   while($row = $stmt->fetch(PDO::FETCH_ASSOC)){
                     if ($row["troopName"] == $troop){
-                      echo "<option value='".$row["troopName"]."' selected>".$row["troopName"]."</option>";
+                      echo "<option value='".$row["troopName"]."'selected>".$row["troopName"]."</option>";
                     }else{
                       echo "<option value='".$row["troopName"]."'>".$row["troopName"]."</option>";
                     }
@@ -223,7 +229,7 @@ if (isset($_POST['submitAU'])){
                 </select><br></td>
             <tr>
             </table>
-            <input type="submit" name ="submitAU" class = "button" value="Add">
+            <input type="submit" name ="submitAU" class = "button" value="Save">
 
             </form>
           </fieldset>
