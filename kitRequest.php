@@ -170,8 +170,6 @@ if (isset($_POST['submitKR'])){
         <input type="submit" class = "smallButton" value="«" name="dashButton">
         </form>
       </div>
-      <div id="container">
-        
         <div id="main">
             <h2>Kit Request Page - Work in Progress </h2>
 
@@ -224,7 +222,6 @@ if (isset($_POST['submitKR'])){
 
             
         </div>
-      </div>
       <div id="footer">
 
       </div>

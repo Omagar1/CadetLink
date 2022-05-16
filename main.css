@@ -39,8 +39,9 @@ background-color: #f2f2f2;
   text-align: center;
 }
 h1{
-margin: 0px;
-margin-top: 10px;
+  margin: 0px;
+  margin-top: 10px;
+  font-size: xx-large;
 }
 /* ----------------------------- Navbar Stuff -----------------------------  */
 #navbar {
@@ -115,14 +116,6 @@ body {
 .success{
   color: greenyellow;
 }
-
-
-
-  #container{ 
-    min-height: 100%;
-    background-color: none;
-    border: none;
-  }
 
     #main {
       background-color: rgb(0, 43, 23, 0.938);
@@ -238,5 +231,87 @@ input[type=button], input[type=submit], input[type=reset] {
   text-decoration: none;
   display: inline-block;
 
+}
+/* ----------------------------- Responsive  stuff  -----------------------------  */
+
+/* Extra small devices (phones, 600px and down) */
+@media only screen and (max-width: 600px) {
+  p, b, h1, h2, h3{
+    font-size: smaller;
+  }
+  h1{
+    font-size: xx-large;
+  }
+  h2,h3{
+    font-size: x-large;
+  }
+  #main {
+    margin: 0;
+    margin-top: 5%;
+    height: 100%;
+  }
+}
+
+/* Small devices (portrait tablets and large phones, 600px and up) */
+@media only screen and (min-width: 600px) {
+  p, b, h1, h2, h3{
+    font-size: initial;
+  }
+  h1{
+    font-size: xx-large;
+  }
+  h2,h3{
+    font-size: x-large;
+  }
+  
+  #main {
+    margin: 0;
+    margin-top: 5%;
+    height: 100%;
+  }
+}
+
+/* Medium devices (landscape tablets, 768px and up) */
+@media only screen and (min-width: 768px) {
+  p, b, h1, h2, h3 {
+    font-size: initial;
+  }
+  h1,h2{
+    font-size: xx-large;
+  }
+  #main {
+  margin: 5%;
+  margin-top: 50px;
+  }
+}
+
+/* Large devices (laptops/desktops, 992px and up) */
+@media only screen and (min-width: 992px) {
+  p, b, h1, h2, h3{
+    font-size: initial;
+  }
+  h1,h2{
+    font-size: xx-large;
+  }
+
+  #main {
+    margin: 5%;
+    margin-top: 50px;
+    }
+}
+
+/* Extra large devices (large laptops and desktops, 1200px and up) */
+@media only screen and (min-width: 1200px) {
+  p, b{
+    font-size: larger;
+  }
+  h1,h2{
+    font-size: xx-large;
+  }
+
+  #main {
+    margin: 10%;
+    margin-top: 75px;
+    }
 }
 

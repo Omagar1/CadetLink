@@ -125,8 +125,6 @@ if (isset($_POST['submitAU'])){
       <input type="submit" class = "smallButton" value="«" name="dashButton">
       </form>
     </div>
-    <div id="container">
-      
       <div id="main">
           <h2>Add Users - Work in Progress </h2>
           <fieldset>
@@ -228,7 +226,6 @@ if (isset($_POST['submitAU'])){
             </form>
           </fieldset>
       </div>
-    </div>
     <div id="footer">
 
     </div>

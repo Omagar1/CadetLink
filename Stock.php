@@ -12,7 +12,9 @@
       // initializing variables
       $sizeFindUsed = false;
       $count = 0;
-    
+      $findSize1 = 0;
+      $findSize2 = 0;
+      $findSize3 = 0;
       
       // connects to database
       require_once "ConnectDB.php";
@@ -402,8 +404,6 @@ while ($loop < $lenItemTypeIDArr){
 
 
     </div>
-    <div id="container">
-      
       <div id="main">
           <h2>Virtual stores - Work in Progress </h2>
 
@@ -412,9 +412,6 @@ while ($loop < $lenItemTypeIDArr){
           </a>
           <a href=#Stock.php >
             <button class ="button buttonPressed">Stock</button>
-          </a>
-          <a href=kitRequest.php >
-            <button class ="button ">Make A Request</button>
           </a>
           <fieldset>
             <form action = "Stock.php" method="post">
@@ -434,30 +431,38 @@ while ($loop < $lenItemTypeIDArr){
               
               ?>
               <label >Nato Size</label><br>
-              <input type="text" id="Size1" name="Size1" placeholder = "Size 1" value="<?php 
-              if($findSize1 == 0){
-                echo "";
-              }elseif (isset($findSize1)){
-                echo $findSize1;
+              <input type="text" id="Size1" name="Size1" placeholder = "Size 1" value="<?php
+              if (isset($findSize1)){
+                if($findSize1 == 0){
+                  echo "";
+                }else{
+                  echo $findSize1;
+                }
               }else{
-                echo ""; 
-              } ?>">
+                echo "";
+              }
+                  
+               ?>">
               <input type="text" id="Size2" name="Size2" placeholder = "Size 2" value="<?php
-              if($findSize2 == 0){
-                echo "";
-              }elseif (isset($findSize2)){
-                echo $findSize2;
+              if (isset($findSize2)){
+                if($findSize2 == 0){
+                  echo "";
+                }else{
+                  echo $findSize2;
+                }
               }else{
-                echo ""; 
+                echo "";
               } ?>">
               <input type="text" id="Size3" name="Size3" placeholder = "Size 3" value="<?php
-               if($findSize3== 0){
+               if (isset($findSize3)){
+                if($findSize3 == 0){
+                  echo "";
+                }else{
+                  echo $findSize3;
+                }
+              }else{
                 echo "";
-               }elseif (isset($findSize3)){
-                echo $findSize3;
-               }else{
-                 echo ""; 
-               }?>">
+              }?>">
               <br>
               <input type="submit" class = "button" value="find" name="find">
               
@@ -526,7 +531,6 @@ while ($loop < $lenItemTypeIDArr){
               </table>
           </fieldset>
       </div>
-    </div>
     <div id="footer">
 
     </div>

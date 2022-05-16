@@ -35,13 +35,10 @@
         <input type="submit" class = "smallButton" value="«" name="dashButton">
         </form>
       </div>
-      <div id="container">
-        
         <div id="main">
             <h2>Orders Page - Work in Progress </h2>
             
         </div>
-      </div>
       <div id="footer">
 
       </div>

@@ -162,8 +162,6 @@
       <input type="submit" class = "smallButton" value="«" name="dashButton">
       </form>
       </div>
-      <div id="container">
-        
         <div id="main">
             <h2>Kit Request Page - Work in Progress </h2>
 
@@ -227,12 +225,7 @@
               
               
             </fieldset>
-        
-          
-
-            
         </div>
-      </div>
       <div id="footer">
 
       </div>

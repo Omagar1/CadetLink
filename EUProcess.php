@@ -22,6 +22,16 @@ $qry = "UPDATE users SET Cnum =?, `rank` =?, fname =?, lname = ?, troop =? WHERE
 $stmt = $conn->prepare($qry);
 $stmt->execute([$Cnum, $rank, $fname, $lname, $troop, $userID]);
 
+if ( trim($userID) == trim($_SESSION["UserID"])){
+    echo "i ran";
+    $_SESSION['fname'] = $fname;
+    $_SESSION['lname'] = $lname;
+    $_SESSION['rank'] = $rank;
+    $_SESSION['troop'] = $troop;
+}else{
+    echo "no I RAN";
+}
+
 header("location: manageUsers.php");
   
 } catch (PDOException $e) {

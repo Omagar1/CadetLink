@@ -21,8 +21,6 @@
         </ul>
 
       </div>
-      <div id="container">
-        
         <div id="main">
             <h2>What is Cadet Link</h2>
             <p>The operation of cadets, like the army itself requires a certain amount of logistical support, 
@@ -39,7 +37,6 @@
               <button type="button" class="button" style="text-align: center;"> Start using CadetLink</button>
             </a>
         </div>
-      </div>
       <div id="footer">
 
       </div>

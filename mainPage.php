@@ -42,10 +42,7 @@
           <form method="get" action="LOProcess.php">
               <button type="submit" class = "w3-threequarter, button">LogOut</button>
           </form>
-      </div>
-
-      <div id="container">
-        
+    </div>
         <div id="main">
             <h2>your Dashboard</h2>
             <p>reminders for next Cadet Session</p>
@@ -67,7 +64,7 @@
             </div>
             
         </div>
-      </div>
+      
       <div id="footer">
 
       </div>

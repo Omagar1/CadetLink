@@ -175,8 +175,6 @@
         <input type="submit" class = "smallButton" value="«" name="dashButton">
         </form>
       </div>
-      <div id="container">
-        
         <div id="main">
             <h2>Virtual stores - Work in Progress </h2>
 
@@ -185,9 +183,6 @@
             </a>
             <a href=Stock.php >
               <button class ="button ">Stock</button>
-            </a>
-            <a href=kitRequest.php >
-              <button class ="button ">Make A Request</button>
             </a>
             <fieldset>
             <?php
@@ -254,7 +249,6 @@
               </table>              
             </fieldset>
         </div>
-      </div>
       <div id="footer">
 
       </div>

@@ -1,8 +1,8 @@
 * {
     color: white;
-    font-family: 'Courier New', monospace;
-    
+    font-family: 'Courier New', monospace;  
 }
+body,h1,h2,h3,h4,h5,h6 {font-family: 'Courier New', monospace;}
 b{
     color: rgb(245, 234, 0)
 }
@@ -11,6 +11,9 @@ h1{
 }
 h2{
     color: black;
+}
+h3{
+    color: white;
 }
 
 .bg-green{
@@ -24,6 +27,8 @@ h2{
 }
 .bg-mtp{
     background-image: url("images/mtp.jpg");
+    background-attachment: fixed;
+    background-size: cover;
 }
 .txt-black{
     color: black;
@@ -34,4 +39,16 @@ h2{
 .txt-yellow{
     color:rgb(245, 234, 0);
 }
+/*-------------------------------------------------layout-----------------------------------------------------------*/
+.inline {
+    display: inline;
+}
+ul.no-bullets {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+
+  
 

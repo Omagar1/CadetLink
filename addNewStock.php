@@ -185,8 +185,6 @@ if (isset($_POST['submitANS'])){
       <img class = "profilePic" src="images/<?php echo $_SESSION['profilePicURL'];?>" alt="SgtDefalt" width="auto" height="150">
       <button onclick="history.go(-1);">Back </button>
     </div>
-    <div id="container">
-      
       <div id="main">
           <h2>Virtual stores - Work in Progress </h2>
           <fieldset>
@@ -249,7 +247,6 @@ if (isset($_POST['submitANS'])){
             </form>
           </fieldset>
       </div>
-    </div>
     <div id="footer">
 
     </div>

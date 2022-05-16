@@ -166,8 +166,14 @@ while($row = $stmt->fetch(PDO::FETCH_ASSOC)){
       <div id="main">
           <h2>User Management System - Work in Progress </h2>
           <fieldset>
+          <?php if (isset($_SESSION["msg"]) != ""){
+                echo $_SESSION['msg'];
+                }else{
+                
+                }
+            ?>
             <form action = "manageUsers.php" method="post">
-            <label for="troop">troop</label><br>
+            <label for="troop">Troop</label><br>
             <select id="troop" name="troop">
               <option value="0">No Filter</option>
               <?php

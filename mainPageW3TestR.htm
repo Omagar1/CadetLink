@@ -1,0 +1,65 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<title>CadetLink</title>
+<link rel="stylesheet" href="w3.css">
+<link href="style.css" rel="stylesheet"/>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body class = "bg-mtp">
+<header class=" w3-roww3-container bg-green">
+  <h1>CadetLink</h1>
+  
+</header>
+
+<div class= "w3-row w3-container w3-margin-bottom bg-white " id = "navbar">
+    <h2 class =""> Welcome SgtDefault</h2>
+    <img class = "w3-quarter w3-circle w3-border-white" src="images/defaltProfilePic.jpg" alt="SgtDefalt" width="auto" height="150">
+
+    <form method="get" action="LOProcess.php">
+        <button type="submit" class = "w3-threequarter, w3-button w3-red">LogOut</button>
+    </form>
+</div>
+    <div class="w3-row">
+        <div class="w3-col" style="width:10%"><p></p></div>
+
+        <div class="w3-col w3-cell-top w3-padding bg-green" style="width:80%">
+            <h3>your Dashboard</h3>
+            <p>reminders for next Cadet Session</p>
+            <ul>
+                <li>Iron Kit !</li>
+                <li>Bring notepad and Pen!</li> 
+                <li>Dinner is at Benenden!</li> <!-- for tjwa only --> 
+            </ul>
+
+            <div class="">
+                <ul class="no-bullets">
+                <li class = "">
+                <form action = "orders.php">
+                <input type = "submit" value ="Orders" class = "w3-button button w3-card-4 w3-purple "/>
+                </form> 
+                </li>
+                <li class = "">
+                <form action = "kitRequest.php">
+                <input type = "submit" value ="Kit Request" class = "w3-button button w3-indigo "/>
+                </form>
+                </li>
+                <li class = "">
+                <form action = "trips.php">
+                <input type = "submit" value ="trips" class = "w3-button button w3-card-4 "/>
+                </form>
+                </li>
+                </ul>
+            </div>
+        </div>
+        <div class="w3-col" style="width:10%"><p></p></div>
+    </div>
+
+<div class="w3-container" id="footer">
+
+</div>
+</body>
+</html>
