@@ -61,8 +61,6 @@
           <li class = "inline"><a href="test.php" class ="navBarTxt" >test</a></li>
         </ul>
       </div>
-      <div id="container">
-        
         <div id="mainSignUp">
           <fieldset>
             <Legend><b>Login</b></Legend>
@@ -87,7 +85,7 @@
             <p id="reveil">test</p>
           </fieldset>
         </div>
-      </div>
+      
       <div id="footer">
 
       </div>
