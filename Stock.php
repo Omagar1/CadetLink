@@ -10,12 +10,35 @@
     <script>
     // hopefully send data to PHP script that either + or - 1 from selected column 
     function addOrMinus(ItemID, Operation) {
+      console.log("I ran 0");
+      var xmlhttp = new XMLHttpRequest();
+      xmlhttp.onreadystatechange = function() {
+        // the qry works 
+        if (this.readyState == 4 && this.status == 200) {
+          console.log("I ran 0.5");
+          var tagID = "numInStore" + ItemID;
+          var numHTML = document.getElementById(tagID).innerHTML;
+          console.log(numHTML);
+          num = parseInt(numHTML);
+          var newNum = num - 1;
+          newNum = String(newNum);
+          console.log(newNum);
+          document.getElementById(tagID).innerHTML = newNum;
+        // it doesn't
+        }else if(this.readyState == 3 && this.status == 403) {
+
+        }
+    };
       if( Operation == "-"){
-        xhttp.open("GET", "SProcess.php?Operation=-&ItemID="+ItemID , true);
-      }else if ( Operation == "-"){
-        xhttp.open("GET", "SProcess.php?Operation=+&ItemID="+ItemID , true);
-      }
-      xhttp.send();
+        xmlhttp.open("GET", "SProcess.php?Operation=-&ItemID="+ItemID , true);
+        console.log("I ran 1");
+      }else if ( Operation == "+"){
+        xmlhttp.open("GET", "SProcess.php?Operation=+&ItemID="+ItemID , true);
+        console.log("I ran 2");
+      } 
+
+
+      xmlhttp.send();
     }
     </script>
     <?php
@@ -512,11 +535,10 @@ while ($loop < $lenItemTypeIDArr){
                       echo "<td>" . sizesCompressionAdmin($IDArr[$loop],$conn). "</td>";
                       echo "<td>" .  $NumIssuedArr[$loop] . "</td>"; 
                       echo "<td>
-                      <button class='smallButton' name='Sub1' onsubmit = 'addOrMinus($IDArr[$loop]  ,'-')'>-</button>"
-                      .  $NumInStoreArr[$loop]. 
-                      "<form method='post' action ='SProcess.php'>
+                      <button class='button' name='Sub1' onclick = addOrMinus($IDArr[$loop],'-')>-</button>
+                      <div id = 'numInStore$IDArr[$loop]'>". $NumInStoreArr[$loop]."</div><form method='post' action ='SProcess.php'>
                       <input type='hidden' id = 'Plus1NumInStore' name='Plus1NumInStore' value=' $IDArr[$loop] '/>
-                      <button type='submit' class='button smallButton' name='Plus1' value='+'/>
+                      <button type='submit' class='button' name='Plus1' value='+'/>
                       </form></td>";  
                       echo "<td>" .  $NumReservedArr[$loop]. "</td>";
                       echo "<td>" .  $NumOrderedArr[$loop]. "</td>"; 

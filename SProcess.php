@@ -12,8 +12,8 @@ require_once "ConnectDB.php";
 
 
 try{
-    $Operation = $_REQUEST["ItemID"];
-    $itemID = $_REQUEST["ItemID"];
+    $Operation = $_GET["Operation"];
+    $itemID = $_GET["ItemID"];
     
     if($Operation == "-"){
         $qry = "UPDATE items SET NumInStore = NumInStore - 1  WHERE ID = ? AND NumInStore > 0 ;";
