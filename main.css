@@ -132,6 +132,10 @@ body {
       font-style: oblique;
       box-sizing: border-box;
     }
+    .navButton{
+      height: auto;
+      width: auto;
+    }
 
 
     .dashbord{
@@ -226,9 +230,10 @@ input[type=button], input[type=submit], input[type=reset] {
 }
 .smallButton{
   border: none;
-  border-radius: 10px;
+  border-radius: 50%;
   width: 20px;
   height: 20px;
+  padding: 0; 
   background-color: white; 
   color:black;
   text-align: center;
@@ -254,6 +259,16 @@ input[type=button], input[type=submit], input[type=reset] {
     margin-top: 5%;
     min-height: 100%;
     height: auto;
+  }
+  .navButton{
+    height: auto;
+    width: auto;
+    font-size: small;
+    padding: 0; 
+  }
+  .profilePic{
+    margin-left: 0;
+    border: 5px solid;
   }
 }
 

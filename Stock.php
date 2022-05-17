@@ -20,7 +20,15 @@
           var numHTML = document.getElementById(tagID).innerHTML;
           console.log(numHTML);
           num = parseInt(numHTML);
-          var newNum = num - 1;
+          if (Operation == "-"){
+            if (num > 0){
+              var newNum = num - 1;
+            } else{
+              var newNum = num
+            }
+          }else if(Operation == "+"){
+            var newNum = num + 1;
+          }
           newNum = String(newNum);
           console.log(newNum);
           document.getElementById(tagID).innerHTML = newNum;
@@ -29,10 +37,10 @@
 
         }
     };
-      if( Operation == "-"){
+      if(Operation == "-"){
         xmlhttp.open("GET", "SProcess.php?Operation=-&ItemID="+ItemID , true);
         console.log("I ran 1");
-      }else if ( Operation == "+"){
+      }else if (Operation == "+"){
         xmlhttp.open("GET", "SProcess.php?Operation=+&ItemID="+ItemID , true);
         console.log("I ran 2");
       } 
@@ -535,11 +543,10 @@ while ($loop < $lenItemTypeIDArr){
                       echo "<td>" . sizesCompressionAdmin($IDArr[$loop],$conn). "</td>";
                       echo "<td>" .  $NumIssuedArr[$loop] . "</td>"; 
                       echo "<td>
-                      <button class='button' name='Sub1' onclick = addOrMinus($IDArr[$loop],'-')>-</button>
-                      <div id = 'numInStore$IDArr[$loop]'>". $NumInStoreArr[$loop]."</div><form method='post' action ='SProcess.php'>
-                      <input type='hidden' id = 'Plus1NumInStore' name='Plus1NumInStore' value=' $IDArr[$loop] '/>
-                      <button type='submit' class='button' name='Plus1' value='+'/>
-                      </form></td>";  
+                      <button class='button smallButton' name='Plus1' onclick = addOrMinus($IDArr[$loop],'+')>+</button>
+                      <div id = 'numInStore$IDArr[$loop]'>". $NumInStoreArr[$loop]."</div>
+                      <button class='button smallButton' name='Sub1' onclick = addOrMinus($IDArr[$loop],'-')>-</button>
+                      </td>";  
                       echo "<td>" .  $NumReservedArr[$loop]. "</td>";
                       echo "<td>" .  $NumOrderedArr[$loop]. "</td>"; 
                       echo "<td>
@@ -561,7 +568,11 @@ while ($loop < $lenItemTypeIDArr){
                   ?>
 
               </table>
-          
+              <form method='get' action ='SProcess.php'>
+              <input type='hidden' id = 'Operation' name='Operation' value='+'/>
+              <input type='hidden' id = 'ItemID' name='ItemID' value='1'/>
+              <input type='submit' name='test' value='test'/>
+              </form>
       </div>
     <div id="footer">
 

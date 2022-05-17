@@ -2,15 +2,6 @@
 session_start();
 
 require_once "ConnectDB.php";
-
-// if (isset($_POST['Xdata'])){
-//     echo "set <br> ";
-// }else{
-//     echo" NOT set <br>";
-// }
-
-
-
 try{
     $Operation = $_GET["Operation"];
     $itemID = $_GET["ItemID"];
@@ -22,7 +13,6 @@ try{
     }
     $stmt = $conn->prepare($qry);
     $stmt->execute([$itemID]);
-    //header("location: Stock.php");
 } catch (PDOException $e) {
     echo "Error : ".$e->getMessage();
 }
