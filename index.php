@@ -23,23 +23,25 @@
       $_SESSION['previous'] = basename($_SERVER['PHP_SELF']);
       ?>
       <script>
+        // local validation -- can be turned off 
         function processForm(){
           Cnum = document.getElementById("Cnum");
           
           CnumValue = String(Cnum.value);
           console.log(CnumValue);
           
-
+          // checks if the cadet number entered is not less than 8 
           if (CnumValue.length < 8 ){
             
             msg = document.getElementById("msg");
             msg.innerHTML = "Cadet Number Too Short";
-
+            // changes the colour of that field if so  
             Cnum.style.borderColor = "red";
             Cnum.style.backgroundColor = "pink";
 
             return false;
           }else{
+            // if not sets the colour as default 
             Cnum.style.borderColor = "";
             Cnum.style.backgroundColor = "";
             
@@ -53,16 +55,17 @@
       <div id="header">
         <h1>CadetLink</h1>
       </div>
-
+        <!--Links for the Admin page  -->
       <div id="navbar">
         <ul class="navBarList">
-          <li class = "inline"><a href="mainPage.php"class ="navBarTxt"> Example DashBoard</a></li>
+          <li class = "inline"><a href="#mainPage.php"class ="navBarTxt"> Example DashBoard</a></li>
           <li class = "inline"><a href="About.php" class ="navBarTxt" >What is Cadetlink?</a></li>
           <li class = "inline"><a href="test.php" class ="navBarTxt" >test</a></li>
         </ul>
       </div>
         <div id="mainSignUp">
           <fieldset>
+            <!-- Login Form  --> 
             <Legend><b>Login</b></Legend>
             <form action = "LProcess.php" method="post" id = "logInForm" onsubmit = "return processForm(this) ">
                 <label for="Cnum">CadetNumber</label><br>
@@ -73,16 +76,16 @@
               <input onclick ="processForm()" type="submit" class = "button">
               
             </form>
-
+            <!-- Error message system  -->
             <p id = "msg"><b class = "error"> <?php if (isset($_SESSION["msg"]) != ""){
                echo $_SESSION['msg'];
               }else{
 
               }
                ?></b></p>
-            <button class ="button">Forgot your Cadet Number or Password?</button>
-            <!-- onclick ="getElementById('reveil').innerHTML= "Contact Your CFAV to Reset your details" -->
-            <p id="reveil">test</p>
+            <button class ="button" onclick ="getElementById('reveal').innerHTML = 'Contact Your CFAV to Reset your details'">Forgot your Cadet Number or Password?</button>
+            <!-- onclick ="getElementById('reveal').innerHTML= "Contact Your CFAV to Reset your details" -->
+            <p id="reveal">test</p>
           </fieldset>
         </div>
       
