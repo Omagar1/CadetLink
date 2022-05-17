@@ -7,6 +7,17 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script>
+    // hopefully send data to PHP script that either + or - 1 from selected column 
+    function addOrMinus(ItemID, Operation) {
+      if( Operation == "-"){
+        xhttp.open("GET", "SProcess.php?Operation=-&ItemID="+ItemID , true);
+      }else if ( Operation == "-"){
+        xhttp.open("GET", "SProcess.php?Operation=+&ItemID="+ItemID , true);
+      }
+      xhttp.send();
+    }
+    </script>
     <?php
       session_start();
       // initializing variables
@@ -317,7 +328,7 @@ $empty = 0;
   }
 
   if($sizeFindUsed != true){
-    // add the value in Each row's data to their respective colums Arrays this is done so data can be modified prior to display 
+    // add the value in Each row's data to their respective columns Arrays this is done so data can be modified prior to display 
     while($row = $stmt->fetch(PDO::FETCH_ASSOC)){
       //echo $row['ID'] . "<br>"; test
       array_push($IDArr,$row['ID']);
@@ -413,7 +424,6 @@ while ($loop < $lenItemTypeIDArr){
           <a href=#Stock.php >
             <button class ="button buttonPressed">Stock</button>
           </a>
-          <fieldset>
             <form action = "Stock.php" method="post">
             <label for="ItemType">ItemType</label><br>
             <select id="ItemType" name="ItemType">
@@ -432,6 +442,7 @@ while ($loop < $lenItemTypeIDArr){
               ?>
               <label >Nato Size</label><br>
               <input type="text" id="Size1" name="Size1" placeholder = "Size 1" value="<?php
+              // checks if user has Entered any value into form, if so displays it
               if (isset($findSize1)){
                 if($findSize1 == 0){
                   echo "";
@@ -444,6 +455,7 @@ while ($loop < $lenItemTypeIDArr){
                   
                ?>">
               <input type="text" id="Size2" name="Size2" placeholder = "Size 2" value="<?php
+              // checks if user has Entered any value into form, if so displays it
               if (isset($findSize2)){
                 if($findSize2 == 0){
                   echo "";
@@ -454,6 +466,7 @@ while ($loop < $lenItemTypeIDArr){
                 echo "";
               } ?>">
               <input type="text" id="Size3" name="Size3" placeholder = "Size 3" value="<?php
+              // checks if user has Entered any value into form, if so displays it
                if (isset($findSize3)){
                 if($findSize3 == 0){
                   echo "";
@@ -472,12 +485,12 @@ while ($loop < $lenItemTypeIDArr){
                 <tr>
                   <th>ID</th>
                   <th>NSN</th>
-                  <th>ItemTypeID</th>
+                  <th>ItemType</th>
+                  <th>Size</th>
                   <th>NumIssued</th>
                   <th>NumInStore</th>
                   <th>NumOrdered</th>
                   <th>NumReserved</th>
-                  <th>Size</th>
                   <th>edit?</th>
                   <th>delete?</th>
                 </tr>
@@ -490,26 +503,23 @@ while ($loop < $lenItemTypeIDArr){
                   ////var_dump($IDArr); //test
                   // echo $empty; // test
               
-                // actuly what displays 
+                // Prints out table data  
                   while($loop < count($IDArr)){ 
                   echo "<tr>";
                       echo "<td>" .  $IDArr[$loop] . "</td>" ;
                       echo "<td>" .  $NSNArr[$loop] . "</td>";
                       echo "<td>" .  $ItemTypeIDArr[$loop] . "</td>";
+                      echo "<td>" . sizesCompressionAdmin($IDArr[$loop],$conn). "</td>";
                       echo "<td>" .  $NumIssuedArr[$loop] . "</td>"; 
                       echo "<td>
-                      <form method='post' action ='SProcess.php'>
-                      <input type='hidden' id = 'sub1NumInStore' name='sub1NumInStore' value=' $IDArr[$loop] '/>
-                      <input type='submit' class='smallButton' name='Sub1' value='-'/>
-                      </form>"
+                      <button class='smallButton' name='Sub1' onsubmit = 'addOrMinus($IDArr[$loop]  ,'-')'>-</button>"
                       .  $NumInStoreArr[$loop]. 
                       "<form method='post' action ='SProcess.php'>
                       <input type='hidden' id = 'Plus1NumInStore' name='Plus1NumInStore' value=' $IDArr[$loop] '/>
-                      <input type='submit' class='smallButton' name='Plus1' value='+'/>
+                      <button type='submit' class='button smallButton' name='Plus1' value='+'/>
                       </form></td>";  
                       echo "<td>" .  $NumReservedArr[$loop]. "</td>";
                       echo "<td>" .  $NumOrderedArr[$loop]. "</td>"; 
-                      echo "<td>" . sizesCompressionAdmin($IDArr[$loop],$conn). "</td>";
                       echo "<td>
                       <form method='post' action ='editRow.php'>
                       <input type='hidden' id = 'editRow' name='editRow' value=' $IDArr[$loop] '/>
@@ -529,7 +539,7 @@ while ($loop < $lenItemTypeIDArr){
                   ?>
 
               </table>
-          </fieldset>
+          
       </div>
     <div id="footer">
 

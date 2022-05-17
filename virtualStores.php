@@ -184,7 +184,6 @@
             <a href=Stock.php >
               <button class ="button ">Stock</button>
             </a>
-            <fieldset>
             <?php
                if ($empty == 1){
                  echo "<b class ='error'> There Are No Requests</b>";
@@ -199,12 +198,12 @@
                   <th>UserID</th>
                   <th>Name</th>
                   <th>ItemTypeID</th>
+                  <th>size</th>
                   <th>NumRequested</th>
                   <th>purpose</th>
-                  <th>DateNeeded</th>
+                  <!--<th>DateNeeded</th>-->
                   <th>DateRequested</th>
                   <th>status</th>
-                  <th>size</th>
                   <th>Issued?</th>
                   <th>Remove?</th>
                 </tr>
@@ -222,12 +221,12 @@
                     echo "<td>" .  $UserIDArr[$loop] . "</td>";
                     echo "<td>" .  findName($UserIDArr[$loop], $conn). "</td>";
                     echo "<td>" .  $ItemTypeIDArr[$loop] . "</td>";
+                    echo "<td>" . sizesCompressionAdmin($IDArr[$loop],$conn). "</td>";
                     echo "<td>" .  $NumRequestedArr[$loop] . "</td>"; 
                     echo "<td>" .  $purposeArr[$loop]. "</td>"; 
-                    echo "<td>" .  $DateNeededArr[$loop]. "</td>"; 
+                    //echo "<td>" .  $DateNeededArr[$loop]. "</td>"; 
                     echo "<td>" .  $DateRequestedArr[$loop]. "</td>"; 
                     echo "<td>" . $statusArr[$loop]. "</td>";
-                    echo "<td>" . sizesCompressionAdmin($IDArr[$loop],$conn). "</td>";
                     echo "<td>
                     <form method='post' action ='IProcess.php'>
                     <input type='hidden' id = 'Idata' name='Idata' value=' $IDArr[$loop] '/>
@@ -247,7 +246,6 @@
                 }
                 ?>
               </table>              
-            </fieldset>
         </div>
       <div id="footer">
 
