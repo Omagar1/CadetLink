@@ -9,24 +9,25 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script>
     // hopefully send data to PHP script that either + or - 1 from selected column 
-    function addOrMinus(ItemID, Operation) {
+    function addOrMinus(ItemID, Operation, Column) {
       console.log("I ran 0");
       var xmlhttp = new XMLHttpRequest();
       xmlhttp.onreadystatechange = function() {
         // the qry works 
         if (this.readyState == 4 && this.status == 200) {
           console.log("I ran 0.5");
-          var tagID = "numInStore" + ItemID;
+          var tagID = Column + ItemID;
+          console.log(tagID);
           var numHTML = document.getElementById(tagID).innerHTML;
           console.log(numHTML);
           num = parseInt(numHTML);
-          if (Operation == "-"){
+          if (Operation == "sub"){
             if (num > 0){
               var newNum = num - 1;
             } else{
               var newNum = num
             }
-          }else if(Operation == "+"){
+          }else if(Operation == "plus"){
             var newNum = num + 1;
           }
           newNum = String(newNum);
@@ -37,17 +38,10 @@
 
         }
     };
-      if(Operation == "-"){
-        xmlhttp.open("GET", "SProcess.php?Operation=-&ItemID="+ItemID , true);
-        console.log("I ran 1");
-      }else if (Operation == "+"){
-        xmlhttp.open("GET", "SProcess.php?Operation=+&ItemID="+ItemID , true);
-        console.log("I ran 2");
-      } 
-
-
-      xmlhttp.send();
-    }
+    xmlhttp.open("GET", "SProcess.php?Operation="+Operation+"&ItemID="+ItemID+"&Column="+Column, true);
+    console.log("I ran 1");
+    xmlhttp.send();
+  }
     </script>
     <?php
       session_start();
@@ -434,6 +428,7 @@ while ($loop < $lenItemTypeIDArr){
           echo $_SESSION['fname']. " ";
           echo $_SESSION['lname'];?></h2>
       <img class = "profilePic" src="images/<?php echo $_SESSION['profilePicURL'];?>" alt="SgtDefalt" width="auto" height="150">
+      <!-- back button --> 
       <form action ="<?php
       if($_SESSION['troop']=="CFAV"){
         echo "adminMainPage.php";
@@ -541,14 +536,26 @@ while ($loop < $lenItemTypeIDArr){
                       echo "<td>" .  $NSNArr[$loop] . "</td>";
                       echo "<td>" .  $ItemTypeIDArr[$loop] . "</td>";
                       echo "<td>" . sizesCompressionAdmin($IDArr[$loop],$conn). "</td>";
-                      echo "<td>" .  $NumIssuedArr[$loop] . "</td>"; 
                       echo "<td>
-                      <button class='button smallButton' name='Plus1' onclick = addOrMinus($IDArr[$loop],'+')>+</button>
+                      <button class='button smallButton' name='Plus1' onclick = addOrMinus($IDArr[$loop],'plus','numIssued')>+</button>
+                      <div id = 'numIssued$IDArr[$loop]'>". $NumIssuedArr[$loop]."</div>
+                      <button class='button smallButton' name='Sub1' onclick = addOrMinus($IDArr[$loop],'sub','numIssued')>-</button>
+                      </td>";
+                      echo "<td>
+                      <button class='button smallButton' name='Plus1' onclick = addOrMinus($IDArr[$loop],'plus','numInStore')>+</button>
                       <div id = 'numInStore$IDArr[$loop]'>". $NumInStoreArr[$loop]."</div>
-                      <button class='button smallButton' name='Sub1' onclick = addOrMinus($IDArr[$loop],'-')>-</button>
+                      <button class='button smallButton' name='Sub1' onclick = addOrMinus($IDArr[$loop],'sub','numInStore')>-</button>
                       </td>";  
-                      echo "<td>" .  $NumReservedArr[$loop]. "</td>";
-                      echo "<td>" .  $NumOrderedArr[$loop]. "</td>"; 
+                      echo "<td>
+                      <button class='button smallButton' name='Plus1' onclick = addOrMinus($IDArr[$loop],'plus','numReserved')>+</button>
+                      <div id = 'numReserved$IDArr[$loop]'>". $NumReservedArr[$loop]."</div>
+                      <button class='button smallButton' name='Sub1' onclick = addOrMinus($IDArr[$loop],'sub','numReserved')>-</button>
+                      </td>";
+                      echo "<td>
+                      <button class='button smallButton' name='Plus1' onclick = addOrMinus($IDArr[$loop],'plus','numOrdered')>+</button>
+                      <div id = 'numOrdered$IDArr[$loop]'>". $NumOrderedArr[$loop]."</div>
+                      <button class='button smallButton' name='Sub1' onclick = addOrMinus($IDArr[$loop],'sub','numOrdered')>-</button>
+                      </td>";
                       echo "<td>
                       <form method='post' action ='editRow.php'>
                       <input type='hidden' id = 'editRow' name='editRow' value=' $IDArr[$loop] '/>
@@ -569,8 +576,9 @@ while ($loop < $lenItemTypeIDArr){
 
               </table>
               <form method='get' action ='SProcess.php'>
-              <input type='hidden' id = 'Operation' name='Operation' value='+'/>
+              <input type='hidden' id = 'Operation' name='Operation' value='plus'/>
               <input type='hidden' id = 'ItemID' name='ItemID' value='1'/>
+              <input type='hidden' id = 'Column' name='Column' value='numInStore'/>
               <input type='submit' name='test' value='test'/>
               </form>
       </div>
