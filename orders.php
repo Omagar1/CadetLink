@@ -23,7 +23,9 @@
       </div>
 
       <div id="navbarDash">
-        <h2 class ="navBarDashTxt"> welcome Sgt sleep paralysis demon</h2>
+        <h2 class ="navBarDashTxt"> welcome <?php echo $_SESSION['rank']. " ";
+            echo $_SESSION['fname']. " ";
+            echo $_SESSION['lname'];?></h2></h2>
         <img class = "profilePic" src="images/<?php echo $_SESSION['profilePicURL'];?>" alt="SgtDefalt" width="auto" height="150">
         <form action ="<?php
         if($_SESSION['troop']=="CFAV"){
@@ -35,10 +37,36 @@
         <input type="submit" class = "smallButton" value="«" name="dashButton">
         </form>
       </div>
+      <div id="container">
+        
         <div id="main">
-            <h2>Orders Page - Work in Progress </h2>
+            <!-- <form method = "post" action = "orders.php">
+            <select id="Orders" name="Orders">
+                  <?php
+                  // $sql = "SELECT dateFor FROM orders;";
+                  // $stmt = $conn->prepare($sql);
+                  // $stmt->execute();
+                  // while($row = $stmt->fetch(PDO::FETCH_ASSOC)){
+                  //   if ($row["rank"] == $rank){
+                  //     echo "<option value=".$row["dateFor"]."selected>".$row["dateFor"]."</option>";
+                  //   }else{
+                  //     echo "<option value=".$row["dateFor"].">".$row["dateFor"]."</option>";
+                  //   }
+                  // }
+                  ?>
+            </select>
+            </from> -->
+            <?php
+            $myfile = fopen("test.docx", "r") or die("Unable to open file!");
+            echo fread($myfile,filesize("webdictionary.txt"));
+            fclose($myfile);
+            ?>
+
+
+
             
         </div>
+      </div>
       <div id="footer">
 
       </div>
