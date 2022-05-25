@@ -66,7 +66,7 @@ try{
     $stmt = $conn->prepare($qry);
     $stmt->execute([$itemID]);
 
-    header("location: myRequests.php");
+    header("location: " . $_SESSION['previous']);
 } catch (PDOException $e) {
     echo "Error : ".$e->getMessage();
 }

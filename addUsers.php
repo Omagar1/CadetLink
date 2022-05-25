@@ -41,7 +41,8 @@
 // ---------------------------------------------------functions---------------------------------------------------  
     
 // -----------------------------------validation -----------------------------------
-if (isset($_POST['submitAU'])){
+
+if (isset($_POST['submitAU']) or isset($_POST['submitAUA'])){
   // getting the variables
   $Cnum = $_POST['Cnum'];
   $Pwd = $_POST['Pwd'];
@@ -49,6 +50,8 @@ if (isset($_POST['submitAU'])){
   $fname = $_POST['fname'];
   $lname = $_POST['lname'];
   $troop = $_POST['troop'];
+  // initialising variables
+  $addAnother = 0;
   // general validation
   // checks to see if there is a Cnum with the same number as it the user entered one 
   if($Cnum != ""){
@@ -77,8 +80,14 @@ if (isset($_POST['submitAU'])){
     $msg = "<p><b class = 'error'>Cnum Already Used</b></p>";
     $_SESSION['msg'] = $msg;
   }else{
-  // hashes password 
+  // hashes password
   $PwdHashed = password_hash($Pwd, PASSWORD_DEFAULT);
+  //check to see if user want to add another
+    if(isset($_POST['submitAU'])){ 
+      $addAnother = 0;
+    }elseif(isset($_POST['submitAUA'])){
+      $addAnother = 1;
+    }
   // send data to process page
     ?>
     <form Id = "AutoSendForm" action = "AUProcess.php" method="post">
@@ -88,6 +97,7 @@ if (isset($_POST['submitAU'])){
     <input type="hidden" id="fname" name="fname" value="<?php echo $fname; ?>">
     <input type="hidden" id="lname" name="lname" value="<?php echo $lname; ?>">
     <input type="hidden" id="troop" name="troop" value="<?php echo $troop; ?>">
+    <input type="hidden" id="addAnother" name="addAnother" value="<?php echo $addAnother; ?>">
     </form>
 
     <script type="text/javascript">
@@ -222,7 +232,7 @@ if (isset($_POST['submitAU'])){
             <tr>
             </table>
             <input type="submit" name ="submitAU" class = "button" value="Add">
-
+            <input type="submit" name ="submitAUA" class = "button" value="Add and Add Another">
             </form>
           </fieldset>
       </div>

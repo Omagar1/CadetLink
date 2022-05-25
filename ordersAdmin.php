@@ -28,7 +28,6 @@
     if (isset($_POST['submitUO'])){
       // getting variables
       echo "i Ran 0 <br>"; //test
-      $targetDir = "temp/";
       $tmpName = $_FILES["fileToUpload"]["tmp_name"]; // finding temporary name
       $UploadedName = $_FILES["fileToUpload"]["name"]; 
       $fileSize = $_FILES["fileToUpload"]["size"];
@@ -37,7 +36,7 @@
       $fileNameFinal = $_POST["fileNameFinal"];
       $dateFor = $_POST["dateFor"];
       $fileExtension = strtolower(pathinfo($UploadedName,PATHINFO_EXTENSION));
-
+      
       // echo variables for testing
       echo "<br> tmpName: " . $tmpName;
       echo "<br> UploadedName: " . $UploadedName;
@@ -48,39 +47,42 @@
       echo "<br> dateFor: " . $dateFor;
       echo "<br> fileExtension: " . $fileExtension; 
       echo "<br>";
-      $targetDir = "temp/";
-      //$targetFileBaseName = $_FILES["fileToUpload"]["name"];
-      $fileTempLocation = $targetDir . $fileNameFinal;
-      move_uploaded_file($tmpName, $fileTempLocation);
 
-
-
-
-      
-
-     
+      $errors = 0;
       if($fileNameFinal == "" or $dateFor ==""){
         $msg = "Fields must Not Be Empty";
         $_SESSION['msg'] = $msg;
         echo "i Ran 1";
+        $errors = 1;
       }elseif(strlen($fileNameFinal)>20){ // limits namelength to less than 20 
         $msg = "File Name To Large";
         $_SESSION['msg'] = $msg;
         echo "i Ran 2";
-      }elseif (file_exists($fileNameFinal)) { // Check if file already exists
-        $msg =  "<p id = 'msg'><b class = 'error'>Sorry, file already exists</b></p>";
-        $_SESSION['msg'] = $msg;
-        echo $msg;
+        $errors = 1;
       }elseif ($_FILES["fileToUpload"]["size"] > 500000) { // Check file size
         $msg =  "<p id = 'msg'><b class = 'error'>Sorry, your file is too large</b></p>";
         $_SESSION['msg'] = $msg;
         echo $msg;
+        $errors = 1;
       }elseif($fileExtension != "txt" and $fileExtension != "docx" and $fileExtension != "doc" and $fileExtension != "pdf" ) { //only allow certain file formats
         $msg =  "<p id = 'msg'><b class = 'error'>Sorry, only txt, docx, doc and pdf files are allowed</b></p>";
         $_SESSION['msg'] = $msg;
         echo $msg;
-      }else{// if no error in has been found it submits it to the process page 
-        ?><form Id = "AutoSendForm" action = "UOProcess.php" method="post">
+        $errors = 1;
+      }elseif ($errors != 1) { 
+        $fileNameFinal = $fileNameFinal . $dateFor; // adds date to file name to make it unique  
+        if(file_exists($fileNameFinal)){// Check if file already exists
+          $msg =  "<p id = 'msg'><b class = 'error'>Sorry, file already exists</b></p>";
+          $_SESSION['msg'] = $msg;
+          echo $msg;
+          $errors = 1;
+        }else{
+        // if no error in has been found it submits it to the process page
+          // testing 
+          // $targetDir = "temp/";
+          // $tempFinalLocation = $targetDir . $fileNameFinal;
+          // $moved = move_uploaded_file($tempName, $tempFinalLocation);
+          ?><form Id = "AutoSendForm" action = "UOProcess.php" method="post">
         <input type="hidden" id="fileNameFinal" name="fileNameFinal" value="<?php echo $fileNameFinal; ?>">
         <input type="hidden" id="dateFor" name="dateFor" value="<?php echo $dateFor; ?>">
         <input type="hidden" id="fileType" name="fileType" value="<?php echo $fileType; ?>">
@@ -88,11 +90,11 @@
         </form>
 
         <script type="text/javascript">
-          //document.getElementById("AutoSendForm").submit(); // auto submits form                        ^
+          document.getElementById("AutoSendForm").submit(); // auto submits form                        ^
         </script><?php
         echo "i Ran 3";
+        }
       }
-    
     }else{
       echo "i Ran 4";
     }
@@ -139,7 +141,7 @@
           ?>
           <form action="ordersAdmin.php" method="post" enctype="multipart/form-data">
           <label for = "fileNameFinal">File Name</label><br>
-          <input type = "text" name = "fileNameFinal" id = "fileNameFinal"><br>
+          <input type = "text" name = "fileNameFinal" id = "fileNameFinal" value = "OrdersFor:"><br>
           <label for = "dateFor">Date For</label><br>
           <input type = "date" min="<?php echo date("Y-m-d");?>" name = "dateFor" id = "dateFor"><br>
 

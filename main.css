@@ -50,7 +50,7 @@ h1{
 #navbar {
   background-color: white;
   padding: 0%;
-  margin: none;
+  margin: 0;
   height: auto;
 
 }
@@ -138,11 +138,10 @@ body {
     }
 
 
-    .dashbord{
+    .dashboard{
       padding: 1%;
       margin: 10px 10px;
     }
-    
     .dashbordTroop{
       background-color: rgb(139, 141, 0);
       padding: 1%;
@@ -173,6 +172,21 @@ body {
       padding: 1%;
       margin: 10px 10px;
     }
+    .BenBlue{
+      background-color: #3c3c3b;;
+    }
+    .tjwaRed{
+      background-color: #AE1E30;
+    }
+    .armyGreen{
+      background-color: rgb(0, 43, 23);
+    }
+    .purple{
+      background-color: purple;
+    }
+    .Orange{
+      background-color: orange;
+    }
     ul.no-bullets {
       list-style-type: none;
       margin: 0;
@@ -197,8 +211,81 @@ body {
     b{
       color: rgb(245, 234, 0)
     }
-/* ----------------------------- Button stuff  -----------------------------  */
 
+    .notification{
+      border: none;
+      border-radius: 50%;
+      width: 25px;
+      height: 25px;
+      padding: 2px; 
+      background-color: red; 
+      color:white;
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
+    }
+/* ----------------------------- Form  and Button stuff  -----------------------------  */
+fieldset{
+  width: auto;
+  margin-left: auto;  /* copy right Noah inc 2022 */
+  margin-right: auto;
+}
+  
+  input{
+      width: 90%;
+      padding: 12px;
+      margin: 12px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      box-sizing: border-box;
+      resize: vertical;
+      background-color: white;
+      color: black; 
+  }
+
+  input:focus{
+      background-color: rgb(245, 234, 0) ;
+      border: 3px solid #555;
+  }
+  input.button{
+      margin: 12px;
+  }
+  select{
+    width: 90%;
+      padding: 12px;
+      margin: 12px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      box-sizing: border-box;
+      resize: vertical;
+      background-color:rgb(65, 65, 65,);
+      color: black; 
+  }
+   select:focus{
+    background-color: rgb(245, 234, 0) ;
+    border: 3px solid #555;
+  }
+  option{
+    width: 90%;
+      padding: 12px;
+      margin: 12px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      box-sizing: border-box;
+      resize: vertical;
+      background-color:rgb(65, 65, 65,);
+      color: black; 
+  }
+   option:focus{
+    background-color: rgb(245, 234, 0) ;
+    border: 3px solid #555;
+  }
+  
+
+
+  .CFAV{
+    color: rgb(245, 234, 0)
+  }
 .button {
   background-color: white; 
   border: none;
@@ -251,8 +338,12 @@ input[type=button], input[type=submit], input[type=reset] {
   h1{
     font-size: xx-large;
   }
-  h2,h3{
-    font-size: x-large;
+  .navBarDashTxt h2,h3{
+    font-size: large;
+    width: 50%;
+    margin-right: 25%;
+    margin-left: 25%;
+    float: right;
   }
   #main {
     margin: 0;

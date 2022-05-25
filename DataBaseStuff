@@ -10,17 +10,25 @@ CREATE TABLE `users` (
   `profilePicURL` varchar(255) NOT NULL DEFAULT "images/defaltProfilePic.jpg",
   PRIMARY KEY (`ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-/* --------------------------------------- troop  and rankTables --------------------------------------- */
+/* --------------------------------------- troop  and rank and Orders Tables --------------------------------------- */
 CREATE TABLE `troops` (
   `ID` int(11) NOT NULL AUTO_INCREMENT, 
   `troopName` varchar(255)NOT NULL, 
-  PRIMARY KEY (`ID`),
+  PRIMARY KEY (`ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 CREATE TABLE `ranks` (
   `ID` int(11) NOT NULL AUTO_INCREMENT, 
   `rank` varchar(255)NOT NULL, 
-  PRIMARY KEY (`ID`),
+  PRIMARY KEY (`ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+CREATE TABLE `orders` (
+  `ID` int(11) NOT NULL AUTO_INCREMENT, 
+  `name` varchar(255)NOT NULL, 
+  `dateFor` varchar(255)NOT NULL,
+  `location` varchar(255)NOT NULL,
+  PRIMARY KEY (`ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 /* --------------------------------------- Uniform Tables --------------------------------------- */
@@ -80,7 +88,7 @@ CREATE TABLE `sizesRequest` (
   `sizeTypeID` int(11) NOT NULL,
   `value` int(11) NOT NULL,
   `unit` varchar(255) DEFAULT 'cm',
-  PRIMARY KEY (ID),
+  PRIMARY KEY (ID)
   /*FOREIGN KEY (itemID) REFERENCES itemRequest(ID)*/
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -88,7 +96,23 @@ CREATE TABLE `test`(
   `test1` varchar(255),
   `test2` varchar(255),
 );
+/*  --------------------------------------- Event table  --------------------------------------- */
+CREATE TABLE `events` (
+  `ID` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) NOT NULL,
+  `location` varchar(255) NOT NULL,
+  `startDate` varchar(255) NOT NULL,
+  `endDate` varchar(255),
+  PRIMARY KEY (ID)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+CREATE TABLE `eventNotes` (
+  `ID` int(11) NOT NULL AUTO_INCREMENT,
+  `eventID` int(11) NOT NULL,
+  `troop` varchar(255) NOT NULL,
+  PRIMARY KEY (ID)
+  /*FOREIGN KEY () REFERENCES itemRequest(ID)*/
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 /*  --------------------------------------- Querrys --------------------------------------- */
 
 SELECT * FROM items INNER JOIN items ON sizes.itemID = items.ID;

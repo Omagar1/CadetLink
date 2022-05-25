@@ -12,10 +12,10 @@
         session_start();
         // connects to database
         require_once "ConnectDB.php";
-        //checks if not logged in  - broken 
+        //checks if not logged in
        if(!isset($_SESSION["loggedIn"]) and ($_SESSION["loggedIn"] != true) ){
           header("location: index.php"); // if so redirects them to the loginpage page
-        };
+        }
         // system to destroy msg variable when its not wanted
       if (isset($_SESSION['previous'])) {
         if (basename($_SERVER['PHP_SELF']) != $_SESSION['previous']) {
@@ -234,7 +234,7 @@
                     </form>
                     </td>";
                     echo "<td>
-                    <form method='post' action ='deleteRow.php'>
+                    <form method='post' action ='deleteRowRequests.php'>
                     <input type='hidden' id = 'Xdata' name='Xdata' value=' $IDArr[$loop] '/>
                     <input type='submit' name='X' value='X'/>
                     </form>

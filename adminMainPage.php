@@ -9,7 +9,7 @@
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
       <?php
       session_start();
-
+      require_once "ConnectDB.php";
       //checks if not logged in 
       if(!isset($_SESSION["loggedIn"]) and ($_SESSION["loggedIn"] != true) ){
         header("location: index.php"); // if so redirects them to the loginpage page
@@ -26,6 +26,13 @@
 
       }
       $_SESSION['previous'] = basename($_SERVER['PHP_SELF']);
+
+      //qry to find number of requests 
+      $sql = "SELECT ID FROM itemRequest;";
+      $stmt = $conn->prepare($sql);
+      $stmt->execute();
+      $requestCount = $stmt->rowCount();
+
       ?>
     </head>
 
@@ -59,10 +66,45 @@
                 <ul class="no-bullets">
                 <li class ="dashbordSection" class ="dashbord" class = "inline"><a href = "manageUsers.php" class = "dasbordTxt">Manage Users</a></li>
                 <li class ="dashbordOrders" class ="dashbord"><a href = "ordersAdmin.php" class = "dasbordTxt">Orders</a></li>
+                <li class ="dashbordOrders" class ="dashbord"><a href = "events.php" class = "dasbordTxt">Events</a></li>
                 <li class ="dashbordKitRequest" class ="dashbord"><a href = "virtualStores.php"class = "dasbordTxt">Virtual Stores</a></li>
                 <li class ="dashbordKitRequest" class ="dashbord"><a href = "kitRequest.php"class = "dasbordTxt">kit Request</a></li>
                 <li class ="dashbordTrips" class ="dashbord"><a href = "trips.php"class = "dasbordTxt">Trips</a></li>
                 <li class ="dashbordVPB" class ="dashbord"><a href = "#VPB"class = "dasbordTxt">Virtual Pocket Book</a></li>
+                </ul>
+
+
+ 
+
+                <!-- new dash board not implemented yet
+                <ul class="no-bullets">
+                <li class ="dashbordKitRequest" class ="dashbord"><a href = "kitRequest.php"class = "dasbordTxt">kit Request</a></li>
+                <li class ="dashbordTrips" class ="dashbord"><a href = "trips.php"class = "dasbordTxt">Trips</a></li>
+                <li class ="dashbordVPB" class ="dashbord"><a href = "#VPB"class = "dasbordTxt">Virtual Pocket Book</a></li>
+                </ul>
+                <ul class="no-bullets">
+                <li class = "">
+                <form action = "manageUsers.php">
+                <input type = "submit" value ="Manage Users" class = "button dashbord BenBlue"/>
+                </form> 
+                </li>
+                <li class = "">
+                <form action = "virtualStores.php">
+                <input type = "submit" value ="Virtual Stores <?php/* 
+                if($requestCount > 0){
+                  echo "<span class = 'notification'>$requestCount</span>";
+                }else{
+
+                }
+                */?>" class = "button dashbord tjwaRed"/> 
+                </form>
+                </li>
+                <li class = "">
+                <form action = "ordersAdmin.php">
+                <input type = "submit" value ="ordersAdmin" class = "button dashbord armyGreen"/> -->
+
+                </form>
+                </li>
                 </ul>
             </div>
             
