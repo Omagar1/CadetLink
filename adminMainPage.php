@@ -54,23 +54,20 @@
           </div>
       </div>
         <div id="main">
-            <h2>your Dashboard</h2>
-            <p>time to do Admin suff</p>
-            <ul>
-                <li>Iron Kit !</li>
-                <li>Bring notepad and Pen!</li>
-                <li>Dinner is at Benenden!</li> <!-- for tjwa only --> 
-            </ul>
+            <h2>Your Dashboard</h2>
+            <div class = "events">
+
+            </div>
 
             <div>
                 <ul class="no-bullets">
-                <li class ="dashbordSection" class ="dashbord" class = "inline"><a href = "manageUsers.php" class = "dasbordTxt">Manage Users</a></li>
-                <li class ="dashbordOrders" class ="dashbord"><a href = "ordersAdmin.php" class = "dasbordTxt">Orders</a></li>
-                <li class ="dashbordOrders" class ="dashbord"><a href = "events.php" class = "dasbordTxt">Events</a></li>
-                <li class ="dashbordKitRequest" class ="dashbord"><a href = "virtualStores.php"class = "dasbordTxt">Virtual Stores</a></li>
-                <li class ="dashbordKitRequest" class ="dashbord"><a href = "kitRequest.php"class = "dasbordTxt">kit Request</a></li>
-                <li class ="dashbordTrips" class ="dashbord"><a href = "trips.php"class = "dasbordTxt">Trips</a></li>
-                <li class ="dashbordVPB" class ="dashbord"><a href = "#VPB"class = "dasbordTxt">Virtual Pocket Book</a></li>
+                <li class ="dashbordSection dashboard" class = "inline"><a href = "manageUsers.php" class = "dasbordTxt">Manage Users</a></li>
+                <li class ="dashbordOrders dashboard"><a href = "ordersAdmin.php" class = "dasbordTxt">Orders</a></li>
+                <li class ="dashbordOrders dashboard"><a href = "events.php" class = "dasbordTxt">Events</a></li>
+                <li class ="dashbordKitRequest dashboard"><a href = "virtualStores.php"class = "dasbordTxt">Virtual Stores</a></li>
+                <li class ="dashbordKitRequest dashboard"><a href = "kitRequest.php"class = "dasbordTxt">kit Request</a></li>
+                <li class ="dashbordTrips dashboard"><a href = "trips.php"class = "dasbordTxt">Trips</a></li>
+                <li class ="dashbordVPB dashboard"><a href = "#VPB"class = "dasbordTxt">Virtual Pocket Book</a></li>
                 </ul>
 
 

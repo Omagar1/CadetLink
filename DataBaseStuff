@@ -103,15 +103,25 @@ CREATE TABLE `events` (
   `location` varchar(255) NOT NULL,
   `startDate` varchar(255) NOT NULL,
   `endDate` varchar(255),
+  `startTime` varchar(255),
+  `endTime` varchar(255),
   PRIMARY KEY (ID)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+CREATE TABLE `eventTroops` (
+  `ID` int(11) NOT NULL AUTO_INCREMENT,
+  `eventID` int(11) NOT NULL,
+  `troop` varchar(255) NOT NULL,
+  PRIMARY KEY (ID)
+  /*FOREIGN KEY () REFERENCES events(ID)*/
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 CREATE TABLE `eventNotes` (
   `ID` int(11) NOT NULL AUTO_INCREMENT,
   `eventID` int(11) NOT NULL,
-  `troop` varchar(255) NOT NULL,
+  `Note` varchar(255) NOT NULL,
   PRIMARY KEY (ID)
-  /*FOREIGN KEY () REFERENCES itemRequest(ID)*/
+  /*FOREIGN KEY () REFERENCES events(ID)*/
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 /*  --------------------------------------- Querrys --------------------------------------- */
 

@@ -1,3 +1,4 @@
+<?php session_start();?>
 <html>
   <head>
     <title>CadetLink</title>
@@ -8,61 +9,28 @@
     <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script>
-    // hopefully send data to PHP script that either + or - 1 from selected column 
-    function addOrMinus(ItemID, Operation, Column) {
-      console.log("I ran 0");
-      var xmlhttp = new XMLHttpRequest();
-      xmlhttp.onreadystatechange = function() {
-        // the qry works 
-        if (this.readyState == 4 && this.status == 200) {
-          console.log("I ran 0.5");
-          var tagID = Column + ItemID;
-          console.log(tagID);
-          var numHTML = document.getElementById(tagID).innerHTML;
-          console.log(numHTML);
-          num = parseInt(numHTML);
-          if (Operation == "sub"){
-            if (num > 0){
-              var newNum = num - 1;
-            } else{
-              var newNum = num
-            }
-          }else if(Operation == "plus"){
-            var newNum = num + 1;
-          }
-          newNum = String(newNum);
-          console.log(newNum);
-          document.getElementById(tagID).innerHTML = newNum;
-        // it doesn't
-        }else if(this.readyState == 3 && this.status == 403) {
-
+      function showPwd() {
+        var x = document.getElementById("PwdInput");
+        if (x.type === "password") {
+          x.type = "text";
+        } else {
+          x.type = "password";
         }
-    };
-    xmlhttp.open("GET", "SProcess.php?Operation="+Operation+"&ItemID="+ItemID+"&Column="+Column, true);
-    console.log("I ran 1");
-    xmlhttp.send();
-  }
+      }
     </script>
     <?php
-      session_start();
-      // initializing variables
-      $sizeFindUsed = false;
-      $count = 0;
-      $findSize1 = 0;
-      $findSize2 = 0;
-      $findSize3 = 0;
-      
+      $CnumUsed = false;
       // connects to database
       require_once "ConnectDB.php";
-      //checks if not logged in
-     if(!isset($_SESSION["loggedIn"]) and ($_SESSION["loggedIn"] != true) ){
+      //checks if not logged in 
+      if(!isset($_SESSION["loggedIn"]) and ($_SESSION["loggedIn"] != true) ){
         header("location: index.php"); // if so redirects them to the loginpage page
       };
 
       // system to destroy msg variable when its not wanted
       if (isset($_SESSION['previous'])) {
         if (basename($_SERVER['PHP_SELF']) != $_SESSION['previous']) {
-             unset($_SESSION['msg']);
+              unset($_SESSION['msg']);
         }else{
 
         }
@@ -70,351 +38,128 @@
 
       }
       $_SESSION['previous'] = basename($_SERVER['PHP_SELF']);
+// ---------------------------------------------------functions---------------------------------------------------  
+    
+// -----------------------------------validation -----------------------------------
 
-    // Qry to find the sizes of their requests
-    function sizesCompressionAdmin($ItemID,$con){
-      $sql = "SELECT sizes.itemID, sizes.value 
-      FROM sizes INNER JOIN items ON sizes.ItemID = items.ID  
-      WHERE sizes.itemID = ?;";
-      $stmt = $con->prepare($sql);
-      $stmt->execute([$ItemID]);
-      // Making the size into the format =~ xx/yy/zz
-      $arr = []; //initialising
-      while($row = $stmt->fetch(PDO::FETCH_ASSOC)){
-        array_push($arr,$row['value']);
-      }
-      return(implode("/",$arr));
-    }
-
-    function findName($IDuser, $con){
-      $sql = "SELECT `rank`, fname, lname FROM users WHERE ID =?;";
-      $stmt = $con->prepare($sql);
-      $stmt->execute([$IDuser]);
-      $result = $stmt->fetch(PDO::FETCH_ASSOC);
-      $fullName = implode(" ",$result);
-      return($fullName);
-    }
-    function getNumExpected($ItemTypeID, $con){
-      //qry to find the number expected for the ItemType We want 
-      // we do not need to check if there are more than one result because ItemTypeValidation already assures there is only one 
-      $sql = "SELECT NumSizesExpected FROM itemType WHERE ID =? ;";
-      $stmt = $con->prepare($sql);
-      $stmt->execute([$ItemTypeID]);
-      $result = $stmt->fetch(PDO::FETCH_ASSOC);
-      return(implode($result));
-    }
-
-    function matchArr($arr1, $arr2){
-      $arrMatched = [];
-      foreach($arr1 as $val1){
-        foreach($arr2 as $val2){
-          if($val1 == $val2){
-            array_push($arrMatched,$val1);
-          }else{
-
-          }
-        }
-      }
-      return($arrMatched);
-    }
-    function sizeFind($Size1,$Size2,$Size3,$ItemTypeID,$NumExpected, $con){
-      //echo "iran0";
-      $qry = "SELECT itemID FROM sizes WHERE `value` = ?;";
-      $stmt = $con->prepare($qry);
-      $Size1ItemIDArr = [];
-      $Size2ItemIDArr = [];
-      $Size3ItemIDArr = [];
-      if ($NumExpected == 1){
-        $stmt->execute([$Size1]);
-        while($row = $stmt->fetch(PDO::FETCH_ASSOC)){
-          array_push($Size1ItemIDArr,$row['itemID']);
-        }
-        //var_dump($Size1ItemIDArr);
-        return($Size1ItemIDArr);
-      }elseif ($NumExpected == 2){
-        $stmt->execute([$Size1]);
-        while($row = $stmt->fetch(PDO::FETCH_ASSOC)){
-          array_push($Size1ItemIDArr,$row['itemID']);
-        }
-        $stmt->execute([$Size2]);
-        while($row = $stmt->fetch(PDO::FETCH_ASSOC)){
-          array_push($Size2ItemIDArr,$row['itemID']);
-        }
-        $matchedItemIDarr1 = matchArr($Size1ItemIDArr,$Size2ItemIDArr);
-        return($matchedItemIDarr1);
-      }elseif ($NumExpected == 3){
-        $stmt->execute([$Size1]);
-        while($row = $stmt->fetch(PDO::FETCH_ASSOC)){
-          array_push($Size1ItemIDArr,$row['itemID']);
-        }
-        $stmt->execute([$Size2]);
-        while($row = $stmt->fetch(PDO::FETCH_ASSOC)){
-          array_push($Size2ItemIDArr,$row['itemID']);
-        }
-        $stmt->execute([$Size3]);
-        while($row = $stmt->fetch(PDO::FETCH_ASSOC)){
-          array_push($Size3ItemIDArr,$row['itemID']);
-        }
-        $matchedItemIDarr1 = matchArr($Size1ItemIDArr,$Size2ItemIDArr);
-        $matchedItemIDarr2 = matchArr($matchedItemIDarr1,$Size3ItemIDArr);// match the third array to the already matched array
-        return($matchedItemIDarr2);
-      }else{
-        return(0);
-      }
-    }
-      
-//----------------------------------------Main Code----------------------------------------
-// initialising colum arrays
-$IDArr = [];
-$NSNArr = [];
-$ItemTypeIDArr = [];
-$NumIssuedArr = [];
-$NumInStoreArr = [];
-$NumReservedArr = [];
-$NumOrderedArr = [];
-
-
-if (isset($_POST['find'])){
-  $findItemTypeID = $_POST["ItemType"];
-  $findSize1 = trim($_POST["Size1"]);
-  $findSize2 = trim($_POST["Size2"]);
-  $findSize3 = trim($_POST["Size3"]);
-
+if (isset($_POST['submitAE']) or  isset($_POST['submitAEA'])){
+  // getting variables
+  echo "i Ran 0 <br>"; //test
+  $eventName = $_POST["Name"];
+  $eventLocation = $_POST["Location"];
+  $eventStartDate = $_POST["startDate"];
+  $eventEndDate = $_POST["endDate"];
+  $eventStartTime = $_POST["startTime"];
+  $eventEndTime = $_POST["endTime"];
+  // file variables 
+  $tmpName = $_FILES["fileToUpload"]["tmp_name"]; // finding temporary name
+  $UploadedName = $_FILES["fileToUpload"]["name"]; 
+  $fileSize = $_FILES["fileToUpload"]["size"];
+  $fileType = $_FILES["fileToUpload"]["type"];
+  $fileError = $_FILES["fileToUpload"]["error"];
+  $fileExtension = strtolower(pathinfo($UploadedName,PATHINFO_EXTENSION));
   
-   
-
-  if ($findItemTypeID != 0 /* */ and $findSize1 == "" and $findSize2 == "" and $findSize3 == ""){
-
-    $sql = "SELECT * FROM items WHERE ItemTypeID = ?;";
-    $stmt = $conn->prepare($sql);
-    $stmt->execute([$findItemTypeID]);
-    $count = $stmt->rowCount();
-    //echo "I ran 0 <br>";
-  }elseif($findSize1 != "" and $findSize2 != "" and $findSize3 != "" and $findItemTypeID != 0){
-    $NumExpected  = 3;
-    $MatchedIDsArr = sizeFind($findSize1,$findSize2,$findSize3,$findItemTypeID, $NumExpected, $conn);
-    foreach($MatchedIDsArr as $val){
-      $sql = "SELECT * FROM items WHERE ID = ? AND ItemTypeID = ?;"; ///ahhh 
-      $stmt = $conn->prepare($sql);
-      $stmt->execute([$val, $findItemTypeID]);
-      $count = $stmt->rowCount();
-      $row = $stmt->fetch(PDO::FETCH_ASSOC);
-      if ($row != false){ 
-        array_push($IDArr,$row['ID']);
-        array_push($NSNArr,$row['NSN']);
-        array_push($ItemTypeIDArr,$row['ItemTypeID']);
-        array_push($NumIssuedArr,$row['NumIssued']);
-        array_push($NumInStoreArr,$row['NumInStore']);
-        array_push($NumReservedArr,$row['NumReserved']);
-        array_push($NumOrderedArr,$row['NumOrdered']);
+  // echo variables for testing
+  echo "<br> tmpName: " . $tmpName;
+  echo "<br> UploadedName: " . $UploadedName;
+  echo "<br> fileSize: " . $fileSize;
+  echo "<br> fileType: " . $fileType;
+  echo "<br> fileError: " . $fileError;
+  echo "<br> fileExtension: " . $fileExtension; 
+  echo "<br>";
+  $errors = 0;
+  $currentDate = date("Y-m-d");
+  $currentDateArr = explode("-",$currentDate);
+  $eventStartDateArr = explode("-",$eventStartDate);
+  $eventEndDateArr = explode("-",$eventEndDate);
+  //Other Variables Validation
+  if($eventName == "" or $eventLocation == "" or $eventStartDate == "" or $eventStartTime == "" or $eventEndTime == ""){
+    $msg = "Required Fields must Not Be Empty";
+    $_SESSION['msg'] = $msg;
+    echo "i Ran 1";
+    $errors = 1;
+  }
+  // checks if the  Start date is Not in the Future 
+  if($errors != 1){
+    // compares years first then Months then Days  
+    for($i = 0; $i>3; $i++){
+      if(intval($eventStartDateArr[$i]) < intval($currentDateArr[$i])){
+        $msg = "Start Date Must Not be in the Past";
+        $_SESSION['msg'] = $msg;
+        $errors = 1;
+        break;
       }else{
 
       }
     }
-    //echo "iran1";
-    //var_dump($IDArr);
-    $sizeFindUsed = true;
-    //echo "I ran 3 <br>";
-  }elseif($findSize1 != "" and $findSize2 != "" and $findItemTypeID != 0 /* */ and $findSize3 == ""){
-    $NumExpected  = 2;
-    $findSize3 = 0; // adding a blank value so error is not thrown
-    $MatchedIDsArr = sizeFind($findSize1,$findSize2,$findSize3,$findItemTypeID, $NumExpected, $conn);
-    foreach($MatchedIDsArr as $val){
-      
-      $sql = "SELECT * FROM items WHERE ID = ? AND ItemTypeID = ?;"; 
-      $stmt = $conn->prepare($sql);
-      $stmt->execute([$val, $findItemTypeID]);
-      $count = $stmt->rowCount();
-      $row = $stmt->fetch(PDO::FETCH_ASSOC);
-      if ($row != false){ 
-        array_push($IDArr,$row['ID']);
-        array_push($NSNArr,$row['NSN']);
-        array_push($ItemTypeIDArr,$row['ItemTypeID']);
-        array_push($NumIssuedArr,$row['NumIssued']);
-        array_push($NumInStoreArr,$row['NumInStore']);
-        array_push($NumReservedArr,$row['NumReserved']);
-        array_push($NumOrderedArr,$row['NumOrdered']);
+  }
+  //checks if End date is Earlier than Start date 
+  if($errors != 1){
+    // compares years first then Months then Days 
+    for($i = 0; $i>3; $i++){
+      if(intval($eventStartDateArr[$i]) < intval($currentDateArr[$i])){
+        $msg = "End Date Must Not be Earlier than Start Date ";
+        $_SESSION['msg'] = $msg;
+        $errors = 1;
+        break;
       }else{
-
+  
       }
-    }
-    //echo "iran2";
-    //var_dump($IDArr);
-    $sizeFindUsed = true;
-  }elseif($findSize1 != "" and $findItemTypeID != 0 /* */and $findSize2 == "" and $findSize3 == ""){
-    $NumExpected  = 2;
-    $findSize2 = 0; // adding a blank value so error is not thrown
-    $findSize3 = 0; // adding a blank value so error is not thrown
-    $MatchedIDsArr = sizeFind($findSize1,$findSize2,$findSize3,$findItemTypeID, $NumExpected, $conn);
-    foreach($MatchedIDsArr as $val){
-      $sql = "SELECT * FROM items WHERE ID = ? AND ItemTypeID = ?;"; 
-      $stmt = $conn->prepare($sql);
-      $stmt->execute([$val, $findItemTypeID]);
-      $count = $stmt->rowCount();
-      $row = $stmt->fetch(PDO::FETCH_ASSOC);
-      if ($row != false){ 
-      array_push($IDArr,$row['ID']);
-      array_push($NSNArr,$row['NSN']);
-      array_push($ItemTypeIDArr,$row['ItemTypeID']);
-      array_push($NumIssuedArr,$row['NumIssued']);
-      array_push($NumInStoreArr,$row['NumInStore']);
-      array_push($NumReservedArr,$row['NumReserved']);
-      array_push($NumOrderedArr,$row['NumOrdered']);
-      }else{
+  }
 
-      }
+  // file validation
+  if ($_FILES["fileToUpload"]["size"] > 500000 and $errors != 1) { // Check file size
+    $msg =  "<p id = 'msg'><b class = 'error'>Sorry, your file is too large</b></p>";
+    $_SESSION['msg'] = $msg;
+    echo $msg;
+    $errors = 1;
+  }elseif($fileExtension != "txt" and $fileExtension != "docx" and $fileExtension != "doc" and $fileExtension != "pdf" and $fileExtension != "") { //only allow certain file formats
+    $msg =  "<p id = 'msg'><b class = 'error'>Sorry, only txt, docx, doc and pdf files are allowed</b></p>";
+    $_SESSION['msg'] = $msg;
+    echo $msg;
+    $errors = 1;
+  }elseif ($errors != 1) { 
+    $fileNameFinal = $fileNameFinal . $dateFor; // adds date to file name to make it unique  
+    if(file_exists($fileNameFinal)){// Check if file already exists
+      $msg =  "<p id = 'msg'><b class = 'error'>Sorry, file already exists</b></p>";
+      $_SESSION['msg'] = $msg;
+      echo $msg;
+      $errors = 1;
+    }else{
+    // if no error in has been found it submits it to the process page
+      // testing 
+      // $targetDir = "temp/";
+      // $tempFinalLocation = $targetDir . $fileNameFinal;
+      // $moved = move_uploaded_file($tempName, $tempFinalLocation);
+    ?>
+    <form Id = "AutoSendForm" action = "UOProcess.php" method="post">
+      <!-- Events Variables -->
+      <input type="hidden" id="eventName" name="eventName" value="<?php echo $eventName; ?>">
+      <input type="hidden" id="eventLocation" name="eventLocation" value="<?php echo $eventLocation; ?>">
+      <input type="hidden" id="eventStartDate" name="eventStartDate" value="<?php echo $eventStartDate; ?>">
+      <input type="hidden" id="eventEndDate" name="eventEndDate" value="<?php echo $eventEndDate; ?>">
+      <input type="hidden" id="eventStartTime" name="eventStartTime" value="<?php echo $eventStartTime; ?>">
+      <input type="hidden" id="eventEndTime" name="eventEndTime" value="<?php echo $eventEndTime; ?>">
+      <!-- File Variables -->
+      <input type="hidden" id="fileType" name="fileType" value="<?php echo $fileType; ?>">
+      <input type="hidden" id="fileTempLocation" name="fileTempLocation" value="<?php echo $tmpName; ?>">
+    </form>
+
+    <script type="text/javascript">
+      //document.getElementById("AutoSendForm").submit(); // auto submits form                        ^
+    </script><?php
+    echo "i Ran 3";
     }
-    //echo "iran3";
-    //var_dump($IDArr);
-    $sizeFindUsed = true;
-  }elseif($findSize1 != "" and $findSize2 != "" and $findSize3 != "" and /* */ $findItemTypeID == 0){
-    $NumExpected  = 3;
-    $MatchedIDsArr = sizeFind($findSize1,$findSize2,$findSize3,$findItemTypeID, $NumExpected, $conn);
-    foreach($MatchedIDsArr as $val){
-      $sql = "SELECT * FROM items WHERE ID = ?;"; 
-      $stmt = $conn->prepare($sql);
-      $stmt->execute([$val]);
-      $count = $stmt->rowCount();
-      $row = $stmt->fetch(PDO::FETCH_ASSOC);
-      array_push($IDArr,$row['ID']);
-      array_push($NSNArr,$row['NSN']);
-      array_push($ItemTypeIDArr,$row['ItemTypeID']);
-      array_push($NumIssuedArr,$row['NumIssued']);
-      array_push($NumInStoreArr,$row['NumInStore']);
-      array_push($NumReservedArr,$row['NumReserved']);
-      array_push($NumOrderedArr,$row['NumOrdered']);
-    }
-    //echo "iran4";
-    //var_dump($IDArr);
-    $sizeFindUsed = true;
-  }elseif($findSize1 != "" and $findSize2 != "" /* */and $findSize3 == "" and $findItemTypeID == 0){
-    $NumExpected  = 2;
-    $findSize3 = 0; // adding a blank value so error is not thrown
-    $MatchedIDsArr = sizeFind($findSize1,$findSize2,$findSize3,$findItemTypeID, $NumExpected, $conn);
-    foreach($MatchedIDsArr as $val){
-      $sql = "SELECT * FROM items WHERE ID = ?;"; ///ahhh 
-      $stmt = $conn->prepare($sql);
-      $stmt->execute([$val]);
-      $count = $stmt->rowCount();
-      $row = $stmt->fetch(PDO::FETCH_ASSOC);
-      array_push($IDArr,$row['ID']);
-      array_push($NSNArr,$row['NSN']);
-      array_push($ItemTypeIDArr,$row['ItemTypeID']);
-      array_push($NumIssuedArr,$row['NumIssued']);
-      array_push($NumInStoreArr,$row['NumInStore']);
-      array_push($NumReservedArr,$row['NumReserved']);
-      array_push($NumOrderedArr,$row['NumOrdered']);
-    }
-    //echo "iran5";
-    //var_dump($IDArr);
-    $sizeFindUsed = true;
-  }elseif($findSize1 != ""  and /* */ $findSize2 == "" and $findSize3 == "" and $findItemTypeID == 0){
-    $NumExpected  = 1;
-    $findSize2 = 0; // adding a blank value so error is not thrown
-    $findSize3 = 0; // adding a blank value so error is not thrown
-    $MatchedIDsArr = sizeFind($findSize1,$findSize2,$findSize3,$findItemTypeID, $NumExpected, $conn);
-    foreach($MatchedIDsArr as $val){
-      $sql = "SELECT * FROM items WHERE ID = ?;"; ///ahhh 
-      $stmt = $conn->prepare($sql);
-      $stmt->execute([$val]);
-      $count = $stmt->rowCount();
-      $row = $stmt->fetch(PDO::FETCH_ASSOC);
-      array_push($IDArr,$row['ID']);
-      array_push($NSNArr,$row['NSN']);
-      array_push($ItemTypeIDArr,$row['ItemTypeID']);
-      array_push($NumIssuedArr,$row['NumIssued']);
-      array_push($NumInStoreArr,$row['NumInStore']);
-      array_push($NumReservedArr,$row['NumReserved']);
-      array_push($NumOrderedArr,$row['NumOrdered']);
-    }
-    //echo "iran6";
-    //var_dump($IDArr);
-    $sizeFindUsed = true;
-  }else{
-    $sql = "SELECT * FROM items;";
-    $stmt = $conn->prepare($sql);
-    $stmt->execute();
-    $count = $stmt->rowCount();
-    //echo "I ran 4 <br>";
   }
 }else{
-// Qry to find all items
-$sql = "SELECT * FROM items;";
-$stmt = $conn->prepare($sql);
-$stmt->execute();
-$count = $stmt->rowCount();
-//echo "I ran 2 <br>";
+  echo "i Ran 4";
 }
-$empty = 0;
-  if ($count == 0){
-    $empty = 1;
-  }else{
 
-  }
+// ---------------------------------------------------main code--------------------------------------------------- {
 
-  if($sizeFindUsed != true){
-    // add the value in Each row's data to their respective columns Arrays this is done so data can be modified prior to display 
-    while($row = $stmt->fetch(PDO::FETCH_ASSOC)){
-      //echo $row['ID'] . "<br>"; test
-      array_push($IDArr,$row['ID']);
-      array_push($NSNArr,$row['NSN']);
-      array_push($ItemTypeIDArr,$row['ItemTypeID']);
-      array_push($NumIssuedArr,$row['NumIssued']);
-      array_push($NumInStoreArr,$row['NumInStore']);
-      array_push($NumReservedArr,$row['NumReserved']);
-      array_push($NumOrderedArr,$row['NumOrdered']);
-    }
-  }else{
-
-  }
- 
-  
-  // get the look up table for Item Type
-  $sql = "SELECT ItemTypeName FROM itemType;";
-  $stmt = $conn->prepare($sql);
-  $stmt->execute();
-  $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
-  ////var_dump($result); // test 
-
-  // getting the data in a usable form 
-  $lenResult = count($result);
-  $loop = 0; 
-  $ItemTypeNameArr =["test"]; // initialising with value at start of array so the Index matches the ID 
-
-  // creates  array $ItemTypeNameArray out of the result 
-  while($loop < $lenResult){
-    $temp = implode($result[$loop]);
-    //echo $temp . " hello <br>"; // test 
-    array_push($ItemTypeNameArr,$temp);
-    $loop = $loop + 1;
-  }
-
-////var_dump($ItemTypeNameArr); // test
-
-
-// matching the ID to the name
-$lenItemTypeIDArr = count($ItemTypeIDArr);
-$lenItemTypeNameArr = count($ItemTypeNameArr);
-//echo $lenItemTypeIDArr. "<br>";
-//echo $lenItemTypeNameArr . "<br>";
-$loop = 0;
-$loopID = 1;
-while ($loop < $lenItemTypeIDArr){
-  while ($loopID <= $lenItemTypeNameArr){
-    if ($ItemTypeIDArr[$loop] == $loopID){
-      //echo $ItemTypeIDArr[$loop] . "<br>"; // test 
-      $ItemTypeIDArr[$loop] = $ItemTypeNameArr[$loopID];
-      //echo $ItemTypeIDArr[$loop] . "<br>"; // test 
-      break; 
-    }else{
-      $loopID = $loopID + 1;
-    }
-  }
-  $loop = $loop + 1;// incrimenting loop var
-  $loopID = 1 ; // need to reset the loop ID 
-  //echo "I ran <br>"; // test 
 }
-// $ItemTypeIDArr
+
+      
     ?>
   </head>
 
@@ -428,159 +173,65 @@ while ($loop < $lenItemTypeIDArr){
           echo $_SESSION['fname']. " ";
           echo $_SESSION['lname'];?></h2>
       <img class = "profilePic" src="images/<?php echo $_SESSION['profilePicURL'];?>" alt="SgtDefalt" width="auto" height="150">
-      <!-- back button --> 
       <form action ="<?php
       if($_SESSION['troop']=="CFAV"){
-        echo "adminMainPage.php";
+        echo "manageUsers.php";
       }else{
         echo "mainPage.php";
       }
       ?>">
       <input type="submit" class = "smallButton" value="«" name="dashButton">
       </form>
-
-
     </div>
       <div id="main">
-          <h2>Virtual stores - Work in Progress </h2>
-
-          <a href=virtualStores.php >
-            <button class ="button">Requests</button>
-          </a>
-          <a href=#Stock.php >
-            <button class ="button buttonPressed">Stock</button>
-          </a>
-            <form action = "Stock.php" method="post">
-            <label for="ItemType">ItemType</label><br>
-            <select id="ItemType" name="ItemType">
-              <option value="0">No Filter</option>
-              <?php
-                $sql = "SELECT * FROM itemType;";
-                $stmt = $conn->prepare($sql);
-                $stmt->execute();
-                while($row = $stmt->fetch(PDO::FETCH_ASSOC)){
-                  echo "<option value=".$row["ID"].">".$row["ItemTypeName"]."</option>";
-                }
-                ?>
-              </select><br>
-              <?php
-              
-              ?>
-              <label >Nato Size</label><br>
-              <input type="text" id="Size1" name="Size1" placeholder = "Size 1" value="<?php
-              // checks if user has Entered any value into form, if so displays it
-              if (isset($findSize1)){
-                if($findSize1 == 0){
-                  echo "";
+          <h2>User Management - Work in Progress </h2>
+          <fieldset>
+            <?php if (isset($_SESSION["msg"])){
+                  echo $_SESSION['msg'];
                 }else{
-                  echo $findSize1;
+                  echo "";//test
                 }
-              }else{
-                echo "";
-              }
-                  
-               ?>">
-              <input type="text" id="Size2" name="Size2" placeholder = "Size 2" value="<?php
-              // checks if user has Entered any value into form, if so displays it
-              if (isset($findSize2)){
-                if($findSize2 == 0){
-                  echo "";
-                }else{
-                  echo $findSize2;
-                }
-              }else{
-                echo "";
-              } ?>">
-              <input type="text" id="Size3" name="Size3" placeholder = "Size 3" value="<?php
-              // checks if user has Entered any value into form, if so displays it
-               if (isset($findSize3)){
-                if($findSize3 == 0){
-                  echo "";
-                }else{
-                  echo $findSize3;
-                }
-              }else{
-                echo "";
-              }?>">
-              <br>
-              <input type="submit" class = "button" value="find" name="find">
-              
-              
+                
+            ?>
+            <table class = "tableDisplay">
+            <form action="events.php" method="post" enctype="multipart/form-data">
+            <tr>
+                  <th>Column Name</th>
+                  <th>Data</th>
+            </tr>
+            <tr>
+              <td>Name<br></td>
+              <td><input type = "text" name = "Name" id = "Name" value = ""><br></td>
+            </tr>
+            <tr>
+              <td>Location<br></td>
+              <td><input type = "text" name = "Location" id = "Location" value = ""><br></td>
+            </tr>
+            <tr>
+              <td>Start Date<br></td>
+              <td><input type = "date" min="<?php echo date("Y-m-d");?>" name = "startDate" id = "startDate"><br></td>
+            </tr>
+            <tr>
+              <td>End Date<br></td>
+              <td><input type = "date" min="<?php echo date("Y-m-d");?>" name = "endDate" id = "endDate"><br></td>
+            </tr>
+            <tr>
+              <td>Start Time<br></td>
+              <td><input type = "time" name = "startTime" id = "startTime" value = ""><br></td>
+            </tr>
+            <tr>
+              <td>End Time<br></td>
+              <td><input type = "time" name = "endTime" id = "endTime" value = ""><br></td>
+            </tr>
+            <tr>
+              <td>Orders<br></td>
+              <td><input type = "file" name = "fileToUpload" id="fileToUpload"><br></td>
+            </tr>
+            </table>
+            <input type="submit" name ="submitAE" class = "button" value="Add">
+            <input type="submit" name ="submitAEA" class = "button" value="Add and Add Another">
             </form>
-              <table class = "tableDisplay">
-                <tr>
-                  <th>ID</th>
-                  <th>NSN</th>
-                  <th>ItemType</th>
-                  <th>Size</th>
-                  <th>NumIssued</th>
-                  <th>NumInStore</th>
-                  <th>NumOrdered</th>
-                  <th>NumReserved</th>
-                  <th>edit?</th>
-                  <th>delete?</th>
-                </tr>
-                <form method='post' action ='addNewStock.php'>
-                <input type="submit" class="button" name="addNew" value="Add New"/>
-                </form>
-
-                <?php 
-                  $loop = 0;
-                  ////var_dump($IDArr); //test
-                  // echo $empty; // test
-              
-                // Prints out table data  
-                  while($loop < count($IDArr)){ 
-                  echo "<tr>";
-                      echo "<td>" .  $IDArr[$loop] . "</td>" ;
-                      echo "<td>" .  $NSNArr[$loop] . "</td>";
-                      echo "<td>" .  $ItemTypeIDArr[$loop] . "</td>";
-                      echo "<td>" . sizesCompressionAdmin($IDArr[$loop],$conn). "</td>";
-                      echo "<td>
-                      <button class='button smallButton' name='Plus1' onclick = addOrMinus($IDArr[$loop],'plus','numIssued')>+</button>
-                      <div id = 'numIssued$IDArr[$loop]'>". $NumIssuedArr[$loop]."</div>
-                      <button class='button smallButton' name='Sub1' onclick = addOrMinus($IDArr[$loop],'sub','numIssued')>-</button>
-                      </td>";
-                      echo "<td>
-                      <button class='button smallButton' name='Plus1' onclick = addOrMinus($IDArr[$loop],'plus','numInStore')>+</button>
-                      <div id = 'numInStore$IDArr[$loop]'>". $NumInStoreArr[$loop]."</div>
-                      <button class='button smallButton' name='Sub1' onclick = addOrMinus($IDArr[$loop],'sub','numInStore')>-</button>
-                      </td>";  
-                      echo "<td>
-                      <button class='button smallButton' name='Plus1' onclick = addOrMinus($IDArr[$loop],'plus','numReserved')>+</button>
-                      <div id = 'numReserved$IDArr[$loop]'>". $NumReservedArr[$loop]."</div>
-                      <button class='button smallButton' name='Sub1' onclick = addOrMinus($IDArr[$loop],'sub','numReserved')>-</button>
-                      </td>";
-                      echo "<td>
-                      <button class='button smallButton' name='Plus1' onclick = addOrMinus($IDArr[$loop],'plus','numOrdered')>+</button>
-                      <div id = 'numOrdered$IDArr[$loop]'>". $NumOrderedArr[$loop]."</div>
-                      <button class='button smallButton' name='Sub1' onclick = addOrMinus($IDArr[$loop],'sub','numOrdered')>-</button>
-                      </td>";
-                      echo "<td>
-                      <form method='post' action ='editRow.php'>
-                      <input type='hidden' id = 'editRow' name='editRow' value=' $IDArr[$loop] '/>
-                      <input type='submit' name='eR' value='edit'/>
-                      </form>
-                      </td>";
-                      echo "<td>
-                      <form method='post' action ='deleteRowStock.php'>
-                      <input type='hidden' id = 'Xdata' name='Xdata' value=' $IDArr[$loop] '/>
-                      <input type='submit' name='X' value='X'/>
-                      </form>
-                      </td>";
-                  echo "</tr>";
-                  
-                  $loop = $loop + 1;
-                  }
-                  ?>
-
-              </table>
-              <form method='get' action ='SProcess.php'>
-              <input type='hidden' id = 'Operation' name='Operation' value='plus'/>
-              <input type='hidden' id = 'ItemID' name='ItemID' value='1'/>
-              <input type='hidden' id = 'Column' name='Column' value='numInStore'/>
-              <input type='submit' name='test' value='test'/>
-              </form>
+          </fieldset>
       </div>
     <div id="footer">
 

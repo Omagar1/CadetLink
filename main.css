@@ -136,41 +136,37 @@ body {
       height: auto;
       width: auto;
     }
-
+    .events{
+      padding: 1%;
+      margin: 10px 10px;
+      min-height: 2cm;
+      height: 50%;
+      width: auto;
+      background-color: white;
+    }
 
     .dashboard{
       padding: 1%;
       margin: 10px 10px;
+      border-radius: 5px;
     }
     .dashbordTroop{
       background-color: rgb(139, 141, 0);
-      padding: 1%;
-      margin: 10px 10px;
     }
     .dashbordSection{
       background-color: rgb(51, 153, 114);
-      padding: 1%;
-      margin: 10px 10px;
     }
     .dashbordOrders{
       background-color: rebeccapurple;
-      padding: 1%;
-      margin: 10px 10px;
     }
     .dashbordKitRequest{
       background-color: rgb(0, 85, 0);
-      padding: 1%;
-      margin: 10px 10px;
     }
     .dashbordTrips{
       background-color: rgb(255, 136, 0);
-      padding: 1%;
-      margin: 10px 10px;
     }
     .dashbordVPB{
       background-color: blue;
-      padding: 1%;
-      margin: 10px 10px;
     }
     .BenBlue{
       background-color: #3c3c3b;;
