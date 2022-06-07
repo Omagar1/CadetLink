@@ -8,16 +8,6 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script>
-      function showPwd() {
-        var x = document.getElementById("PwdInput");
-        if (x.type === "password") {
-          x.type = "text";
-        } else {
-          x.type = "password";
-        }
-      }
-    </script>
     <?php
       $CnumUsed = false;
       // connects to database
@@ -119,20 +109,19 @@ if (isset($_POST['submitAE']) or  isset($_POST['submitAEA'])){
     echo $msg;
     $errors = 1;
   }elseif ($errors != 1) { 
-    $fileNameFinal = $fileNameFinal . $dateFor; // adds date to file name to make it unique  
-    if(file_exists($fileNameFinal)){// Check if file already exists
-      $msg =  "<p id = 'msg'><b class = 'error'>Sorry, file already exists</b></p>";
-      $_SESSION['msg'] = $msg;
-      echo $msg;
-      $errors = 1;
-    }else{
+    // if(file_exists($fileNameFinal)){// Check if file already exists
+    //   $msg =  "<p id = 'msg'><b class = 'error'>Sorry, file already exists</b></p>";
+    //   $_SESSION['msg'] = $msg;
+    //   echo $msg;
+    //   $errors = 1;
+    //}else{
     // if no error in has been found it submits it to the process page
       // testing 
       // $targetDir = "temp/";
       // $tempFinalLocation = $targetDir . $fileNameFinal;
       // $moved = move_uploaded_file($tempName, $tempFinalLocation);
     ?>
-    <form Id = "AutoSendForm" action = "UOProcess.php" method="post">
+    <form Id = "AutoSendForm" action = "UEProcess.php" method="post">
       <!-- Events Variables -->
       <input type="hidden" id="eventName" name="eventName" value="<?php echo $eventName; ?>">
       <input type="hidden" id="eventLocation" name="eventLocation" value="<?php echo $eventLocation; ?>">
@@ -146,7 +135,7 @@ if (isset($_POST['submitAE']) or  isset($_POST['submitAEA'])){
     </form>
 
     <script type="text/javascript">
-      //document.getElementById("AutoSendForm").submit(); // auto submits form                        ^
+      document.getElementById("AutoSendForm").submit(); // auto submits form                        ^
     </script><?php
     echo "i Ran 3";
     }
@@ -157,7 +146,7 @@ if (isset($_POST['submitAE']) or  isset($_POST['submitAEA'])){
 
 // ---------------------------------------------------main code--------------------------------------------------- {
 
-}
+//}
 
       
     ?>

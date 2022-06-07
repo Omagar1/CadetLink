@@ -33,7 +33,48 @@
       $stmt->execute();
       $requestCount = $stmt->rowCount();
 
+
+      // gets all events stored in data base 
+      $sql = "SELECT * FROM events ORDER BY startDate, startTime;";
+      $stmt = $conn->prepare($sql);
+      $stmt->execute();
+      $count = $stmt->rowCount();
+      // inisalising arrays 
+      $eventIDArr        = [];
+      $eventNameArr      = [];
+      $eventLocationArr  = [];
+      $eventStartDateArr = [];
+      $eventEndDateArr   = [];
+      $eventStartTimeArr = [];
+      $eventEndTimeArr   = [];
+      //putting data into arrays from qry 
+      while($row = $stmt->fetch(PDO::FETCH_ASSOC)){
+        array_push($eventIDArr,$row['ID']);
+        array_push($eventNameArr,$row['name']);
+        array_push($eventLocationArr,$row['location']);
+        array_push($eventStartDateArr,$row['startDate']);
+        array_push($eventEndDateArr,$row['endDate']);
+        array_push($eventStartTimeArr,$row['startTime']);
+        array_push($eventEndTimeArr,$row['endTime']);
+      }
+      //formatting the dates into display format
+      $dateDisplayArr = [];
+      for($i = 0; $i < $count; $i++ ){
+        if($eventEndDateArr[$i] != "" ){
+          array_push($dateDisplayArr, $eventStartDateArr[$i] . " to " . $eventEndDateArr[$i]);
+        }else{
+          array_push($dateDisplayArr, $eventStartDateArr[$i]);
+        }
+      }
+      //formatting the times into display format
+      $timeDisplayArr = [];
+      for($i = 0; $i < $count; $i++ ){
+        array_push($timeDisplayArr, $eventStartTimeArr[$i] . " to " . $eventEndTimeArr[$i]);
+      }
+      // testing 
+      //var_dump($eventNameArr);
       ?>
+      
     </head>
 
     <body id = "test">
@@ -55,10 +96,42 @@
       </div>
         <div id="main">
             <h2>Your Dashboard</h2>
-            <div class = "events">
-
+            
+            <?php
+             for($i = 0; $i < $count; $i++ ){
+            ?>
+            <div class = "events fade">
+              <h3 class = "navBarDashTxt"><?php echo $eventNameArr[$i];?></h3>
+              <table class = "eventTable tableDisplay">
+                <tr>
+                  <td class = "eventTd">Location:</td>
+                  <td class = "eventTd"><?php echo $eventLocationArr[$i];?></td>
+                </tr>
+                <tr>
+                  <td class = "eventTd">Date:</td>
+                  <td class = "eventTd"><?php echo $dateDisplayArr[$i];?></td>
+                </tr>
+                <tr>
+                  <td class = "eventTd">Time:</td>
+                  <td class = "eventTd"><?php echo $timeDisplayArr[$i];?></td>
+                </tr>
+                <tr>
+                  <td class = "eventTd" >Orders:</td>
+                  <td class = "eventTd">Work in Progress</td>
+                </tr>
+                <tr>
+                  <td class = "eventTd">Notes:</td>
+                  <td class = "eventTd">Work in Progress</td>
+                </tr>
+              </table>
+              <a class="prev fade left  " onclick="plusSlides(-1)">❮</a>
+              <a class="next fade right" onclick="plusSlides(1)">❯</a>
             </div>
-
+            <?php
+             }
+            ?>
+            
+            <!-- dashboard buttons -->
             <div>
                 <ul class="no-bullets">
                 <li class ="dashbordSection dashboard" class = "inline"><a href = "manageUsers.php" class = "dasbordTxt">Manage Users</a></li>
@@ -104,7 +177,34 @@
                 </li>
                 </ul>
             </div>
-            
+
+        <script> // script to make the slide show of events work
+        let slideIndex = 1;// the number of slide displayed 
+        showSlides(slideIndex);
+
+        function plusSlides(n) {
+          showSlides(slideIndex += n);
+        }
+
+        function currentSlide(n) { // not used 
+          showSlides(slideIndex = n);
+        }
+
+        function showSlides(n) {
+          let i;
+          let slides = document.getElementsByClassName("events");
+          console.log(slides.length);
+          if (n > slides.length) {
+            slideIndex = 1;
+          }else if (n < 1) {
+            slideIndex = slides.length;
+          }
+          for (i = 0; i < slides.length; i++) {
+            slides[i].style.display = "none";  
+          }
+          slides[slideIndex-1].style.display = "block";  
+        }
+        </script>   
         </div>
       
       <div id="footer">

@@ -531,7 +531,7 @@ while ($loop < $lenItemTypeIDArr){
               
                 // Prints out table data  
                   while($loop < count($IDArr)){ 
-                  echo "<tr>";
+                    echo "<tr>";
                       echo "<td>" .  $IDArr[$loop] . "</td>" ;
                       echo "<td>" .  $NSNArr[$loop] . "</td>";
                       echo "<td>" .  $ItemTypeIDArr[$loop] . "</td>";
@@ -568,9 +568,9 @@ while ($loop < $lenItemTypeIDArr){
                       <input type='submit' name='X' value='X'/>
                       </form>
                       </td>";
-                  echo "</tr>";
+                    echo "</tr>";
                   
-                  $loop = $loop + 1;
+                    $loop = $loop + 1;
                   }
                   ?>
 

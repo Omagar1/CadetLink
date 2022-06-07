@@ -27,7 +27,21 @@ width: 100%;
 tr:nth-child(even) {
 background-color: #f2f2f2;
 } 
-
+/* ----------------------------- Event Table stuff  -----------------------------  */
+.eventTable{
+  border: none;
+  border-collapse: collapse;
+  width: 50%;
+}
+.eventTd{
+  width: 50%; 
+  border: none;
+  color: black;
+  background-color: white;
+  }
+.tableDisplay{
+  width: 100%;
+} 
 
 
 /* ----------------------------- Header Stuff -----------------------------  */
@@ -120,106 +134,164 @@ body {
   color: greenyellow;
 }
 
-    #main {
-      background-color: rgb(0, 43, 23, 0.938);
-      margin: 5%;
-      margin-top: 50px;
-      padding: 1%;
-      height: auto;
-      width: auto;
-      text-align: center;
-      font-family: 'Bebas Neue', cursive;
-      font-style: oblique;
-      box-sizing: border-box;
-    }
-    .navButton{
-      height: auto;
-      width: auto;
-    }
-    .events{
-      padding: 1%;
-      margin: 10px 10px;
-      min-height: 2cm;
-      height: 50%;
-      width: auto;
-      background-color: white;
-    }
+#main {
+  background-color: rgb(0, 43, 23, 0.938);
+  margin: 5%;
+  margin-top: 50px;
+  padding: 1%;
+  height: auto;
+  width: auto;
+  text-align: center;
+  font-family: 'Bebas Neue', cursive;
+  font-style: oblique;
+  box-sizing: border-box;
+}
+.navButton{
+  height: auto;
+  width: auto;
+}
 
-    .dashboard{
-      padding: 1%;
-      margin: 10px 10px;
-      border-radius: 5px;
-    }
-    .dashbordTroop{
-      background-color: rgb(139, 141, 0);
-    }
-    .dashbordSection{
-      background-color: rgb(51, 153, 114);
-    }
-    .dashbordOrders{
-      background-color: rebeccapurple;
-    }
-    .dashbordKitRequest{
-      background-color: rgb(0, 85, 0);
-    }
-    .dashbordTrips{
-      background-color: rgb(255, 136, 0);
-    }
-    .dashbordVPB{
-      background-color: blue;
-    }
-    .BenBlue{
-      background-color: #3c3c3b;;
-    }
-    .tjwaRed{
-      background-color: #AE1E30;
-    }
-    .armyGreen{
-      background-color: rgb(0, 43, 23);
-    }
-    .purple{
-      background-color: purple;
-    }
-    .Orange{
-      background-color: orange;
-    }
-    ul.no-bullets {
-      list-style-type: none;
-      margin: 0;
-      padding: 0;
-    }
-    .dasbordTxt{
-      list-style-type: none;
-      text-decoration: none;
+/*----------------------------Slide show stuff ---------------------------- */
+.events{
+  padding: 5%;
+  margin: 10px 10px;
+  min-height: 2cm;
+  height: 50%;
+  width: auto;
+  background-color: white;
+  border-radius: 5px;
+  display: none;/* lets java script decide what gets displayed */
+  position: relative;
+}
+/* Slideshow container */
 
-    }
-    li.dasbord:hover {
-      background-color: white; 
-    }
-    .dasbordTxt:hover {
-      color: black; 
-    } 
-    #radio{
-      margin: 0%;
-      display: inline;
-    }
 
-    b{
-      color: rgb(245, 234, 0)
-    }
+/* Next and previous buttons */
+.prev, .next {
+  cursor: pointer;
+  position: absolute;
+  top: 50%;
+  border: none;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  padding: 5px;
+  margin: auto; 
+  background-color: none; 
+  color:black;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-weight: bold;
+  font-size: 18px;
+  user-select: none;
+}
 
-    .notification{
-      border: none;
-      border-radius: 50%;
-      width: 25px;
-      height: 25px;
-      padding: 2px; 
-      background-color: red; 
-      color:white;
-      text-align: center;
-      text-decoration: none;
-      display: inline-block;
-    }
+.right {
+  right: 0;
+}
+.left {
+  left: 0;
+}
+.top{
+  top: 0;
+}
+.bottom{
+  bottom: 0;
+}
+/* On hover, add a black background color with a little bit see-through */
+.prev:hover, .next:hover {
+  color: rgb(245, 234, 0); 
+}
+
+
+/* Fading animation */
+.fade {
+  animation-name: fade;
+  animation-duration: 1.5s;
+}
+
+@keyframes fade {
+  from {opacity: .4} 
+  to {opacity: 1}
+}
+
+/*----------------------------Slide show stuff ---------------------------- */
+.dashboard{
+  padding: 1%;
+  margin: 10px 10px;
+  border-radius: 5px;
+}
+.dashbordTroop{
+  background-color: rgb(139, 141, 0);
+}
+.dashbordSection{
+  background-color: rgb(51, 153, 114);
+}
+.dashbordOrders{
+  background-color: rebeccapurple;
+}
+.dashbordKitRequest{
+  background-color: rgb(0, 85, 0);
+}
+.dashbordTrips{
+  background-color: rgb(255, 136, 0);
+}
+.dashbordVPB{
+  background-color: blue;
+}
+.BenBlue{
+  background-color: #3c3c3b;;
+}
+.tjwaRed{
+  background-color: #AE1E30;
+}
+.armyGreen{
+  background-color: rgb(0, 43, 23);
+}
+.purple{
+  background-color: purple;
+}
+.Orange{
+  background-color: orange;
+}
+ul.no-bullets {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+.dasbordTxt{
+  list-style-type: none;
+  text-decoration: none;
+
+}
+li.dasbord:hover {
+  background-color: white; 
+}
+.dasbordTxt:hover {
+  color: black; 
+} 
+#radio{
+  margin: 0%;
+  display: inline;
+}
+
+b{
+  color: rgb(245, 234, 0)
+}
+
+.notification{
+  border: none;
+  border-radius: 50%;
+  width: 25px;
+  height: 25px;
+  padding: 2px; 
+  background-color: red; 
+  color:white;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+}
 /* ----------------------------- Form  and Button stuff  -----------------------------  */
 fieldset{
   width: auto;
@@ -334,6 +406,9 @@ input[type=button], input[type=submit], input[type=reset] {
   h1{
     font-size: xx-large;
   }
+  h2,h3{
+    font-size: medium;
+  }
   .navBarDashTxt h2,h3{
     font-size: large;
     width: 50%;
@@ -356,6 +431,9 @@ input[type=button], input[type=submit], input[type=reset] {
   .profilePic{
     margin-left: 0;
     border: 5px solid;
+  }
+  .events, td{
+    font-size: smaller;
   }
 }
 
