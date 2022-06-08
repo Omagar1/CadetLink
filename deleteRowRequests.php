@@ -3,6 +3,7 @@ session_start();
 
 require_once "ConnectDB.php";
 
+//old code 
 // if (isset($_POST['Xdata'])){
 //     echo "set <br> ";
 // }else{

@@ -1,18 +1,16 @@
-<!DOCTYPE phpl>
-  <phpl>
-    <head>
-      <title>CadetLink</title>
-      <link href="main.css" rel="stylesheet" />
-      <link rel="preconnect" href="https://fonts.googleapis.com">
-      <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-      <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">
-      <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <?php
-      session_start();
-      //checks if not logged in 
-     if(!isset($_SESSION["loggedIn"]) and ($_SESSION["loggedIn"] != true) ){
-        header("location: index.php"); // if so redirects them to the loginpage page
-      };
+<?php
+session_start();
+ include "functions.php";
+ require_once "ConnectDB.php"
+?>
+
+<html>
+    <?php
+      head();// from functions.php, echoes out the head tags
+
+      notLoggedIn(); // from functions.php, checks if user is logged in 
+
+      destroyUnwantedSession();// from functions.php, destroys unwanted error messages from other pages 
       ?>
     </head>
 

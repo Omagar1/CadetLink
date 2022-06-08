@@ -1,40 +1,29 @@
+<?php
+session_start();
+require_once "ConnectDB.php";
+include "functions.php"
+?>
+
 <!DOCTYPE html>
   <html>
-    <head>
-      <title>CadetLink</title>
-      <link href="main.css" rel="stylesheet" />
-      <link rel="preconnect" href="https://fonts.googleapis.com">
-      <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-      <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">
-      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
       <?php
-      session_start();
-      require_once "ConnectDB.php";
-      //checks if not logged in 
-      if(!isset($_SESSION["loggedIn"]) and ($_SESSION["loggedIn"] != true) ){
-        header("location: index.php"); // if so redirects them to the loginpage page
-      };
+      $prevPage = $_SESSION["previous"];
+      //echo $prevPage; // testing 
+      head();// from functions.php, echoes out the head tags
 
-      // system to destroy msg variable when its not wanted
-      if (isset($_SESSION['previous'])) {
-        if (basename($_SERVER['PHP_SELF']) != $_SESSION['previous']) {
-             unset($_SESSION['msg']);
-        }else{
+      notLoggedIn(); // from functions.php, checks if user is logged in 
 
-        }
-      }else{
+      destroyUnwantedSession();// from functions.php, destroys unwanted error messages from other pages 
 
-      }
-      $_SESSION['previous'] = basename($_SERVER['PHP_SELF']);
-
-      //qry to find number of requests 
+      //qry to find number of requests for notification 
       $sql = "SELECT ID FROM itemRequest;";
       $stmt = $conn->prepare($sql);
       $stmt->execute();
       $requestCount = $stmt->rowCount();
 
 
-      // gets all events stored in data base 
+      // gets all events stored in database ordered by closest date to 
       $sql = "SELECT * FROM events ORDER BY startDate, startTime;";
       $stmt = $conn->prepare($sql);
       $stmt->execute();
@@ -83,17 +72,9 @@
         
       </div>
 
-      <div id="navbarDash">
-          <h2 class ="navBarDashTxt"> welcome <?php echo $_SESSION['rank']. " ";
-            echo $_SESSION['fname']. " ";
-            echo $_SESSION['lname'];?></h2>
-          <div> 
-            <img class = "profilePic" src="images/<?php echo $_SESSION['profilePicURL'];?>" alt="SgtDefalt" width="auto" height="150">
-            <form method="get" action="LOProcess.php">
-                <button type="submit" class = "button navButton">LogOut</button>
-            </form>
-          </div>
-      </div>
+      <?php
+      NavBar("DashBoard", $prevPage);
+      ?>
         <div id="main">
             <h2>Your Dashboard</h2>
             
@@ -135,9 +116,14 @@
             <div>
                 <ul class="no-bullets">
                 <li class ="dashbordSection dashboard" class = "inline"><a href = "manageUsers.php" class = "dasbordTxt">Manage Users</a></li>
-                <li class ="dashbordOrders dashboard"><a href = "ordersAdmin.php" class = "dasbordTxt">Orders</a></li>
                 <li class ="dashbordOrders dashboard"><a href = "events.php" class = "dasbordTxt">Events</a></li>
-                <li class ="dashbordKitRequest dashboard"><a href = "virtualStores.php"class = "dasbordTxt">Virtual Stores</a></li>
+                <li class ="dashbordKitRequest dashboard"><a href = "virtualStores.php"class = "dasbordTxt">Virtual Stores<?php
+                if($requestCount > 0){
+                  echo "<span class = 'notification'>$requestCount</span>";
+                }else{
+
+                }
+                ?></a></li>
                 <li class ="dashbordKitRequest dashboard"><a href = "kitRequest.php"class = "dasbordTxt">kit Request</a></li>
                 <li class ="dashbordTrips dashboard"><a href = "trips.php"class = "dasbordTxt">Trips</a></li>
                 <li class ="dashbordVPB dashboard"><a href = "#VPB"class = "dasbordTxt">Virtual Pocket Book</a></li>

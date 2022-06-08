@@ -1,12 +1,19 @@
+<!DOCTYPE html>
+<?php
+session_start();
+ include "functions.php";
+ require_once "ConnectDB.php"
+?>
+
 <html>
-  <head>
-    <title>CadetLink</title>
-    <link href="main.css" rel="stylesheet" />
-    <link href="loginSignup.css" rel="stylesheet" />
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <?php
+    $prevPage = $_SESSION["previous"];
+      head();// from functions.php, echoes out the head tags
+
+      notLoggedIn(); // from functions.php, checks if user is logged in 
+
+      destroyUnwantedSession();// from functions.php, destroys unwanted error messages from other pages 
+    ?>
     <script>
     // hopefully send data to PHP script that either + or - 1 from selected column 
     function addOrMinus(ItemID, Operation, Column) {
@@ -423,24 +430,7 @@ while ($loop < $lenItemTypeIDArr){
       <h1>CadetLink</h1>
     </div>
 
-    <div id="navbarDash">
-      <h2 class ="navBarDashTxt"> welcome <?php echo $_SESSION['rank']. " ";
-          echo $_SESSION['fname']. " ";
-          echo $_SESSION['lname'];?></h2>
-      <img class = "profilePic" src="images/<?php echo $_SESSION['profilePicURL'];?>" alt="SgtDefalt" width="auto" height="150">
-      <!-- back button --> 
-      <form action ="<?php
-      if($_SESSION['troop']=="CFAV"){
-        echo "adminMainPage.php";
-      }else{
-        echo "mainPage.php";
-      }
-      ?>">
-      <input type="submit" class = "smallButton" value="«" name="dashButton">
-      </form>
-
-
-    </div>
+    <?php NavBar("action", $prevPage); ?>
       <div id="main">
           <h2>Virtual stores - Work in Progress </h2>
 

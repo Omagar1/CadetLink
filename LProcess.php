@@ -30,6 +30,7 @@ if ($uname != "" Or $pword != ""){
             $_SESSION['profilePicURL'] = $row['profilePicURL'];
             $_SESSION['loggedIn'] = true; 
             $_SESSION['msg'] = $msg;
+            $_SESSION['previous'] = [];
             echo password_verify($pword, $row["Pword"]);
             if ($_SESSION['troop'] == "CFAV"){ // Admin Check
                 header("location: adminMainPage.php"); // if true redirects them to an Admin page

@@ -82,7 +82,8 @@ h1{
   width: 10%;
   border: 10px solid white;
   margin: 1px;
-  margin-top: -40px;    
+  margin-right: 40px;
+  display: block;    
 }
 .backArrow{
   border-radius: 50%;
@@ -102,6 +103,7 @@ h1{
   text-align: center;
   text-decoration: none;
   margin: 0px;
+  font-size: x-large;
 }
 .navBarList{
   margin: 0px;
@@ -186,7 +188,7 @@ body {
   font-size: 18px;
   user-select: none;
 }
-
+/* --------------- position stuff--------------- */
 .right {
   right: 0;
 }
@@ -199,6 +201,10 @@ body {
 .bottom{
   bottom: 0;
 }
+.flexColumn {
+  display: flex;
+  flex-direction: column;
+}
 /* On hover, add a black background color with a little bit see-through */
 .prev:hover, .next:hover {
   color: rgb(245, 234, 0); 
@@ -207,13 +213,13 @@ body {
 
 /* Fading animation */
 .fade {
-  animation-name: fade;
+  animation-name:  slideAndFade;
   animation-duration: 1.5s;
 }
 
-@keyframes fade {
+@keyframes slideAndFade {
   from {opacity: .4} 
-  to {opacity: 1}
+  to {opacity: 1 }
 }
 
 /*----------------------------Slide show stuff ---------------------------- */
@@ -283,9 +289,10 @@ b{
 .notification{
   border: none;
   border-radius: 50%;
-  width: 25px;
-  height: 25px;
-  padding: 2px; 
+  min-width: 20px;
+  min-height: 20px;
+  padding: 2px;
+  margin-left: 10px;
   background-color: red; 
   color:white;
   text-align: center;
@@ -404,17 +411,20 @@ input[type=button], input[type=submit], input[type=reset] {
     font-size: smaller;
   }
   h1{
-    font-size: xx-large;
+    font-size: x-large;
   }
-  h2,h3{
+  h2, h3{
     font-size: medium;
   }
-  .navBarDashTxt h2,h3{
-    font-size: large;
+  .profilePic{
+    margin-right: 10px;
+    
+  }
+  .navBarDashTxt, h2,h3{
+    font-size: medium;
     width: 50%;
     margin-right: 25%;
     margin-left: 25%;
-    float: right;
   }
   #main {
     margin: 0;
@@ -422,15 +432,22 @@ input[type=button], input[type=submit], input[type=reset] {
     min-height: 100%;
     height: auto;
   }
+  .profilePicContainer{
+    position: relative;
+  }
   .navButton{
     height: auto;
     width: auto;
     font-size: small;
     padding: 0; 
+    position: absolute;
   }
   .profilePic{
     margin-left: 0;
     border: 5px solid;
+    position: absolute;
+    display: block;
+    margin-right: 20px;
   }
   .events, td{
     font-size: smaller;
@@ -445,8 +462,21 @@ input[type=button], input[type=submit], input[type=reset] {
   h1{
     font-size: xx-large;
   }
-  h2,h3{
+  h2, h3{
     font-size: x-large;
+  }
+  .profilePic{
+    margin-left: 0;
+    border: 5px solid;
+    position: absolute;
+    display: block;
+    margin-right: 20px;
+  }
+  .navBarDashTxt, h2,h3{
+    font-size: medium;
+    width: 50%;
+    margin-right: 25%;
+    margin-left: 25%;
   }
   
   #main {
@@ -469,6 +499,12 @@ input[type=button], input[type=submit], input[type=reset] {
   margin: 5%;
   margin-top: 50px;
   }
+  .navBarDashTxt, h2, h3 {
+    font-size: x-large;
+    width: 50%;
+    margin-right: 25%;
+    margin-left: 25%;
+  }
 }
 
 /* Large devices (laptops/desktops, 992px and up) */
@@ -483,7 +519,13 @@ input[type=button], input[type=submit], input[type=reset] {
   #main {
     margin: 5%;
     margin-top: 50px;
-    }
+  }
+  .navBarDashTxt, h2, h3 {
+    font-size: x-large;
+    width: 50%;
+    margin-right: 25%;
+    margin-left: 25%;
+  }
 }
 
 /* Extra large devices (large laptops and desktops, 1200px and up) */
@@ -498,6 +540,12 @@ input[type=button], input[type=submit], input[type=reset] {
   #main {
     margin: 10%;
     margin-top: 75px;
-    }
+  }
+  .navBarDashTxt, h2, h3 {
+    font-size: xx-large;
+    width: 50%;
+    margin-right: 25%;
+    margin-left: 25%;
+  }
 }
 

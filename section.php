@@ -1,20 +1,18 @@
-<!DOCTYPE html>
-  <html>
-    <head>
-      <title>CadetLink</title>
-      <link href="main.css" rel="stylesheet" />
-      <link rel="preconnect" href="https://fonts.googleapis.com">
-      <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-      <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">
-      <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <?php
-      session_start();
-      //checks if not logged in 
-     if(!isset($_SESSION["loggedIn"]) and ($_SESSION["loggedIn"] != true) ){
-        header("location: index.php"); // if so redirects them to the loginpage page
-      };
-      ?>
-    </head>
+<?php
+session_start();
+ include "functions.php";
+ require_once "ConnectDB.php"
+?>
+
+<html>
+    <?php
+    $prevPage = $_SESSION["previous"];
+      head();// from functions.php, echoes out the head tags
+
+      notLoggedIn(); // from functions.php, checks if user is logged in 
+
+      destroyUnwantedSession();// from functions.php, destroys unwanted error messages from other pages 
+    ?>
 
     <body id = "test">
       <div id="header">
@@ -22,19 +20,7 @@
         
       </div>
 
-      <div id="navbarDash">
-        <h2 class ="navBarDashTxt"> welcome Sgt sleep paralysis demon</h2>
-        <img class = "profilePic" src="images/<?php echo $_SESSION['profilePicURL'];?>" alt="SgtDefalt" width="auto" height="150">
-        <form action ="<?php
-        if($_SESSION['troop']=="CFAV"){
-          echo "adminMainPage.php";
-        }else{
-          echo "mainPage.php";
-        }
-        ?>">
-        <input type="submit" class = "smallButton" value="«" name="dashButton">
-        </form>
-      </div>
+      <?php NavBar("action", $prevPage); ?>
         <div id="main">
             <h2>Section - Work in Progress </h2>
             

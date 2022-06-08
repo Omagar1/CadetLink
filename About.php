@@ -1,12 +1,9 @@
+<?php
+include "functions.php";
+?>
 <!DOCTYPE html>
   <html>
-    <head>
-      <title>CadetLink</title>
-      <link href="main.css" rel="stylesheet" />
-      <link rel="preconnect" href="https://fonts.googleapis.com">
-      <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-      <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">
-    </head>
+    <?php head()?>
 
     <body id = "test">
       <div id="header">

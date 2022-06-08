@@ -1,16 +1,17 @@
+<?php
+session_start();
+include "functions.php"
+
+?>
+
 <!DOCTYPE html>
   <html>
-    <head>
-      <title>CadetLink</title>
-      <link href="loginSignup.css" rel="stylesheet" />
-      <link href="main.css" rel="stylesheet" />
-      <link rel="preconnect" href="https://fonts.googleapis.com">
-      <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-      <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">
-      <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <script type="text/javascript" src="Validation.js"></script>
       <?php
-      session_start();
+      head();// from functions.php, echoes out the head tags
+      ?><link href="loginSignup.css" rel="stylesheet" /><?
+      notLoggedIn(); // from functions.php, checks if user is logged in 
+
+      destroyUnwantedSession();// from functions.php, destroys unwanted error messages from other pages 
       // system to destroy msg variable when its not wanted
       if (isset($_SESSION['previous'])) {
         if (basename($_SERVER['PHP_SELF']) != $_SESSION['previous']) {

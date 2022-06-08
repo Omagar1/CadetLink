@@ -1,33 +1,33 @@
-<?php session_start();?>
+<?php session_start();
+include "functions.php";
+?>
 <html>
-  <head>
-    <title>CadetLink</title>
-    <link href="main.css" rel="stylesheet" />
-    <link href="loginSignup.css" rel="stylesheet" />
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <?php
-      $CnumUsed = false;
-      // connects to database
-      require_once "ConnectDB.php";
-      //checks if not logged in 
-      if(!isset($_SESSION["loggedIn"]) and ($_SESSION["loggedIn"] != true) ){
-        header("location: index.php"); // if so redirects them to the loginpage page
-      };
+    $prevPage = $_SESSION["previous"];
+    head();// from functions.php, echoes out the head tags
 
-      // system to destroy msg variable when its not wanted
-      if (isset($_SESSION['previous'])) {
-        if (basename($_SERVER['PHP_SELF']) != $_SESSION['previous']) {
-              unset($_SESSION['msg']);
-        }else{
+    notLoggedIn(); // from functions.php, checks if user is logged in 
 
-        }
+    destroyUnwantedSession();// from functions.php, destroys unwanted error messages from other pages 
+    $CnumUsed = false;
+    // connects to database
+    require_once "ConnectDB.php";
+    //checks if not logged in 
+    if(!isset($_SESSION["loggedIn"]) and ($_SESSION["loggedIn"] != true) ){
+      header("location: index.php"); // if so redirects them to the loginpage page
+    };
+
+    // system to destroy msg variable when its not wanted
+    if (isset($_SESSION['previous'])) {
+      if (basename($_SERVER['PHP_SELF']) != $_SESSION['previous']) {
+            unset($_SESSION['msg']);
       }else{
 
       }
-      $_SESSION['previous'] = basename($_SERVER['PHP_SELF']);
+    }else{
+
+    }
+    $_SESSION['previous'] = basename($_SERVER['PHP_SELF']);
 // ---------------------------------------------------functions---------------------------------------------------  
     
 // -----------------------------------validation -----------------------------------
@@ -157,21 +157,7 @@ if (isset($_POST['submitAE']) or  isset($_POST['submitAEA'])){
       <h1>CadetLink</h1>
     </div>
 
-    <div id="navbarDash">
-      <h2 class ="navBarDashTxt"> welcome <?php echo $_SESSION['rank']. " ";
-          echo $_SESSION['fname']. " ";
-          echo $_SESSION['lname'];?></h2>
-      <img class = "profilePic" src="images/<?php echo $_SESSION['profilePicURL'];?>" alt="SgtDefalt" width="auto" height="150">
-      <form action ="<?php
-      if($_SESSION['troop']=="CFAV"){
-        echo "manageUsers.php";
-      }else{
-        echo "mainPage.php";
-      }
-      ?>">
-      <input type="submit" class = "smallButton" value="«" name="dashButton">
-      </form>
-    </div>
+    <?php NavBar("action2nd", $prevPage); ?>
       <div id="main">
           <h2>User Management - Work in Progress </h2>
           <fieldset>
