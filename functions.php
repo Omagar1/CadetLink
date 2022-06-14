@@ -1,6 +1,6 @@
 <?php 
 // --------------------------------------------------Common lines of code that appear in multiple pages --------------------------------------------------
-function head(){
+function head($pageName, $extra=null){
     ?>
     <head>
     <title>CadetLink</title>
@@ -12,6 +12,13 @@ function head(){
     <script type="text/javascript" src="Validation.js"></script>
     </head>
     <?php
+    echo $extra;
+    //var_dump($_SESSION['previous']);//test 
+    if(end($_SESSION['previous']) != $pageName){ // avoids repeats
+        array_push($_SESSION['previous'],$pageName); //adds the curent page to the top of the stack
+    }else{
+
+    }
 }
 
 function notLoggedIn(){
@@ -24,18 +31,16 @@ function notLoggedIn(){
 function destroyUnwantedSession($pageName) {
     //destroys unwanted error messages from other pages 
     if (isset($_SESSION['previous'])) {
-        if ($pageName != $_SESSION['previous'][-1]) { // checks if this is the page the error was meant to display on 
+        if ($pageName != end($_SESSION['previous'])) { // checks if this is the page the error was meant to display on 
              unset($_SESSION['msg']); // unset's the msg session if so 
         }else{
 
         }
     }else{
 
-    }
-    array_push($_SESSION['previous'],$pageName); //sets current page as previous for next page which uses this function
-    
+    }    
 }
-function NavBar($pageType, $prevPage){
+function NavBar(){
 ?>
     <div id="navbarDash" class = "flexColumn">
         <h1 class ="navBarDashTxt"> welcome <?php echo $_SESSION['rank']. " ";
@@ -43,30 +48,7 @@ function NavBar($pageType, $prevPage){
             echo $_SESSION['lname'];?></h1>
         <!--<div class = "profilePicContainer flexColumn">-->
             <img class = "profilePic right" src="images/<?php echo $_SESSION['profilePicURL'];?>" alt="SgtDefault" width="auto" height="150">
-            <?php
-            if($pageType == "DashBoard"){?>
-                <form method="get" action="LOProcess.php">
-                    <button type="submit" class = "button navButton">LogOut</button>
-                </form>
-            <?php
-            }elseif ($pageType == "action"){?>
-                <form action ="<?php
-                if($_SESSION['troop']=="CFAV"){
-                    echo "adminMainPage.php";
-                }else{
-                    echo "mainPage.php";
-                }
-                ?>">
-                <input type="submit" class = "smallButton" value="«" name="dashButton">
-                <?php
-            }elseif ($pageType == "action2nd"){?>
-                <form action ="<?php
-                    echo $prevPage;
-                ?>">
-                <input type="submit" class = "smallButton" value="«" name="dashButton">
-                <?php
-            }
-            ?>
+            <a href ="StackPop.php" ><button type="submit" class ="button">«</button></a>
         </div>
     </div>
     <form></form> <!-- to fix Chrome being Weird -->

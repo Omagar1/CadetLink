@@ -223,31 +223,11 @@ body {
 }
 
 /*----------------------------Slide show stuff ---------------------------- */
-.dashboard{
-  padding: 1%;
-  margin: 10px 10px;
-  border-radius: 5px;
-}
-.dashbordTroop{
-  background-color: rgb(139, 141, 0);
-}
-.dashbordSection{
-  background-color: rgb(51, 153, 114);
-}
-.dashbordOrders{
-  background-color: rebeccapurple;
-}
-.dashbordKitRequest{
-  background-color: rgb(0, 85, 0);
-}
-.dashbordTrips{
-  background-color: rgb(255, 136, 0);
-}
-.dashbordVPB{
-  background-color: blue;
-}
+
+
+
 .BenBlue{
-  background-color: #3c3c3b;;
+  background-color: #032f52;;
 }
 .tjwaRed{
   background-color: #AE1E30;
@@ -258,8 +238,11 @@ body {
 .purple{
   background-color: purple;
 }
-.Orange{
-  background-color: orange;
+.blue{
+  background-color: blue;
+}
+.paleGreen{
+  background-color: rgb(51, 153, 114) ;
 }
 ul.no-bullets {
   list-style-type: none;
@@ -271,12 +254,24 @@ ul.no-bullets {
   text-decoration: none;
 
 }
-li.dasbord:hover {
+/* li.dasbord:hover {
   background-color: white; 
-}
+} */
 .dasbordTxt:hover {
   color: black; 
 } 
+.dashboard{
+  padding: 1%;
+  margin: 10px 10px;
+  border-radius: 5px;
+  border: none;
+  width: 95%;
+  font-size: large;
+}
+.dashboard:hover{
+  background-color: rgb(245, 234, 0);
+}
+
 #radio{
   margin: 0%;
   display: inline;
@@ -293,7 +288,6 @@ b{
   min-height: 20px;
   padding: 2px;
   margin-left: 10px;
-  background-color: red; 
   color:white;
   text-align: center;
   text-decoration: none;
@@ -450,7 +444,14 @@ input[type=button], input[type=submit], input[type=reset] {
     margin-right: 20px;
   }
   .events, td{
-    font-size: smaller;
+    font-size: small;
+  }
+  td, th{
+    font-size: small;
+  }
+  input{
+    padding: 1px;
+    font-size: small;
   }
 }
 
@@ -485,6 +486,9 @@ input[type=button], input[type=submit], input[type=reset] {
     min-height: 100%;
     height: auto;
   }
+  td, th{
+    font-size: medium;
+  }
 }
 
 /* Medium devices (landscape tablets, 768px and up) */
@@ -499,7 +503,7 @@ input[type=button], input[type=submit], input[type=reset] {
   margin: 5%;
   margin-top: 50px;
   }
-  .navBarDashTxt, h2, h3 {
+  .navBarDashTxt, h2, h3{
     font-size: x-large;
     width: 50%;
     margin-right: 25%;

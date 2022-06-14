@@ -1,20 +1,22 @@
 <?php
 session_start();
 require_once "ConnectDB.php";
-include "functions.php"
+require_once "functions.php";
 ?>
 
 <!DOCTYPE html>
   <html>
     
       <?php
-      $prevPage = $_SESSION["previous"];
+      //$prevPage = $_SESSION["previous"];
+      $prevPage = "test";
       //echo $prevPage; // testing 
-      head();// from functions.php, echoes out the head tags
+      $pageName = basename($_SERVER["PHP_SELF"]);// getting the name of the page so head can add it to the Previous stack
+      head($pageName);// from functions.php, echoes out the head tags
 
       notLoggedIn(); // from functions.php, checks if user is logged in 
 
-      destroyUnwantedSession();// from functions.php, destroys unwanted error messages from other pages 
+      destroyUnwantedSession($pageName);// from functions.php, destroys unwanted error messages from other pages 
 
       //qry to find number of requests for notification 
       $sql = "SELECT ID FROM itemRequest;";
@@ -115,52 +117,17 @@ include "functions.php"
             <!-- dashboard buttons -->
             <div>
                 <ul class="no-bullets">
-                <li class ="dashbordSection dashboard" class = "inline"><a href = "manageUsers.php" class = "dasbordTxt">Manage Users</a></li>
-                <li class ="dashbordOrders dashboard"><a href = "events.php" class = "dasbordTxt">Events</a></li>
-                <li class ="dashbordKitRequest dashboard"><a href = "virtualStores.php"class = "dasbordTxt">Virtual Stores<?php
+                <li><a href = "manageUsers.php"><button class ="BenBlue dashboard dasbordTxt">Manage Users</button></a></li>
+                <li><a href = "events.php"><button class ="tjwaRed dashboard dasbordTxt">Events</button></a></li>
+                <li><a href = "virtualStores.php"><button class ="blue dashboard dasbordTxt">Virtual Stores<?php
                 if($requestCount > 0){
-                  echo "<span class = 'notification'>$requestCount</span>";
+                  echo "<span class = 'notification tjwaRed'>$requestCount</span>";
                 }else{
 
                 }
-                ?></a></li>
-                <li class ="dashbordKitRequest dashboard"><a href = "kitRequest.php"class = "dasbordTxt">kit Request</a></li>
-                <li class ="dashbordTrips dashboard"><a href = "trips.php"class = "dasbordTxt">Trips</a></li>
-                <li class ="dashbordVPB dashboard"><a href = "#VPB"class = "dasbordTxt">Virtual Pocket Book</a></li>
-                </ul>
-
-
- 
-
-                <!-- new dash board not implemented yet
-                <ul class="no-bullets">
-                <li class ="dashbordKitRequest" class ="dashbord"><a href = "kitRequest.php"class = "dasbordTxt">kit Request</a></li>
-                <li class ="dashbordTrips" class ="dashbord"><a href = "trips.php"class = "dasbordTxt">Trips</a></li>
-                <li class ="dashbordVPB" class ="dashbord"><a href = "#VPB"class = "dasbordTxt">Virtual Pocket Book</a></li>
-                </ul>
-                <ul class="no-bullets">
-                <li class = "">
-                <form action = "manageUsers.php">
-                <input type = "submit" value ="Manage Users" class = "button dashbord BenBlue"/>
-                </form> 
-                </li>
-                <li class = "">
-                <form action = "virtualStores.php">
-                <input type = "submit" value ="Virtual Stores <?php/* 
-                if($requestCount > 0){
-                  echo "<span class = 'notification'>$requestCount</span>";
-                }else{
-
-                }
-                */?>" class = "button dashbord tjwaRed"/> 
-                </form>
-                </li>
-                <li class = "">
-                <form action = "ordersAdmin.php">
-                <input type = "submit" value ="ordersAdmin" class = "button dashbord armyGreen"/> -->
-
-                </form>
-                </li>
+                ?></button></a></li>
+                <li><a href = "kitRequest.php"><button class ="purple dashboard dasbordTxt">kit Request</button></a></li>
+                <li><a href = "#VPB"><button class ="paleGreen dashboard dasbordTxt">Virtual Pocket Book</button></a></li>
                 </ul>
             </div>
 

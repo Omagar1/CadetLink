@@ -6,11 +6,12 @@ session_start();
 
 <html>
     <?php
-      head();// from functions.php, echoes out the head tags
+      $pageName = basename($_SERVER["PHP_SELF"]);// getting the name of the page so head can add it to the Previous stack
+      head($pageName);// from functions.php, echoes out the head tags
 
       notLoggedIn(); // from functions.php, checks if user is logged in 
 
-      destroyUnwantedSession();// from functions.php, destroys unwanted error messages from other pages 
+      destroyUnwantedSession($pageName);// from functions.php, destroys unwanted error messages from other pages 
       ?>
     </head>
 

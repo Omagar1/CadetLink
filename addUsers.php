@@ -4,9 +4,12 @@ include "functions.php"?>
 <html>
   <?php
     $prevPage = $_SESSION["previous"];
-    head();
-    notLoggedIn();
-    destroyUnwantedSession();
+    $pageName = basename($_SERVER["PHP_SELF"]);// getting the name of the page so head can add it to the Previous stack
+    head($pageName);// from functions.php, echoes out the head tags
+
+    notLoggedIn(); // from functions.php, checks if user is logged in 
+
+    destroyUnwantedSession($pageName);// from functions.php, destroys unwanted error messages from other pages 
   ?>
     
     <?php
@@ -93,7 +96,7 @@ if (isset($_POST['submitAU']) or isset($_POST['submitAUA'])){
       <h1>CadetLink</h1>
     </div>
 
-    <?php NavBar("action2nd", $prevPage); ?>
+    <?php NavBar(); ?>
       <div id="main">
           <h2>Add Users - Work in Progress </h2>
           <fieldset>

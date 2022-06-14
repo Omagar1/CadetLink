@@ -1,28 +1,18 @@
 <?php
+ob_start();
 session_start();
-include "functions.php"
+require_once "functions.php";
 
 ?>
-
 <!DOCTYPE html>
   <html>
       <?php
-      head();// from functions.php, echoes out the head tags
-      ?><link href="loginSignup.css" rel="stylesheet" /><?
-      notLoggedIn(); // from functions.php, checks if user is logged in 
-
-      destroyUnwantedSession();// from functions.php, destroys unwanted error messages from other pages 
-      // system to destroy msg variable when its not wanted
-      if (isset($_SESSION['previous'])) {
-        if (basename($_SERVER['PHP_SELF']) != $_SESSION['previous']) {
-             unset($_SESSION['msg']);
-        }else{
-
-        }
-      }else{
-
-      }
-      $_SESSION['previous'] = basename($_SERVER['PHP_SELF']);
+      $_SESSION["previous"] = [];// initalising the Previous Stack
+      $pageName = basename($_SERVER["PHP_SELF"]);// getting the name of the page so head can add it to the Previous stack
+      head($pageName, "<link href='loginSignup.css' rel='stylesheet' />");// from functions.php, echoes out the head tags
+      
+      destroyUnwantedSession($pageName);// from functions.php, destroys unwanted error messages from other pages  
+      
       ?>
       <script>
        /*  // local validation -- can be turned off 

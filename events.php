@@ -157,7 +157,7 @@ if (isset($_POST['submitAE']) or  isset($_POST['submitAEA'])){
       <h1>CadetLink</h1>
     </div>
 
-    <?php NavBar("action2nd", $prevPage); ?>
+    <?php NavBar(); ?>
       <div id="main">
           <h2>User Management - Work in Progress </h2>
           <fieldset>
