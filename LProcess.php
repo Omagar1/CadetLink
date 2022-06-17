@@ -30,7 +30,7 @@ if ($uname != "" Or $pword != ""){
             $_SESSION['profilePicURL'] = $row['profilePicURL'];
             $_SESSION['loggedIn'] = true; 
             $_SESSION['msg'] = $msg;
-            $_SESSION['previous'] = ["LOProcess.php"];// sets the log out process page as the first item in stack so when on dashBoard page the backbutton logs the person out 
+            array_push($_SESSION['previous'],"LOProcess.php");// sets the log out process page as the first item in stack so when on dashBoard page the backbutton logs the person out 
             //echo password_verify($pword, $row["Pword"]); //test
             if ($_SESSION['troop'] == "CFAV"){ // Admin Check
                 header("location: adminMainPage.php"); // if true redirects them to an Admin page

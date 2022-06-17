@@ -13,9 +13,9 @@ function head($pageName, $extra=null){
     </head>
     <?php
     echo $extra;
-    //var_dump($_SESSION['previous']);//test 
+    var_dump($_SESSION['previous']);//test 
     if(end($_SESSION['previous']) != $pageName){ // avoids repeats
-        array_push($_SESSION['previous'],$pageName); //adds the curent page to the top of the stack
+        array_push($_SESSION['previous'],$pageName); //adds the current page to the top of the stack
     }else{
 
     }
@@ -48,7 +48,12 @@ function NavBar(){
             echo $_SESSION['lname'];?></h1>
         <!--<div class = "profilePicContainer flexColumn">-->
             <img class = "profilePic right" src="images/<?php echo $_SESSION['profilePicURL'];?>" alt="SgtDefault" width="auto" height="150">
-            <a href ="StackPop.php" ><button type="submit" class ="button">«</button></a>
+            <a href ="StackPop.php" ><button type="submit" class ="button"><?php if ($_SESSION["previous"] == "LOProcess.php"){
+                echo "log Out";
+            }else{
+                echo "«";
+            }
+            ?></button></a>
         </div>
     </div>
     <form></form> <!-- to fix Chrome being Weird -->

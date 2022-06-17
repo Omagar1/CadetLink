@@ -40,6 +40,7 @@ while($row = $stmt->fetch(PDO::FETCH_ASSOC)){
   array_push($eventStartTimeArr,$row['startTime']);
   array_push($eventEndTimeArr,$row['endTime']);
 }
+
 //formatting the dates into display format
 $dateDisplayArr = [];
 for($i = 0; $i < $count; $i++ ){
@@ -66,10 +67,10 @@ for($i = 0; $i < $count; $i++ ){
       <div id="main">
           <h2>User Management - Work in Progress </h2>
           <a href=#manageEvents.php>
-            <button class ="button">Manage Events</button>
+            <button class ="button buttonPressed">Manage Events</button>
           </a>
-          <a href=#AddEvent.php >
-            <button class ="button buttonPressed">Add Event</button>
+          <a href=addEvent.php >
+            <button class ="button ">Add Event</button>
           </a> 
           <fieldset>
           <?php
@@ -99,9 +100,13 @@ for($i = 0; $i < $count; $i++ ){
                   <td class = "eventTd">Work in Progress</td>
                 </tr>
               </table>
+              <form method='post' action ='editEvent.php'>
+                <input type='hidden' id = 'editEvent' name='editEvent' value='<?php echo $eventIDArr[$i]?> '/>
+                <input type='submit' class = "button" name='eE' value='edit'/>
+              </form>
             </div>
             <?php
-             }
+             } // close For loop 
             ?>
           </fieldset>
       </div>

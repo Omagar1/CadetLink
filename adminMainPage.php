@@ -118,7 +118,7 @@ require_once "functions.php";
             <div>
                 <ul class="no-bullets">
                 <li><a href = "manageUsers.php"><button class ="BenBlue dashboard dasbordTxt">Manage Users</button></a></li>
-                <li><a href = "events.php"><button class ="tjwaRed dashboard dasbordTxt">Events</button></a></li>
+                <li><a href = "manageEvents.php"><button class ="tjwaRed dashboard dasbordTxt">Manage Events</button></a></li>
                 <li><a href = "virtualStores.php"><button class ="blue dashboard dasbordTxt">Virtual Stores<?php
                 if($requestCount > 0){
                   echo "<span class = 'notification tjwaRed'>$requestCount</span>";

@@ -17,16 +17,16 @@ session_start();
     <script>
     // hopefully send data to PHP script that either + or - 1 from selected column 
     function addOrMinus(ItemID, Operation, Column) {
-      console.log("I ran 0");
+      console.log("I ran 0"); // test 
       var xmlhttp = new XMLHttpRequest();
       xmlhttp.onreadystatechange = function() {
         // the qry works 
-        if (this.readyState == 4 && this.status == 200) {
+        if (this.readyState == 4 && this.status == 200) { // checks connection to DataBase 
           console.log("I ran 0.5");
           var tagID = Column + ItemID;
-          console.log(tagID);
-          var numHTML = document.getElementById(tagID).innerHTML;
-          console.log(numHTML);
+          console.log(tagID);// test 
+          var numHTML = document.getElementById(tagID).innerHTML;//gets Html element 
+          console.log(numHTML);// test 
           num = parseInt(numHTML);
           if (Operation == "sub"){
             if (num > 0){
@@ -45,7 +45,7 @@ session_start();
 
         }
     };
-    xmlhttp.open("GET", "SProcess.php?Operation="+Operation+"&ItemID="+ItemID+"&Column="+Column, true);
+    xmlhttp.open("GET", "SProcess.php?Operation="+Operation+"&ItemID="+ItemID+"&Column="+Column, true); // send to precess page to ru simutaionously
     console.log("I ran 1");
     xmlhttp.send();
   }
