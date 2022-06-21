@@ -24,11 +24,11 @@ require_once "functions.php";
       $stmt->execute();
       $requestCount = $stmt->rowCount();
 
-
+      $currentDate = date("Y-m-d");
       // gets all events stored in database ordered by closest date to 
-      $sql = "SELECT * FROM events ORDER BY startDate, startTime;";
+      $sql = "SELECT * FROM events WHERE endDate > ? ORDER BY startDate, startTime;";
       $stmt = $conn->prepare($sql);
-      $stmt->execute();
+      $stmt->execute([$currentDate]);
       $count = $stmt->rowCount();
       // inisalising arrays 
       $eventIDArr        = [];

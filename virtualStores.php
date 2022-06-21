@@ -3,7 +3,7 @@ session_start();
  include "functions.php";
  require_once "ConnectDB.php"
 ?>
-
+<!DOCTYPE html>
 <html>
     <?php
     $pageName = basename($_SERVER["PHP_SELF"]);// getting the name of the page so head can add it to the Previous stack
@@ -12,7 +12,38 @@ session_start();
     notLoggedIn(); // from functions.php, checks if user is logged in 
 
     destroyUnwantedSession($pageName);// from functions.php, destroys unwanted error messages from other pages 
-
+    ?><script>
+      function changeStatus(RequestStatus, RequestID){
+        const statusArr = ["ISSUED", "TO BE ISSUED", "AWAITING ORDER"];
+        console.log(RequestStatus);
+        var tagID = "status" + RequestID;
+        var lenStatusArr = statusArr.length;
+        var CurrentIndex = statusArr.indexOf(RequestStatus, 0);
+        console.log(lenStatusArr);// test 
+        console.log(CurrentIndex); // test 
+        // if statement so no negative indexes happen 
+        if (lenStatusArr - CurrentIndex <= 0 ){
+          var newStatus = statusArr[lenStatusArr-1]// if negative would happen, sets the index to the end of the list 
+          console.log("Zero");
+          console.log(newStatus);
+        } else{ 
+          var newStatus = statusArr[CurrentIndex -1] // if not negative then just minus one from the index
+          console.log("notZero");
+          console.log(newStatus);
+        }
+        var xmlhttp = new XMLHttpRequest();
+        xmlhttp.onreadystatechange = function() {
+          if (this.readyState == 4 && this.status == 200) { // checks connection to DataBase
+            document.getElementById(tagID).innerHTML = newStatus;   
+          }else if(this.readyState == 3 && this.status == 403) {
+            // contention failed don't do anything 
+          }
+        }
+        xmlhttp.open("GET", "RSProcess.php?newStatus="+newStatus+"&ID="+RequestID, true); // send to precess page to ru simutaionously
+        console.log("I ran 1"); //testing
+        xmlhttp.send();
+      }
+    </script><?php
         // Qry to find requests of this User
         
         $sql = "SELECT * FROM itemRequest;";
@@ -197,7 +228,7 @@ session_start();
                     echo "<td>" .  $purposeArr[$loop]. "</td>"; 
                     //echo "<td>" .  $DateNeededArr[$loop]. "</td>"; 
                     echo "<td>" .  $DateRequestedArr[$loop]. "</td>"; 
-                    echo "<td>" . $statusArr[$loop]. "</td>";
+                    echo "<td><button ID ='status" . $IDArr[$loop] . "' class = 'clear' onclick = 'changeStatus(\"$statusArr[$loop]\",$IDArr[$loop])'>" . $statusArr[$loop]. "</button></td>";
                     echo "<td>
                     <form method='post' action ='IProcess.php'>
                     <input type='hidden' id = 'Idata' name='Idata' value=' $IDArr[$loop] '/>

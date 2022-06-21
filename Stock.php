@@ -51,7 +51,6 @@ session_start();
   }
     </script>
     <?php
-      session_start();
       // initializing variables
       $sizeFindUsed = false;
       $count = 0;
@@ -59,25 +58,6 @@ session_start();
       $findSize2 = 0;
       $findSize3 = 0;
       
-      // connects to database
-      require_once "ConnectDB.php";
-      //checks if not logged in
-     if(!isset($_SESSION["loggedIn"]) and ($_SESSION["loggedIn"] != true) ){
-        header("location: index.php"); // if so redirects them to the loginpage page
-      };
-
-      // system to destroy msg variable when its not wanted
-      if (isset($_SESSION['previous'])) {
-        if (basename($_SERVER['PHP_SELF']) != $_SESSION['previous']) {
-             unset($_SESSION['msg']);
-        }else{
-
-        }
-      }else{
-
-      }
-      $_SESSION['previous'] = basename($_SERVER['PHP_SELF']);
-
     // Qry to find the sizes of their requests
     function sizesCompressionAdmin($ItemID,$con){
       $sql = "SELECT sizes.itemID, sizes.value 
@@ -501,12 +481,12 @@ while ($loop < $lenItemTypeIDArr){
                 <tr>
                   <th>ID</th>
                   <th>NSN</th>
-                  <th>ItemType</th>
+                  <th>Item Type</th>
                   <th>Size</th>
-                  <th>NumIssued</th>
-                  <th>NumInStore</th>
-                  <th>NumOrdered</th>
-                  <th>NumReserved</th>
+                  <th>Nº Issued</th>
+                  <th>Nº In Store</th>
+                  <th>Nº Ordered</th>
+                  <th>Nº Reserved</th>
                   <th>edit?</th>
                   <th>delete?</th>
                 </tr>
