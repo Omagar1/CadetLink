@@ -13,24 +13,27 @@ session_start();
 
     destroyUnwantedSession($pageName);// from functions.php, destroys unwanted error messages from other pages 
     ?><script>
-      function changeStatus(RequestStatus, RequestID){
+      function changeStatus(RequestID){
         const statusArr = ["ISSUED", "TO BE ISSUED", "AWAITING ORDER"];
-        console.log(RequestStatus);
+        
         var tagID = "status" + RequestID;
+        var RequestStatus = document.getElementById(tagID).innerHTML;
+        console.log(RequestStatus);
         var lenStatusArr = statusArr.length;
-        var CurrentIndex = statusArr.indexOf(RequestStatus, 0);
-        console.log(lenStatusArr);// test 
-        console.log(CurrentIndex); // test 
-        // if statement so no negative indexes happen 
-        if (lenStatusArr - CurrentIndex <= 0 ){
-          var newStatus = statusArr[lenStatusArr-1]// if negative would happen, sets the index to the end of the list 
-          console.log("Zero");
-          console.log(newStatus);
-        } else{ 
-          var newStatus = statusArr[CurrentIndex -1] // if not negative then just minus one from the index
-          console.log("notZero");
-          console.log(newStatus);
+        var currentIndex = statusArr.indexOf(RequestStatus, 0); // finds current order in list 
+        console.log("len: " + lenStatusArr);// test 
+        console.log("Cur: " + currentIndex); // test 
+        // if statement so no negative indexes happen
+        var newIndex = currentIndex - 1;
+        if (newIndex < 0){
+          newIndex = lenStatusArr - 1;
+        }else{
+
         }
+        console.log("newIndex: " + newIndex);
+        var newStatus = statusArr[newIndex]// if negative would happen, sets the index to the end of the list 
+        console.log(newStatus);
+      
         var xmlhttp = new XMLHttpRequest();
         xmlhttp.onreadystatechange = function() {
           if (this.readyState == 4 && this.status == 200) { // checks connection to DataBase
@@ -228,7 +231,7 @@ session_start();
                     echo "<td>" .  $purposeArr[$loop]. "</td>"; 
                     //echo "<td>" .  $DateNeededArr[$loop]. "</td>"; 
                     echo "<td>" .  $DateRequestedArr[$loop]. "</td>"; 
-                    echo "<td><button ID ='status" . $IDArr[$loop] . "' class = 'clear' onclick = 'changeStatus(\"$statusArr[$loop]\",$IDArr[$loop])'>" . $statusArr[$loop]. "</button></td>";
+                    echo "<td><button ID ='status" . $IDArr[$loop] . "' class = 'clear' onclick = 'changeStatus($IDArr[$loop])'>" . $statusArr[$loop]. "</button></td>";
                     echo "<td>
                     <form method='post' action ='IProcess.php'>
                     <input type='hidden' id = 'Idata' name='Idata' value=' $IDArr[$loop] '/>
