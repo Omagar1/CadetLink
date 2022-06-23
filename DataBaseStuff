@@ -123,6 +123,13 @@ CREATE TABLE `eventNotes` (
   PRIMARY KEY (ID)
   /*FOREIGN KEY () REFERENCES events(ID)*/
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+CREATE TABLE `statuses` (
+  `ID` int(11) NOT NULL AUTO_INCREMENT,
+  `status` varchar(255) NOT NULL,
+  `linkedColumn` varchar(255),
+  PRIMARY KEY (ID)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 /*  --------------------------------------- Querrys --------------------------------------- */
 
 SELECT * FROM items INNER JOIN items ON sizes.itemID = items.ID;

@@ -12,10 +12,20 @@ session_start();
     notLoggedIn(); // from functions.php, checks if user is logged in 
 
     destroyUnwantedSession($pageName);// from functions.php, destroys unwanted error messages from other pages 
+    //Qrys to find Statuses for below  code when called
+    $statusArr = []; // initalising 
+    $sql = "SELECT `status` FROM statuses;";
+    $stmt = $conn->prepare($sql);
+    $stmt->execute();
+    while($row = $stmt->fetch(PDO::FETCH_ASSOC)){
+      //echo $row['ID'] . "<br>"; test
+      array_push($statusArr,$row['status']);
+    }
+    var_dump($statusArr); //test
+    echo implode(',', $statusArr);
     ?><script>
       function changeStatus(RequestID){
-        const statusArr = ["ISSUED", "TO BE ISSUED", "AWAITING ORDER"];
-        
+        var statusArr = <?php echo '["' . implode('","', $statusArr) . '"]' ?>;// gets the array from php to java Script
         var tagID = "status" + RequestID;
         var RequestStatus = document.getElementById(tagID).innerHTML;
         console.log(RequestStatus);
@@ -25,6 +35,7 @@ session_start();
         console.log("Cur: " + currentIndex); // test 
         // if statement so no negative indexes happen
         var newIndex = currentIndex - 1;
+        console.log("newIndex: " + newIndex);
         if (newIndex < 0){
           newIndex = lenStatusArr - 1;
         }else{
@@ -42,11 +53,12 @@ session_start();
             // contention failed don't do anything 
           }
         }
-        xmlhttp.open("GET", "RSProcess.php?newStatus="+newStatus+"&ID="+RequestID, true); // send to precess page to ru simutaionously
+        xmlhttp.open("GET", "RSProcess.php?newStatus="+newStatus+"&oldStatus="+RequestStatus+"&ID="+RequestID, true); // send to precess page to ru simutaionously
         console.log("I ran 1"); //testing
         xmlhttp.send();
       }
     </script><?php
+
         // Qry to find requests of this User
         
         $sql = "SELECT * FROM itemRequest;";
@@ -199,15 +211,15 @@ session_start();
 
                 <tr>
                   <th>ID</th>
-                  <th>StockID</th>
-                  <th>UserID</th>
+                  <th>Stock ID</th>
+                  <th>User ID</th>
                   <th>Name</th>
                   <th>ItemTypeID</th>
                   <th>size</th>
-                  <th>NumRequested</th>
+                  <th>Nº Requested</th>
                   <th>purpose</th>
                   <!--<th>DateNeeded</th>-->
-                  <th>DateRequested</th>
+                  <th>Date Requested</th>
                   <th>status</th>
                   <th>Issued?</th>
                   <th>Remove?</th>
@@ -250,8 +262,15 @@ session_start();
                   }
                 }
                 ?>
-              </table>              
+              </table> 
+              <form method='get' action ='RSProcess.php'>
+              <input type='hidden' id = 'newStatus' name='newStatus' value='AWAITING ORDER'/>
+              <input type='hidden' id = 'oldStatus' name='oldStatus' value='ISSUED'/>
+              <input type='hidden' id = 'ID' name='ID' value='252'/>
+              <input type='submit' name='test' value='test'/>
+              </form>             
         </div>
+        
       <div id="footer">
 
       </div>

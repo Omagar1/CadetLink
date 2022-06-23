@@ -485,8 +485,8 @@ while ($loop < $lenItemTypeIDArr){
                   <th>Size</th>
                   <th>Nº Issued</th>
                   <th>Nº In Store</th>
-                  <th>Nº Ordered</th>
                   <th>Nº Reserved</th>
+                  <th>Nº Ordered</th>
                   <th>edit?</th>
                   <th>delete?</th>
                 </tr>
