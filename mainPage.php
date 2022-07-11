@@ -22,10 +22,11 @@ include "functions.php"
       $requestCount = $stmt->rowCount();
 
 
-      // gets all events stored in database ordered by closest date to 
-      $sql = "SELECT * FROM events ORDER BY startDate, startTime;";
+      // gets all events stored in database that are not past ordered by closest date to
+      $currentDate = date("Y-m-d");
+      $sql = "SELECT * FROM events  WHERE endDate > ? ORDER BY startDate, startTime;";
       $stmt = $conn->prepare($sql);
-      $stmt->execute();
+      $stmt->execute([$currentDate]);
       $count = $stmt->rowCount();
       // inisalising arrays 
       $eventIDArr        = [];
@@ -40,15 +41,15 @@ include "functions.php"
         array_push($eventIDArr,$row['ID']);
         array_push($eventNameArr,$row['name']);
         array_push($eventLocationArr,$row['location']);
-        array_push($eventStartDateArr,$row['startDate']);
-        array_push($eventEndDateArr,$row['endDate']);
+        array_push($eventStartDateArr,swapDateFormat($row['startDate']));
+        array_push($eventEndDateArr,swapDateFormat($row['endDate']));
         array_push($eventStartTimeArr,$row['startTime']);
         array_push($eventEndTimeArr,$row['endTime']);
       }
       //formatting the dates into display format
       $dateDisplayArr = [];
       for($i = 0; $i < $count; $i++ ){
-        if($eventEndDateArr[$i] != "" ){
+        if($eventEndDateArr[$i] != "31-12-9999" ){
           array_push($dateDisplayArr, $eventStartDateArr[$i] . " to " . $eventEndDateArr[$i]);
         }else{
           array_push($dateDisplayArr, $eventStartDateArr[$i]);
@@ -78,6 +79,7 @@ include "functions.php"
             <h2>Your Dashboard</h2>
             
             <?php
+            if($count > 0){
              for($i = 0; $i < $count; $i++ ){
             ?>
             <div class = "events fade">
@@ -109,12 +111,14 @@ include "functions.php"
             </div>
             <?php
              }
+            }else{
+               echo "<div class = 'events fade'><h3 class = 'navBarDashTxt'>There are no Upcoming Events</h3><br><p style = 'color:Black'>If they were they would appear here</p></div>";
+            }
             ?>
             <div>
                 <ul class="no-bullets">
                   <li><a href = "#troop"><button class ="BenBlue dashboard dasbordTxt">Troop: <?php echo $_SESSION["troop"]?></button></a></li>
                   <li><a href = "events.php"><button class ="tjwaRed dashboard dasbordTxt">Events</button></a></li>
-                  <li><a href = "virtualStores.php"><button class ="blue dashboard dasbordTxt">Virtual Stores</button></a></li>
                   <li><a href = "kitRequest.php"><button class ="purple dashboard dasbordTxt">kit Request</button></a></li>
                   <li><a href = "#VPB"><button class ="paleGreen dashboard dasbordTxt">Virtual Pocket Book</button></a></li>
                 </ul>

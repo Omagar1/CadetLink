@@ -57,4 +57,4 @@ if ($moved == true) {
     $_SESSION['msg'] = $msg;
     echo $msg;
 }
-header("location:AddEvents.php");
+header("location:addEvent.php");

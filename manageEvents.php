@@ -44,7 +44,7 @@ while($row = $stmt->fetch(PDO::FETCH_ASSOC)){
 //formatting the dates into display format
 $dateDisplayArr = [];
 for($i = 0; $i < $count; $i++ ){
-  if($eventEndDateArr[$i] != "" ){
+  if($eventEndDateArr[$i] != "31-12-9999" ){
     array_push($dateDisplayArr, $eventStartDateArr[$i] . " to " . $eventEndDateArr[$i]);
   }else{
     array_push($dateDisplayArr, $eventStartDateArr[$i]);

@@ -46,6 +46,9 @@ if (isset($_POST['submitAE']) or  isset($_POST['submitAEA'])){
   $currentDate = date("Y-m-d");
   $currentDateArr = explode("-",$currentDate);
   $eventStartDateArr = explode("-",$eventStartDate);
+  if ($eventEndDate  == null){
+    $eventEndDate = "9999-12-31"; // sets End date to highest possible for comparisons 
+  }
   $eventEndDateArr = explode("-",$eventEndDate);
   //Other Variables Validation
   if($eventName == "" or $eventLocation == "" or $eventStartDate == "" or $eventStartTime == "" or $eventEndTime == ""){
@@ -54,7 +57,7 @@ if (isset($_POST['submitAE']) or  isset($_POST['submitAEA'])){
     echo "i Ran 1";
     $errors = 1;
   }
-  // checks if the  Start date is Not in the Future 
+  // checks if the  Start date is in the past  
   if($errors != 1){
     // compares years first then Months then Days  
     for($i = 0; $i>3; $i++){
@@ -72,7 +75,7 @@ if (isset($_POST['submitAE']) or  isset($_POST['submitAEA'])){
   if($errors != 1){
     // compares years first then Months then Days 
     for($i = 0; $i>3; $i++){
-      if(intval($eventStartDateArr[$i]) < intval($currentDateArr[$i])){
+      if(intval($eventStartDateArr[$i]) < intval($eventEndDateArr[$i])){
         $msg = "End Date Must Not be Earlier than Start Date ";
         $_SESSION['msg'] = $msg;
         $errors = 1;
@@ -106,7 +109,7 @@ if (isset($_POST['submitAE']) or  isset($_POST['submitAEA'])){
       // $tempFinalLocation = $targetDir . $fileNameFinal;
       // $moved = move_uploaded_file($tempName, $tempFinalLocation);
     ?>
-    <form Id = "AutoSendForm" action = "UEProcess.php" method="post">
+    <form Id = "AutoSendForm" action = "AEProcess.php" method="post">
       <!-- Events Variables -->
       <input type="hidden" id="eventName" name="eventName" value="<?php echo $eventName; ?>">
       <input type="hidden" id="eventLocation" name="eventLocation" value="<?php echo $eventLocation; ?>">
@@ -153,14 +156,14 @@ if (isset($_POST['submitAE']) or  isset($_POST['submitAEA'])){
           </a> 
           <fieldset>
             <?php if (isset($_SESSION["msg"])){
-                  echo $_SESSION['msg'];
+                  echo "<b class = error>" . $_SESSION['msg'] ."</b>";
                 }else{
                   echo "";//test
                 }
                 
             ?>
             <table class = "tableDisplay">
-            <form action="AddEvents.php" method="post" enctype="multipart/form-data">
+            <form action="addEvent.php" method="post" enctype="multipart/form-data">
             <tr>
                   <th>Column Name</th>
                   <th>Data</th>
@@ -195,7 +198,6 @@ if (isset($_POST['submitAE']) or  isset($_POST['submitAEA'])){
             </tr>
             </table>
             <input type="submit" name ="submitAE" class = "button" value="Add">
-            <input type="submit" name ="submitAEA" class = "button" value="Add and Add Another">
             </form>
           </fieldset>
       </div>

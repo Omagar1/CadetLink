@@ -68,4 +68,10 @@ function prevPageCheck(){ // not finnished
     $prevPage = $_SESSION["previous"];
 }
 
+function swapDateFormat($orgDate){// changes date from YYYY-MM-DD to DD-MM-YYYY
+    $newDate = date("d-m-Y", strtotime($orgDate));
+    echo $newDate;
+    return $newDate ;
+  }
+
 ?>

@@ -61,7 +61,7 @@ session_start();
 
         // Qry to find requests of this User
         
-        $sql = "SELECT * FROM itemRequest;";
+        $sql = "SELECT * FROM itemRequest WHERE `status` != 'ISSUED';";
         $stmt = $conn->prepare($sql);
         $stmt->execute();
         $count = $stmt->rowCount();
@@ -74,7 +74,7 @@ session_start();
         }
 
         
-        // initialising colum arrays
+        // initialising column arrays
         $IDArr = [];
         $StockIDArr = [];
         $UserIDArr = [];

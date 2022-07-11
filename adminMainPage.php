@@ -17,20 +17,25 @@ require_once "functions.php";
       notLoggedIn(); // from functions.php, checks if user is logged in 
 
       destroyUnwantedSession($pageName);// from functions.php, destroys unwanted error messages from other pages 
+      
+      
+
+
 
       //qry to find number of requests for notification 
-      $sql = "SELECT ID FROM itemRequest;";
+      $sql = "SELECT ID FROM itemRequest WHERE `status` != 'ISSUED';";
       $stmt = $conn->prepare($sql);
       $stmt->execute();
       $requestCount = $stmt->rowCount();
 
       $currentDate = date("Y-m-d");
+      echo $currentDate;
       // gets all events stored in database ordered by closest date to 
-      $sql = "SELECT * FROM events WHERE endDate > ? ORDER BY startDate, startTime;";
+      $sql = "SELECT * FROM events WHERE endDate >= ? ORDER BY startDate, startTime;";
       $stmt = $conn->prepare($sql);
       $stmt->execute([$currentDate]);
       $count = $stmt->rowCount();
-      // inisalising arrays 
+      // initalising arrays 
       $eventIDArr        = [];
       $eventNameArr      = [];
       $eventLocationArr  = [];
@@ -43,15 +48,15 @@ require_once "functions.php";
         array_push($eventIDArr,$row['ID']);
         array_push($eventNameArr,$row['name']);
         array_push($eventLocationArr,$row['location']);
-        array_push($eventStartDateArr,$row['startDate']);
-        array_push($eventEndDateArr,$row['endDate']);
+        array_push($eventStartDateArr,swapDateFormat($row['startDate']));
+        array_push($eventEndDateArr,swapDateFormat($row['endDate']));
         array_push($eventStartTimeArr,$row['startTime']);
         array_push($eventEndTimeArr,$row['endTime']);
       }
       //formatting the dates into display format
       $dateDisplayArr = [];
       for($i = 0; $i < $count; $i++ ){
-        if($eventEndDateArr[$i] != "" ){
+        if($eventEndDateArr[$i] != "31-12-9999" ){
           array_push($dateDisplayArr, $eventStartDateArr[$i] . " to " . $eventEndDateArr[$i]);
         }else{
           array_push($dateDisplayArr, $eventStartDateArr[$i]);
@@ -81,6 +86,7 @@ require_once "functions.php";
             <h2>Your Dashboard</h2>
             
             <?php
+            if ($count > 0){
              for($i = 0; $i < $count; $i++ ){
             ?>
             <div class = "events fade">
@@ -112,6 +118,9 @@ require_once "functions.php";
             </div>
             <?php
              }
+            }else{
+               echo "<div class = 'events fade'><h3 class = 'navBarDashTxt'>There are no Upcoming Events</h3><br><p style = 'color:Black'>If they were they would appear here</p></div>";
+            }
             ?>
             
             <!-- dashboard buttons -->
