@@ -11,8 +11,13 @@ function head($pageName, $extra=null){
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script type="text/javascript" src="Validation.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/purecss@2.1.0/build/pure-min.css" integrity="sha384-yHIFVG6ClnONEA5yB5DJXfW2/KC173DIQrYoZMEtBvGzmf0PKiGyNEqe9N6BNDBH" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/purecss@2.1.0/build/grids-responsive-min.css">
     </head>
     <?php
+    $_SESSION["fname"] = "test" ;
+    $_SESSION["lname"] = "test" ; 
+    $_SESSION["rank"] = "test" ; 
     echo $extra;
     var_dump($_SESSION['previous']);//test 
     if(in_array($pageName, $_SESSION['previous']) != true){ // avoids repeats
@@ -43,23 +48,23 @@ function destroyUnwantedSession($pageName) {
 }
 function NavBar(){
 ?>
-    <div id="navbarDash" class = "flexColumn">
+    <div id="navbarDash" class = "pure-u-1">
         <h1 class ="navBarDashTxt"> welcome <?php echo $_SESSION['rank']. " ";
             echo $_SESSION['fname']. " ";
-            echo $_SESSION['lname'];?></h1>
+        echo $_SESSION['lname'];?></h1>
         <!--<div class = "profilePicContainer flexColumn">-->
-            <img class = "profilePic right" src="images/<?php echo $_SESSION['profilePicURL'];?>" alt="SgtDefault" width="auto" height="150">
-            <div class = "left">
-            <a href ="StackPop.php" class ="button" ><?php 
-            if ($_SESSION["previous"] == "LOProcess.php"){
-                echo "log Out";
-            }else{
-                echo "«";
-            }
-            ?></a>
-            </div>
+        <img class = "profilePic right" src="images/<?php echo $_SESSION['profilePicURL'];?>" alt="SgtDefault" width="auto" height="150">
+        <div class = "left">
+        <a href ="StackPop.php" class ="button" ><?php 
+        if ($_SESSION["previous"] == "LOProcess.php"){
+            echo "log Out";
+        }else{
+            echo "«";
+        }
+        ?></a>
         </div>
     </div>
+    
     <form></form> <!-- to fix Chrome being Weird -->
 <?php
 }

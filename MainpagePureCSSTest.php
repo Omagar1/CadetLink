@@ -1,7 +1,7 @@
 <?php
 session_start();
 require_once "ConnectDB.php";
-include "functions.php"
+include "functionsPUREtest.php"
 ?>
 
 <!DOCTYPE html>
@@ -11,7 +11,7 @@ include "functions.php"
       $pageName = basename($_SERVER["PHP_SELF"]);// getting the name of the page so head can add it to the Previous stack
       head($pageName);// from functions.php, echoes out the head tags
 
-      notLoggedIn(); // from functions.php, checks if user is logged in 
+      //notLoggedIn(); // from functions.php, checks if user is logged in 
 
       destroyUnwantedSession($pageName);// from functions.php, destroys unwanted error messages from other pages 
 
@@ -75,14 +75,14 @@ include "functions.php"
       <?php
       NavBar();
       ?>
-        <div id="main">
+        <div id="main" class = "pure-u-1 pure-u-mg-1-3">
             <h2>Your Dashboard</h2>
             
             <?php
             if($count > 0){
              for($i = 0; $i < $count; $i++ ){
             ?>
-            <div class = "events fade">
+            <div class = "events fade pure-u-23-24">
               <h3 class = "navBarDashTxt"><?php echo $eventNameArr[$i];?></h3>
               <table class = "eventTable tableDisplay">
                 <tr>
@@ -115,7 +115,7 @@ include "functions.php"
                echo "<div class = 'events fade'><h3 class = 'navBarDashTxt'>There are no Upcoming Events</h3><br><p style = 'color:Black'>If they were they would appear here</p></div>";
             }
             ?>
-            <div>
+            <div class="pure-u-1">
                 <ul class="no-bullets">
                   <li><a href = "#troop"><button class ="BenBlue dashboard dasbordTxt">Troop: <?php echo $_SESSION["troop"]?></button></a></li>
                   <li><a href = "events.php"><button class ="tjwaRed dashboard dasbordTxt">Events</button></a></li>

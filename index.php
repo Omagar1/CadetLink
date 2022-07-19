@@ -93,7 +93,7 @@ require_once "functions.php";
         <ul class="navBarList">
           <li class = "inline"><a href="#mainPage.php"class ="navBarTxt"> Example DashBoard</a></li>
           <li class = "inline"><a href="About.php" class ="navBarTxt" >What is Cadetlink?</a></li>
-          <li class = "inline"><a href="test.php" class ="navBarTxt" >test</a></li>
+          <li class = "inline"><a href="MainpagePureCSSTest.php" class ="navBarTxt" >test</a></li>
         </ul>
       </div>
         <div id="mainSignUp">

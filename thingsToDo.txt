@@ -1,0 +1,6 @@
+// ------------------ Things To Do ------------------
+- reorganize Page Structure 
+- Move to a CSS Frame work 
+- Use JQuery // for what? page structure 
+- add help page -- in process 
+- profile management for user
