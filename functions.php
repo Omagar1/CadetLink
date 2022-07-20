@@ -41,7 +41,7 @@ function destroyUnwantedSession($pageName) {
 
     }    
 }
-function NavBar(){
+function NavBar($pageName=null){
 ?>
     <div id="navbarDash" class = "flexColumn">
         <h1 class ="navBarDashTxt"> welcome <?php echo $_SESSION['rank']. " ";
@@ -51,7 +51,9 @@ function NavBar(){
             <img class = "profilePic right" src="images/<?php echo $_SESSION['profilePicURL'];?>" alt="SgtDefault" width="auto" height="150">
             <div class = "left">
             <a href ="StackPop.php" class ="button" ><?php 
-            if ($_SESSION["previous"] == "LOProcess.php"){
+            $temp =  $_SESSION["previous"];
+            //echo  end($temp);//test
+            if (end($temp) == "mainPage.php" or end($temp) == "adminMainPage.php"  ){
                 echo "log Out";
             }else{
                 echo "«";

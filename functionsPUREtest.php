@@ -55,8 +55,9 @@ function NavBar(){
         <!--<div class = "profilePicContainer flexColumn">-->
         <img class = "profilePic right" src="images/<?php echo $_SESSION['profilePicURL'];?>" alt="SgtDefault" width="auto" height="150">
         <div class = "left">
-        <a href ="StackPop.php" class ="button" ><?php 
-        if ($_SESSION["previous"] == "LOProcess.php"){
+        <a href ="StackPop.php" class ="button" ><?php
+        $temp =  $_SESSION["previous"];
+        if (end($temp) == "LOProcess.php"){
             echo "log Out";
         }else{
             echo "«";
