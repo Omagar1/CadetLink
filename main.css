@@ -112,13 +112,15 @@ h1{
   background-color: rgb(245, 234, 0); 
 }
 .inline {
-  display: inline;
+  display: inline-block;
 }
 #logOut{
   text-align: right;
   margin-left: 900px;
   margin-top: -90000000px;
-
+}
+.buttonList{
+  width: 30%;
 }
 /* ----------------------------- Body stuff -----------------------------  */
 body {
@@ -469,6 +471,12 @@ input[type=button], input[type=submit], input[type=reset] {
     padding: 1px;
     font-size: small;
   }
+  #PCDisplay{
+    display: none;
+  }
+  #phoneDisplay{
+    display:block;
+  }
 }
 
 /* Small devices (portrait tablets and large phones, 600px and up) */
@@ -505,6 +513,12 @@ input[type=button], input[type=submit], input[type=reset] {
   td, th{
     font-size: medium;
   }
+  #PCDisplay{
+    display: none;
+  }
+  #phoneDisplay{
+    display:block;
+  }
 }
 
 /* Medium devices (landscape tablets, 768px and up) */
@@ -524,6 +538,12 @@ input[type=button], input[type=submit], input[type=reset] {
     width: 50%;
     margin-right: 25%;
     margin-left: 25%;
+  }
+  #PCDisplay{
+    display: none;
+  }
+  #phoneDisplay{
+    display:block;
   }
 }
 
@@ -546,6 +566,12 @@ input[type=button], input[type=submit], input[type=reset] {
     margin-right: 25%;
     margin-left: 25%;
   }
+  #PCDisplay{
+    display:block;
+  }
+  #phoneDisplay{
+    display:none;
+  }
 }
 
 /* Extra large devices (large laptops and desktops, 1200px and up) */
@@ -566,6 +592,12 @@ input[type=button], input[type=submit], input[type=reset] {
     width: 50%;
     margin-right: 25%;
     margin-left: 25%;
+  }
+  #PCDisplay{
+    display:block;
+  }
+  #phoneDisplay{
+    display:none;
   }
 }
 

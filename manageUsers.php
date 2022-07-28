@@ -183,6 +183,7 @@ while($row = $stmt->fetch(PDO::FETCH_ASSOC)){
               
               
             </form>
+            <div id = "PCDisplay">
               <table class = "tableDisplay">
                 <tr>
                   <th>ID</th>
@@ -218,7 +219,8 @@ while($row = $stmt->fetch(PDO::FETCH_ASSOC)){
                       echo "<td> <form method='post' action ='resetPWord.php'>
                       <input type='hidden' id = 'resetPWord' name='resetPWord' value=' $IDArr[$loop] '/>
                       <input type='submit' name='RP' value='Reset Password'/>
-                      </form>";
+                      </form>
+                      </td>";
                       // edit User button
                       echo "<td>
                       <form method='post' action ='editUser.php'>
@@ -240,6 +242,47 @@ while($row = $stmt->fetch(PDO::FETCH_ASSOC)){
                   ?>
 
               </table>
+            </div>
+            <div id = "phoneDisplay">
+            <?php
+             for($i = 0; $i < $count; $i++ ){
+            ?>
+            <div class = "events" style = "display: block">
+              <h3 class = "navBarDashTxt"><?php echo $rankArr[$i] ." ". $fnameArr[$i] ." ".$lnameArr[$i];?></h3>
+              <table class = "eventTable tableDisplay">
+                <tr>
+                  <td class = "eventTd">User ID</td>
+                  <td class = "eventTd"><?php echo $IDArr[$i];?></td>
+                </tr>
+                <tr>
+                  <td class = "eventTd">User Cadet Number</td>
+                  <td class = "eventTd"><?php echo $CnumArr[$i];?></td>
+                </tr>
+                <tr>
+                  <td class = "eventTd">Troop</td>
+                  <td class = "eventTd"><?php echo $troopArr[$i];?></td>
+                </tr>
+              </table>
+              <ul>
+              <li class = "inline buttonList"><form method='post' action ='resetPWord.php'>
+                <input type='hidden' id = 'resetPWord' name='resetPWord' value='<?php $IDArr[$loop]?> '/>
+                <input type='submit' name='RP' value='Reset Password'/>
+                </form></li>
+              <li class = "inline buttonList"><form method='post' action ='editUser.php'>
+                <input type='hidden' id = 'editUser' name='editUser' value='<?php $IDArr[$loop]?> '/>
+                <input type='submit' name='eU' value='edit'/>
+                </form></li>
+              <li class = "inline buttonList"><form method='post' action ='deleteUser.php'>
+              <input type='hidden' id = 'Xdata' name='Xdata' value='<?php $IDArr[$loop]?>'/>
+              <input type='submit' name='X' value='delete?'/>
+              </form><li>
+              </ul>
+              
+            </div>
+            <?php
+             } // close For loop 
+            ?>
+            </div>
           </fieldset>
       </div>
     </div>
