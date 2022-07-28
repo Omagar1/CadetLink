@@ -64,13 +64,8 @@ for($i = 0; $i < $count; $i++ ){
 
     <?php NavBar(); ?>
       <div id="main">
-          <h2>User Management - Work in Progress </h2>
-          <a href=#manageEvents.php>
-            <button class ="button">Manage Events</button>
-          </a>
-          <a href=#AddEvent.php >
-            <button class ="button buttonPressed">Add Event</button>
-          </a> 
+          <h2>Events- Work in Progress </h2>
+          
           <fieldset>
           <?php
              for($i = 0; $i < $count; $i++ ){
