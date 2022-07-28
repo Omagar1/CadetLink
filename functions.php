@@ -13,8 +13,9 @@ function head($pageName, $extra=null){
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     </head>
     <?php
+    destroyUnwantedSession($pageName);
     echo $extra;
-    var_dump($_SESSION['previous']);//test 
+    //var_dump($_SESSION['previous']);//test 
     if(in_array($pageName, $_SESSION['previous']) != true){ // avoids repeats
         array_push($_SESSION['previous'],$pageName); //adds the current page to the top of the stack
     }else{
@@ -76,5 +77,4 @@ function swapDateFormat($orgDate){// changes date from YYYY-MM-DD to DD-MM-YYYY
     echo $newDate;
     return $newDate ;
   }
-
 ?>
