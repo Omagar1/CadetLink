@@ -6,6 +6,7 @@ session_start();
 ?>
 
 <html>
+  <div></div>
     <?php
     $pageName = basename($_SERVER["PHP_SELF"]);// getting the name of the page so head can add it to the Previous stack
     head($pageName);// from functions.php, echoes out the head tags
@@ -437,46 +438,54 @@ while ($loop < $lenItemTypeIDArr){
               
               ?>
               <label >Nato Size</label><br>
-              <input type="text" id="Size1" name="Size1" placeholder = "Size 1" value="<?php
-              // checks if user has Entered any value into form, if so displays it
-              if (isset($findSize1)){
-                if($findSize1 == 0){
-                  echo "";
-                }else{
-                  echo $findSize1;
-                }
-              }else{
-                echo "";
-              }
-                  
-               ?>">
-              <input type="text" id="Size2" name="Size2" placeholder = "Size 2" value="<?php
-              // checks if user has Entered any value into form, if so displays it
-              if (isset($findSize2)){
-                if($findSize2 == 0){
-                  echo "";
-                }else{
-                  echo $findSize2;
-                }
-              }else{
-                echo "";
-              } ?>">
-              <input type="text" id="Size3" name="Size3" placeholder = "Size 3" value="<?php
-              // checks if user has Entered any value into form, if so displays it
-               if (isset($findSize3)){
-                if($findSize3 == 0){
-                  echo "";
-                }else{
-                  echo $findSize3;
-                }
-              }else{
-                echo "";
-              }?>">
+              <ul style = "margin:0">
+                <li class = "inline">  
+                  <input type="text" id="Size1" name="Size1" placeholder = "Size 1" value="<?php
+                  // checks if user has Entered any value into form, if so displays it
+                  if (isset($findSize1)){
+                    if($findSize1 == 0){
+                      echo "";
+                    }else{
+                      echo $findSize1;
+                    }
+                  }else{
+                    echo "";
+                  }
+                      
+                  ?>">
+                </li>
+                <li class = "inline"> 
+                  <input type="text" id="Size2" name="Size2" placeholder = "Size 2" value="<?php
+                  // checks if user has Entered any value into form, if so displays it
+                  if (isset($findSize2)){
+                    if($findSize2 == 0){
+                      echo "";
+                    }else{
+                      echo $findSize2;
+                    }
+                  }else{
+                    echo "";
+                  } ?>">
+                </li>
+                <li class = "inline"> 
+                  <input type="text" id="Size3" name="Size3" placeholder = "Size 3" value="<?php
+                  // checks if user has Entered any value into form, if so displays it
+                  if (isset($findSize3)){
+                    if($findSize3 == 0){
+                      echo "";
+                    }else{
+                      echo $findSize3;
+                    }
+                  }else{
+                    echo "";
+                  }?>">
+                </li>
+              </ul>
               <br>
-              <input type="submit" class = "button" value="find" name="find">
-              
-              
+              <input type="submit" class = "button" value="find" name="find"> 
             </form>
+
+            <div id = "PCDisplay">
               <table class = "tableDisplay">
                 <tr>
                   <th>ID</th>
@@ -543,14 +552,82 @@ while ($loop < $lenItemTypeIDArr){
                     $loop = $loop + 1;
                   }
                   ?>
-
-              </table>
+              
+              <!-- </table>
               <form method='get' action ='SProcess.php'>
               <input type='hidden' id = 'Operation' name='Operation' value='plus'/>
               <input type='hidden' id = 'ItemID' name='ItemID' value='1'/>
               <input type='hidden' id = 'Column' name='Column' value='numInStore'/>
               <input type='submit' name='test' value='test'/>
-              </form>
+              </form> test -->
+                </div></div>
+          <div id = "phoneDisplay">
+            <?php
+             for($i = 0; $i < $count; $i++ ){
+            ?>
+            <div class = "events" style = "display: block">
+              <h3 class = "navBarDashTxt"><?php echo $ItemTypeIDArr[$i] ." ".sizesCompressionAdmin($IDArr[$i],$conn);?></h3>
+              <table class = "eventTable tableDisplay">
+                <tr>
+                  <td class = "eventTd">Item ID</td>
+                  <td class = "eventTd"><?php echo $IDArr[$i];?></td>
+                </tr>
+                <tr>
+                  <td class = "eventTd">NSN</td>
+                  <td class = "eventTd"><?php echo $NSNArr[$i];?></td>
+                </tr>
+                <tr>
+                  <td class = "eventTd">Nº Issued</td>
+                  <td class = "eventTd"><?php echo "<button class='button smallButton' name='Plus1' onclick = addOrMinus($IDArr[$i],'plus','numIssued')>+</button>
+                      <div id = 'numIssued$IDArr[$i]'>". $NumIssuedArr[$i]."</div>
+                      <button class='button smallButton' name='Sub1' onclick = addOrMinus($IDArr[$i],'sub','numIssued')>-</button>
+                  ";?></td>
+                </tr>
+                <tr>
+                  <td class = "eventTd">Nº In Store</td>
+                  <td class = "eventTd"><?php echo"
+                      <button class='button smallButton' name='Plus1' onclick = addOrMinus($IDArr[$i],'plus','numInStore')>+</button>
+                      <div id = 'numInStore$IDArr[$i]'>". $NumInStoreArr[$i]."</div>
+                      <button class='button smallButton' name='Sub1' onclick = addOrMinus($IDArr[$i],'sub','numInStore')>-</button>
+                  ";?></td>
+                </tr>
+                <tr>
+                  <td class = "eventTd">Nº Reserved</td>
+                  <td class = "eventTd"><?php echo "
+                      <button class='button smallButton' name='Plus1' onclick = addOrMinus($IDArr[$i],'plus','numReserved')>+</button>
+                      <div id = 'numReserved$IDArr[$i]'>". $NumReservedArr[$i]."</div>
+                      <button class='button smallButton' name='Sub1' onclick = addOrMinus($IDArr[$i],'sub','numReserved')>-</button>
+                  ";?></td>
+                </tr>
+                <tr>
+                  <td class = "eventTd">Nº Ordered</td>
+                  <td class = "eventTd"><?php echo "
+                      <button class='button smallButton' name='Plus1' onclick = addOrMinus($IDArr[$i],'plus','numOrdered')>+</button>
+                      <div id = 'numOrdered$IDArr[$i]'>". $NumOrderedArr[$i]."</div>
+                      <button class='button smallButton' name='Sub1' onclick = addOrMinus($IDArr[$i],'sub','numOrdered')>-</button>
+                  ";?></td>
+                </tr>
+              </table>
+              <!-- <ul>
+              <li class = "inline buttonList"><form method='post' action ='resetPWord.php'>
+                <input type='hidden' id = 'resetPWord' name='resetPWord' value='<?php $IDArr[$i]?> '/>
+                <input type='submit' name='RP' value='Reset Password'/>
+                </form></li>
+              <li class = "inline buttonList"><form method='post' action ='editUser.php'>
+                <input type='hidden' id = 'editUser' name='editUser' value='<?php $IDArr[$i]?> '/>
+                <input type='submit' name='eU' value='edit'/>
+                </form></li>
+              <li class = "inline buttonList"><form method='post' action ='deleteUser.php'>
+              <input type='hidden' id = 'Xdata' name='Xdata' value='<?php $IDArr[$i]?>'/>
+              <input type='submit' name='X' value='delete?'/>
+              </form><li>
+              </ul> -->
+              
+            </div>
+            <?php
+             } // close For loop 
+            ?>
+          </div>
       </div>
     <div id="footer">
 

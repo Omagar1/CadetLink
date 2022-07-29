@@ -108,7 +108,7 @@ if (isset($_POST['submitEE'])){
       // $tempFinalLocation = $targetDir . $fileNameFinal;
       // $moved = move_uploaded_file($tempName, $tempFinalLocation);
     ?>
-    <form Id = "AutoSendForm" action = "UEProcess.php" method="post">
+    <form Id = "AutoSendForm" action = "EEProcess.php" method="post">
       <!-- Events Variables -->
       <input type="hidden" id="eventID" name="eventID" value="<?php echo $eventID; ?>">
       <input type="hidden" id="eventName" name="eventName" value="<?php echo $eventName; ?>">

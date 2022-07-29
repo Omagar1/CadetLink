@@ -3,7 +3,7 @@
 function head($pageName, $extra=null){
     ?>
     <head>
-    <title>CadetLink</title>
+    <title>CadetLink Alpha 0.1</title>
     <link href="main.css" rel="stylesheet" />
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -74,7 +74,16 @@ function prevPageCheck(){ // not finnished
 
 function swapDateFormat($orgDate){// changes date from YYYY-MM-DD to DD-MM-YYYY
     $newDate = date("d-m-Y", strtotime($orgDate));
-    echo $newDate;
+    //echo $newDate; // test 
     return $newDate ;
-  }
+}
+function stackPopAndRedirect(){
+    if(gettype($_SESSION["previous"]) == "array"){
+        array_pop($_SESSION["previous"]); // delete the top of the stack, which should be the page which this page was called from pages
+        //echo end($_SESSION["previous"]); // test 
+        header("location: ".end($_SESSION["previous"])); // send them to the page at the now top of the stack, which should be the previous page     
+    }else{
+        header("location: LOProcess.php"); // if nothing in the stack then then users should not be logged in so this logs them out 
+    }
+}
 ?>

@@ -1,10 +1,12 @@
 <?php
 session_start();
 require_once "ConnectDB.php";
-
+// checks if user is not logged in
+if(!isset($_SESSION["loggedIn"]) and ($_SESSION["loggedIn"] != true) ){
+    header("location: index.php"); // if so redirects them to the loginpage page
+}
 // Getting the data 
 // event Variables
-$eventID = $_POST["eventID"];
 $eventName = $_POST["eventName"];
 $eventLocation = $_POST["eventLocation"];
 $eventStartDate = $_POST["eventStartDate"];
@@ -29,9 +31,8 @@ echo "<br>fileType: " . $fileType;
 echo "<br>fileTempLocation: " . $fileTempLocation;
 
 // Uploading Event variables
-$qry = "UPDATE events
-SET `name` = ?, `location` = ?, `startDate` = ?, `endDate` = ?, `startTime` = ?, `endTime` = ?,
-WHERE condition;";
+$qry = "INSERT INTO events (`name`, `location`, `startDate`, endDate, startTime, endTime)
+VALUES (?,?,?,?,?,?);";
 $stmt = $conn->prepare($qry);
 $stmt->execute([$eventName, $eventLocation, $eventStartDate, $eventEndDate, $eventStartTime, $eventEndTime]);
 
@@ -56,5 +57,4 @@ if ($moved == true) {
     $_SESSION['msg'] = $msg;
     echo $msg;
 }
-stackPopAndRedirect();
-?>
+header("location:events.php");

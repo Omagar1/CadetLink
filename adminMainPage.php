@@ -29,7 +29,7 @@ require_once "functions.php";
       $requestCount = $stmt->rowCount();
 
       $currentDate = date("Y-m-d");
-      echo $currentDate;
+      //echo $currentDate; //test 
       // gets all events stored in database ordered by closest date to 
       $sql = "SELECT * FROM events WHERE endDate >= ? ORDER BY startDate, startTime;";
       $stmt = $conn->prepare($sql);

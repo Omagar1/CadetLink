@@ -161,7 +161,7 @@ body {
   padding: 5%;
   margin: 10px 10px;
   min-height: 2cm;
-  height: 50%;
+  height: auto;
   width: auto;
   background-color: white;
   border-radius: 5px;
