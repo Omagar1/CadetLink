@@ -1,9 +1,48 @@
 // ------------------ Things To Do ------------------
 -fix bugs{
-    Non admin stuff 
-    admin stuff
+    Non admin stuff{
+    - not showing messages at KitRequest when Request Is made p2 
+    - when error is made details are not retaining - works on phone?!? p2
+    - too vague errors p3
+    - log out button way too big on phone p2
+    - buttons weird size on phone p2
+    - need phone version of kit request p1
+    - back button too big p2
+    }
+    admin stuff{
+       User Management system{
+       - remove weird wiggle on phone p5
+       }
+    }
 }
-- reorganize Page Structure 
-- Use JQuery // for what? page structure 
-- add help page -- in process 
-- profile management for user
+- Merge AdminMainPage and MainPage into Dashboard p6
+- reorganize Page Structure p6 
+- Use JQuery // for what? page structure ??
+- add help page -- in process p4
+- profile management for user p7
+- improve  Event view{
+    - change background depending on type of event p5
+}
+- improve KitRequest{
+    - edit a previously made request p3
+    - waiting que? p4
+    - expected Date of issue? p4
+    - store users Sizes p5
+    - Ajaxify the process to increase the speed p6
+    - add a my size feature p7
+    - add mobile for my Requests p2
+}
+- improve stock System{
+    - bg images for each stock p4
+    - fix mobile issue p1
+    - auto delete issued requests p2 
+}
+- improve User Management system{
+    - reorganize filter p 4
+    - see how many requests a user has made p3
+    - change profile picture p4 
+}
+- improve events Systems{
+    -  add delete event p2
+    - confirm attendants p4
+    - orders upload p3

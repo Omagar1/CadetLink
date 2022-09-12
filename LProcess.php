@@ -13,7 +13,7 @@ $pword = trim($_POST['Pwd']);
 
 if ($uname != "" Or $pword != ""){
     try{
-        $qry = "SELECT * FROM users WHERE Cnum = :Cnum; ";
+        $qry = "SELECT * FROM users WHERE Cnum = :Cnum;";
         $stmt = $conn->prepare($qry);
         $stmt->bindParam('Cnum', $uname, PDO::PARAM_STR); // asiging varibles to SQL statement 
         $stmt->execute();

@@ -21,8 +21,9 @@ session_start();
       //echo $row['ID'] . "<br>"; test
       array_push($statusArr,$row['status']);
     }
-    var_dump($statusArr); //test
-    echo implode(',', $statusArr);
+    //testing 
+    //var_dump($statusArr); 
+    //echo implode(',', $statusArr);
     ?><script>
       function changeStatus(RequestID){
         var statusArr = <?php echo '["' . implode('","', $statusArr) . '"]' ?>;// gets the array from php to java Script

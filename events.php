@@ -35,15 +35,15 @@ while($row = $stmt->fetch(PDO::FETCH_ASSOC)){
   array_push($eventIDArr,$row['ID']);
   array_push($eventNameArr,$row['name']);
   array_push($eventLocationArr,$row['location']);
-  array_push($eventStartDateArr,$row['startDate']);
-  array_push($eventEndDateArr,$row['endDate']);
+  array_push($eventStartDateArr,swapDateFormat($row['startDate']));
+  array_push($eventEndDateArr,swapDateFormat($row['endDate']));
   array_push($eventStartTimeArr,$row['startTime']);
   array_push($eventEndTimeArr,$row['endTime']);
 }
 //formatting the dates into display format
 $dateDisplayArr = [];
 for($i = 0; $i < $count; $i++ ){
-  if($eventEndDateArr[$i] != "" ){
+  if($eventEndDateArr[$i] != "31-12-9999" ){
     array_push($dateDisplayArr, $eventStartDateArr[$i] . " to " . $eventEndDateArr[$i]);
   }else{
     array_push($dateDisplayArr, $eventStartDateArr[$i]);
