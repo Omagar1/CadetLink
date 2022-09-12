@@ -565,7 +565,7 @@ while ($loop < $lenItemTypeIDArr){
             <?php
              for($i = 0; $i < $count; $i++ ){
             ?>
-            <div class = "events" style = "display: block">
+            <div class = "events">
               <h3 class = "navBarDashTxt"><?php echo $ItemTypeIDArr[$i] ." ".sizesCompressionAdmin($IDArr[$i],$conn);?></h3>
               <table class = "eventTable tableDisplay">
                 <tr>

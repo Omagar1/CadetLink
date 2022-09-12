@@ -1,5 +1,6 @@
 // ------------------ Things To Do ------------------
 -fix bugs{
+
     Non admin stuff{
     - not showing messages at KitRequest when Request Is made p2 
     - when error is made details are not retaining - works on phone?!? p2
@@ -7,6 +8,7 @@
     - log out button way too big on phone p2
     - buttons weird size on phone p2
     - need phone version of kit request p1
+       - need to fix how the phone display actually works 
     - back button too big p2
     }
     admin stuff{

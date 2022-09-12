@@ -165,7 +165,7 @@ body {
   width: auto;
   background-color: white;
   border-radius: 5px;
-  display: none;/* lets java script decide what gets displayed */
+  /*display: none;/* lets java script decide what gets displayed */
   position: relative;
 }
 /* Slideshow container */
@@ -414,6 +414,10 @@ input[type=button], input[type=submit], input[type=reset] {
   text-decoration: none;
   display: inline-block;
 
+}
+
+#phoneDisplay{
+  display:none;
 }
 /* ----------------------------- Responsive  stuff  -----------------------------  */
 
