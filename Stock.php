@@ -24,7 +24,13 @@ session_start();
         // the qry works 
         if (this.readyState == 4 && this.status == 200) { // checks connection to DataBase 
           console.log("I ran 0.5");
-          var tagID = Column + ItemID;
+          console.log("ScreenWidth: " + screen.width);
+          if (screen.width > 768){
+            preTag = "LS";
+          }else{
+            preTag = "SS";
+          }
+          var tagID = preTag + Column + ItemID;
           console.log(tagID);// test 
           var numHTML = document.getElementById(tagID).innerHTML;//gets Html element 
           console.log(numHTML);// test 
@@ -517,28 +523,28 @@ while ($loop < $lenItemTypeIDArr){
                       echo "<td>" . sizesCompressionAdmin($IDArr[$loop],$conn). "</td>";
                       echo "<td>
                       <button class='button smallButton' name='Plus1' onclick = addOrMinus($IDArr[$loop],'plus','numIssued')>+</button>
-                      <div id = 'numIssued$IDArr[$loop]'>". $NumIssuedArr[$loop]."</div>
+                      <div id = 'LSnumIssued$IDArr[$loop]'>". $NumIssuedArr[$loop]."</div>
                       <button class='button smallButton' name='Sub1' onclick = addOrMinus($IDArr[$loop],'sub','numIssued')>-</button>
                       </td>";
                       echo "<td>
                       <button class='button smallButton' name='Plus1' onclick = addOrMinus($IDArr[$loop],'plus','numInStore')>+</button>
-                      <div id = 'numInStore$IDArr[$loop]'>". $NumInStoreArr[$loop]."</div>
+                      <div id = 'LSnumInStore$IDArr[$loop]'>". $NumInStoreArr[$loop]."</div>
                       <button class='button smallButton' name='Sub1' onclick = addOrMinus($IDArr[$loop],'sub','numInStore')>-</button>
                       </td>";  
                       echo "<td>
                       <button class='button smallButton' name='Plus1' onclick = addOrMinus($IDArr[$loop],'plus','numReserved')>+</button>
-                      <div id = 'numReserved$IDArr[$loop]'>". $NumReservedArr[$loop]."</div>
+                      <div id = 'LSnumReserved$IDArr[$loop]'>". $NumReservedArr[$loop]."</div>
                       <button class='button smallButton' name='Sub1' onclick = addOrMinus($IDArr[$loop],'sub','numReserved')>-</button>
                       </td>";
                       echo "<td>
                       <button class='button smallButton' name='Plus1' onclick = addOrMinus($IDArr[$loop],'plus','numOrdered')>+</button>
-                      <div id = 'numOrdered$IDArr[$loop]'>". $NumOrderedArr[$loop]."</div>
+                      <div id = 'LSnumOrdered$IDArr[$loop]'>". $NumOrderedArr[$loop]."</div>
                       <button class='button smallButton' name='Sub1' onclick = addOrMinus($IDArr[$loop],'sub','numOrdered')>-</button>
                       </td>";
                       echo "<td>
                       <form method='post' action ='editRow.php'>
                       <input type='hidden' id = 'editRow' name='editRow' value=' $IDArr[$loop] '/>
-                      <input type='submit' name='eR' value='edit'/>
+                      <input type='submit' name='eR' value='🔧'/>
                       </form>
                       </td>";
                       echo "<td>
@@ -552,15 +558,15 @@ while ($loop < $lenItemTypeIDArr){
                     $loop = $loop + 1;
                   }
                   ?>
-              
-              <!-- </table>
+              </table>
+              <!-- 
               <form method='get' action ='SProcess.php'>
               <input type='hidden' id = 'Operation' name='Operation' value='plus'/>
               <input type='hidden' id = 'ItemID' name='ItemID' value='1'/>
               <input type='hidden' id = 'Column' name='Column' value='numInStore'/>
               <input type='submit' name='test' value='test'/>
               </form> test -->
-                </div></div>
+          </div> <!--closes pc display   -->
           <div id = "phoneDisplay">
             <?php
              for($i = 0; $i < $count; $i++ ){
@@ -578,34 +584,35 @@ while ($loop < $lenItemTypeIDArr){
                 </tr>
                 <tr>
                   <td class = "eventTd">Nº Issued</td>
-                  <td class = "eventTd"><?php echo "<button class='button smallButton' name='Plus1' onclick = addOrMinus($IDArr[$i],'plus','numIssued')>+</button>
-                      <div id = 'numIssued$IDArr[$i]'>". $NumIssuedArr[$i]."</div>
-                      <button class='button smallButton' name='Sub1' onclick = addOrMinus($IDArr[$i],'sub','numIssued')>-</button>
-                  ";?></td>
+                  <td class = "eventTd"><?php echo "<ul class = 'noMargin'>
+                    <li class = 'inline'><button class='button smallButton' name='Plus1' onclick = addOrMinus($IDArr[$i],'plus','numIssued')>+</button></li>
+                    <li class = 'inline'><div id = 'SSnumIssued$IDArr[$i]' class = 'textBlack'>". $NumIssuedArr[$i]."</div></li>
+                    <li class = 'inline'><button class='button smallButton' name='Sub1' onclick = addOrMinus($IDArr[$i],'sub','numIssued')>-</button></li>
+                  </ul>";?></td>
                 </tr>
                 <tr>
                   <td class = "eventTd">Nº In Store</td>
-                  <td class = "eventTd"><?php echo"
-                      <button class='button smallButton' name='Plus1' onclick = addOrMinus($IDArr[$i],'plus','numInStore')>+</button>
-                      <div id = 'numInStore$IDArr[$i]'>". $NumInStoreArr[$i]."</div>
-                      <button class='button smallButton' name='Sub1' onclick = addOrMinus($IDArr[$i],'sub','numInStore')>-</button>
-                  ";?></td>
+                  <td class = "eventTd"><?php echo"<ul class = 'noMargin'>
+                      <li class = 'inline'><button class='button smallButton' name='Plus1' onclick = addOrMinus($IDArr[$i],'plus','numInStore')>+</button></li>
+                      <li class = 'inline'><div id = 'SSnumInStore$IDArr[$i]' class = 'textBlack'>". $NumInStoreArr[$i]."</div></li>
+                      <li class = 'inline'><button class='button smallButton' name='Sub1' onclick = addOrMinus($IDArr[$i],'sub','numInStore')>-</button></li>
+                  </ul>";?></td>
                 </tr>
                 <tr>
                   <td class = "eventTd">Nº Reserved</td>
-                  <td class = "eventTd"><?php echo "
-                      <button class='button smallButton' name='Plus1' onclick = addOrMinus($IDArr[$i],'plus','numReserved')>+</button>
-                      <div id = 'numReserved$IDArr[$i]'>". $NumReservedArr[$i]."</div>
-                      <button class='button smallButton' name='Sub1' onclick = addOrMinus($IDArr[$i],'sub','numReserved')>-</button>
-                  ";?></td>
+                  <td class = "eventTd"><?php echo "<ul class = 'noMargin'>
+                      <li class = 'inline'><button class='button smallButton' name='Plus1' onclick = addOrMinus($IDArr[$i],'plus','numReserved')>+</button></li>
+                      <li class = 'inline'><div id = 'SSnumReserved$IDArr[$i]' class = 'textBlack'>". $NumReservedArr[$i]."</div></li>
+                      <li class = 'inline'><button class='button smallButton' name='Sub1' onclick = addOrMinus($IDArr[$i],'sub','numReserved')>-</button></li>
+                  </ul>";?></td>
                 </tr>
                 <tr>
                   <td class = "eventTd">Nº Ordered</td>
-                  <td class = "eventTd"><?php echo "
-                      <button class='button smallButton' name='Plus1' onclick = addOrMinus($IDArr[$i],'plus','numOrdered')>+</button>
-                      <div id = 'numOrdered$IDArr[$i]'>". $NumOrderedArr[$i]."</div>
-                      <button class='button smallButton' name='Sub1' onclick = addOrMinus($IDArr[$i],'sub','numOrdered')>-</button>
-                  ";?></td>
+                  <td class = "eventTd"><?php echo "<ul class = 'noMargin'>
+                      <li class = 'inline'><button class='button smallButton' name='Plus1' onclick = addOrMinus($IDArr[$i],'plus','numOrdered')>+</button></li>
+                      <li class = 'inline'><div id = 'SSnumOrdered$IDArr[$i]' class = 'textBlack'>". $NumOrderedArr[$i]."</div></li>
+                      <li class = 'inline'><button class='button smallButton' name='Sub1' onclick = addOrMinus($IDArr[$i],'sub','numOrdered')>-</button></li>
+                    </ul>";?></td>
                 </tr>
               </table>
               <!-- <ul>
@@ -615,7 +622,7 @@ while ($loop < $lenItemTypeIDArr){
                 </form></li>
               <li class = "inline buttonList"><form method='post' action ='editUser.php'>
                 <input type='hidden' id = 'editUser' name='editUser' value='<?php $IDArr[$i]?> '/>
-                <input type='submit' name='eU' value='edit'/>
+                <input type='submit' name='eU' value='🔧'/>
                 </form></li>
               <li class = "inline buttonList"><form method='post' action ='deleteUser.php'>
               <input type='hidden' id = 'Xdata' name='Xdata' value='<?php $IDArr[$i]?>'/>

@@ -247,7 +247,7 @@ while($row = $stmt->fetch(PDO::FETCH_ASSOC)){
             <?php
              for($i = 0; $i < $count; $i++ ){
             ?>
-            <div class = "events" style = "display: block">
+            <div class = "events" >
               <h3 class = "navBarDashTxt"><?php echo $rankArr[$i] ." ". $fnameArr[$i] ." ".$lnameArr[$i];?></h3>
               <table class = "eventTable tableDisplay">
                 <tr>

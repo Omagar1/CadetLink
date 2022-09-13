@@ -34,11 +34,12 @@ background-color: #f2f2f2;
   width: 50%;
 }
 .eventTd{
-  width: 50%; 
+  width: auto; 
   border: none;
   color: black;
   background-color: white;
-  }
+  padding: 0px;
+}
 .tableDisplay{
   width: 100%;
 } 
@@ -416,8 +417,19 @@ input[type=button], input[type=submit], input[type=reset] {
 
 }
 
+#PCDisplay{
+  display: none;
+}
 #phoneDisplay{
   display:none;
+}
+
+.textBlack{
+  color:black;
+}
+
+.noMargin{
+  margin: 0;
 }
 /* ----------------------------- Responsive  stuff  -----------------------------  */
 
@@ -481,6 +493,15 @@ input[type=button], input[type=submit], input[type=reset] {
   #phoneDisplay{
     display:block;
   }
+  .smallButton{
+    color: rgb(245, 234, 0); ;
+    background-color: rgb(0,78,66) ;
+  }
+  .smallButton:hover {
+    color: black;  
+    background-color: white ;
+    border-color: rgb(245, 234, 0);
+  }
 }
 
 /* Small devices (portrait tablets and large phones, 600px and up) */
@@ -523,6 +544,15 @@ input[type=button], input[type=submit], input[type=reset] {
   #phoneDisplay{
     display:block;
   }
+  .smallButton{
+    color: rgb(245, 234, 0); ;
+    background-color: rgb(0,78,66) ;
+  }
+  .smallButton:hover {
+    color: black;  
+    background-color: white ;
+    border-color: rgb(245, 234, 0);
+  }
 }
 
 /* Medium devices (landscape tablets, 768px and up) */
@@ -548,6 +578,15 @@ input[type=button], input[type=submit], input[type=reset] {
   }
   #phoneDisplay{
     display:block;
+  }
+  .smallButton{
+    color: rgb(245, 234, 0); ;
+    background-color: rgb(0,78,66) ;
+  }
+  .smallButton:hover {
+    color: black;  
+    background-color: white ;
+    border-color: rgb(245, 234, 0);
   }
 }
 
