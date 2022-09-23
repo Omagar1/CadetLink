@@ -2,6 +2,8 @@
 session_start();
 // connects to database
 require_once "ConnectDB.php";
+
+include "functions.php";
 ?>
 
 <!DOCTYPE html>

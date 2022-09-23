@@ -6,14 +6,21 @@ try{
 // getting the variables
 $userID = $_POST['ID'];
 $PwdNew = $_POST['Pwd'];
+$admin = $_POST['admin'];
 // ---------------------------------------------main code --------------------------------------------
 // creating the new item items table 
 
 $qry = "UPDATE users SET Pword = ? WHERE ID =?";
 $stmt = $conn->prepare($qry);
 $stmt->execute([$PwdNew, $userID]);
-echo "task sucsesfuly sucseded ";
-header("location: manageUsers.php");
+echo "task successfully succeeded ";
+if($admin == true){
+    echo $admin;
+    header("location: manageUsers.php");
+}else{
+    header("location: mainPage.php");
+    echo $admin;
+}
   
 } catch (PDOException $e) {
     echo"Error : ".$e->getMessage();

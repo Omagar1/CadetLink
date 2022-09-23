@@ -51,7 +51,7 @@ function NavBar($pageName=null){
         <!--<div class = "profilePicContainer flexColumn">-->
             <img class = "profilePic right" src="images/<?php echo $_SESSION['profilePicURL'];?>" alt="SgtDefault" width="auto" height="150">
             <div class = "left">
-            <a href ="StackPop.php" class ="button" ><?php 
+            <a href ="StackPop.php" class ="button" id = "backButton" ><?php 
             $temp =  $_SESSION["previous"];
             //echo  end($temp);//test
             if (end($temp) == "mainPage.php" or end($temp) == "adminMainPage.php"  ){

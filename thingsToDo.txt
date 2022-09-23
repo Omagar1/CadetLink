@@ -8,7 +8,7 @@
     - log out button way too big on phone p2
     - buttons weird size on phone p2
     - need phone version of kit request p1 !done
-       - need to fix how the phone display actually works
+       - need to fix how the phone display actually works !done 
     - back button too big p2
     }
     admin stuff{

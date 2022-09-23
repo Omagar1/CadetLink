@@ -120,8 +120,8 @@ include "functions.php"
                   <li><a href = "#troop"><button class ="BenBlue dashboard dasbordTxt">Troop: <?php echo $_SESSION["troop"]?></button></a></li>
                   <li><a href = "events.php"><button class ="tjwaRed dashboard dasbordTxt">Events</button></a></li>
                   <li><a href = "kitRequest.php"><button class ="purple dashboard dasbordTxt">kit Request</button></a></li>
-                  <li><a href = "#VPB"><button class ="paleGreen dashboard dasbordTxt">Virtual Pocket Book</button></a></li>
-                  <li><a href = "help.php"><button class ="paleGreen dashboard dasbordTxt">HELP!</button></a></li>
+                  <li><a href = "resetPWord.php"><button class ="paleGreen dashboard dasbordTxt">Change Password</button></a></li>
+                  <!-- <li><a href = "help.php"><button class ="paleGreen dashboard dasbordTxt">HELP!</button></a></li> -->
                 </ul>
             </div>
             <script> // script to make the slide show of events work

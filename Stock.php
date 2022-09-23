@@ -544,18 +544,23 @@ while ($loop < $lenItemTypeIDArr){
                       echo "<td>
                       <form method='post' action ='editRow.php'>
                       <input type='hidden' id = 'editRow' name='editRow' value=' $IDArr[$loop] '/>
-                      <input type='submit' name='eR' value='🔧'/>
+                      <input type='submit' name='eR' value='🔧' class = 'button'/>
                       </form>
                       </td>";
                       echo "<td>
                       <form method='post' action ='deleteRowStock.php'>
                       <input type='hidden' id = 'Xdata' name='Xdata' value=' $IDArr[$loop] '/>
-                      <input type='submit' name='X' value='X'/>
+                      <input type='submit' name='X' value='X' class = 'button'/>
                       </form>
                       </td>";
                     echo "</tr>";
                   
                     $loop = $loop + 1;
+                  }
+                  if ($loop == 0){ // ie there is nothing to display
+                    echo "</br><b class = 'error'>wow Such Emptiness. Looks like the item you wanted to find doesn't exist.</b>";
+                  }else{
+
                   }
                   ?>
               </table>
@@ -615,20 +620,17 @@ while ($loop < $lenItemTypeIDArr){
                     </ul>";?></td>
                 </tr>
               </table>
-              <!-- <ul>
-              <li class = "inline buttonList"><form method='post' action ='resetPWord.php'>
-                <input type='hidden' id = 'resetPWord' name='resetPWord' value='<?php $IDArr[$i]?> '/>
-                <input type='submit' name='RP' value='Reset Password'/>
+              <ul>
+                <li class = 'inline'><form method='post' action ='editRow.php'>
+                <input type='hidden' id = 'editRow' name='editRow' value='<?php echo $IDArr[$i]?>' />
+                <input type='submit' name='eR' value='Edit?'class = 'button'/>
                 </form></li>
-              <li class = "inline buttonList"><form method='post' action ='editUser.php'>
-                <input type='hidden' id = 'editUser' name='editUser' value='<?php $IDArr[$i]?> '/>
-                <input type='submit' name='eU' value='🔧'/>
+                <li class = 'inline'><form method='post' action ='deleteRowStock.php'>
+                <input type='hidden' id = 'Xdata' name='Xdata' value = '<?php echo $IDArr[$i]?>' />
+                <input type='submit' name='X' value='Delete?' class = 'button'/>
                 </form></li>
-              <li class = "inline buttonList"><form method='post' action ='deleteUser.php'>
-              <input type='hidden' id = 'Xdata' name='Xdata' value='<?php $IDArr[$i]?>'/>
-              <input type='submit' name='X' value='delete?'/>
-              </form><li>
-              </ul> -->
+              </ul>
+              
               
             </div>
             <?php

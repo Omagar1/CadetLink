@@ -378,7 +378,7 @@ fieldset{
   background-color: white; 
   border: none;
   color:black;
-  padding: 15px 32px;
+  padding: 1em;
   text-align: center;
   text-decoration: none;
   display: inline-block;
@@ -415,6 +415,11 @@ input[type=button], input[type=submit], input[type=reset] {
   text-decoration: none;
   display: inline-block;
 
+}
+
+#backButton{
+  height: auto;
+  width: auto;
 }
 
 #PCDisplay{
@@ -502,6 +507,10 @@ input[type=button], input[type=submit], input[type=reset] {
     background-color: white ;
     border-color: rgb(245, 234, 0);
   }
+  #backButton{
+    height: auto;
+    width: 2em;
+  }
 }
 
 /* Small devices (portrait tablets and large phones, 600px and up) */
@@ -552,6 +561,10 @@ input[type=button], input[type=submit], input[type=reset] {
     color: black;  
     background-color: white ;
     border-color: rgb(245, 234, 0);
+  }
+  #backButton{
+    height: auto;
+    width: 2em;
   }
 }
 
