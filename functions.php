@@ -46,21 +46,21 @@ function NavBar($pageName=null){
 ?>
     <div id="navbarDash" class = "flexColumn">
         <h1 class ="navBarDashTxt"> welcome <?php echo $_SESSION['rank']. " ";
-            echo $_SESSION['fname']. " ";
-            echo $_SESSION['lname'];?></h1>
+        echo $_SESSION['fname']. " ";
+        echo $_SESSION['lname'];?></h1>
         <!--<div class = "profilePicContainer flexColumn">-->
-            <img class = "profilePic right" src="images/<?php echo $_SESSION['profilePicURL'];?>" alt="SgtDefault" width="auto" height="150">
-            <div class = "left">
-            <a href ="StackPop.php" class ="button" id = "backButton" ><?php 
-            $temp =  $_SESSION["previous"];
-            //echo  end($temp);//test
-            if (end($temp) == "mainPage.php" or end($temp) == "adminMainPage.php"  ){
-                echo "log Out";
-            }else{
-                echo "«";
-            }
-            ?></a>
-            </div>
+        <img class = "profilePic right" src="images/<?php echo $_SESSION['profilePicURL'];?>" alt="SgtDefault" width="auto" height="150">
+        <!-- <div class = "left"> -->
+        <a href ="StackPop.php" class ="button left" id = "backButton" ><?php 
+        $temp =  $_SESSION["previous"];
+        //echo  end($temp);//test
+        if (end($temp) == "mainPage.php" or end($temp) == "adminMainPage.php"  ){
+            echo "log Out";
+        }else{
+            echo "«";
+        }
+        ?></a>
+        <!-- </div> -->
         </div>
     </div>
     <form></form> <!-- to fix Chrome being Weird -->
