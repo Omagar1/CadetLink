@@ -1,68 +1,24 @@
-<?php
-session_start();
- include "functions.php";
- require_once "ConnectDB.php"
-?>
-<!DOCTYPE html>
 <html>
-    <?php
-    $pageName = basename($_SERVER["PHP_SELF"]);// getting the name of the page so head can add it to the Previous stack 
-    head($pageName);// from functions.php, echoes out the head tags
-
-    notLoggedIn(); // from functions.php, checks if user is logged in 
-
-    destroyUnwantedSession($pageName);// from functions.php, destroys unwanted error messages from other pages 
-    //Qrys to find Statuses for below  code when called
-    $statusArr = []; // initalising 
-    $sql = "SELECT `status` FROM statuses;";
-    $stmt = $conn->prepare($sql);
-    $stmt->execute();
-    while($row = $stmt->fetch(PDO::FETCH_ASSOC)){
-      //echo $row['ID'] . "<br>"; test
-      array_push($statusArr,$row['status']);
-    }
-    //testing 
-    //var_dump($statusArr); 
-    //echo implode(',', $statusArr);
-    ?><script>
-      function changeStatus(RequestID){
-        var statusArr = <?php echo '["' . implode('","', $statusArr) . '"]' ?>;// gets the array from php to java Script
-        var tagID = "status" + RequestID;
-        var RequestStatus = document.getElementById(tagID).innerHTML;
-        console.log(RequestStatus);
-        var lenStatusArr = statusArr.length;
-        var currentIndex = statusArr.indexOf(RequestStatus, 0); // finds current order in list 
-        console.log("len: " + lenStatusArr);// test 
-        console.log("Cur: " + currentIndex); // test 
-        // if statement so no negative indexes happen
-        var newIndex = currentIndex - 1;
-        console.log("newIndex: " + newIndex);
-        if (newIndex < 0){
-          newIndex = lenStatusArr - 1;
-        }else{
-
-        }
-        console.log("newIndex: " + newIndex);
-        var newStatus = statusArr[newIndex]// if negative would happen, sets the index to the end of the list 
-        console.log(newStatus);
-      
-        var xmlhttp = new XMLHttpRequest();
-        xmlhttp.onreadystatechange = function() {
-          if (this.readyState == 4 && this.status == 200) { // checks connection to DataBase
-            document.getElementById(tagID).innerHTML = newStatus;   
-          }else if(this.readyState == 3 && this.status == 403) {
-            // contention failed don't do anything 
-          }
-        }
-        xmlhttp.open("GET", "RSProcess.php?newStatus="+newStatus+"&oldStatus="+RequestStatus+"&ID="+RequestID, true); // send to precess page to ru simutaionously
-        console.log("I ran 1"); //testing
-        xmlhttp.send();
-      }
-    </script><?php
+    <head>
+      <title>CadetLink</title>
+      <link href="main.css" rel="stylesheet" />
+      <link href="loginSignup.css" rel="stylesheet" />
+      <link rel="preconnect" href="https://fonts.googleapis.com">
+      <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+      <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <?php
+        session_start();
+        // connects to database
+        require_once "ConnectDB.php";
+        //checks if not logged in  - broken 
+        if(isset($_SESSION["loggedIn"]) and ($_SESSION["loggedIn"] != true) ){
+          header("location: index.php"); // if so redirects them to the loginpage page
+        };
 
         // Qry to find requests of this User
         
-        $sql = "SELECT * FROM itemRequest WHERE `status` != 'ISSUED';";
+        $sql = "SELECT * FROM itemRequest;";
         $stmt = $conn->prepare($sql);
         $stmt->execute();
         $count = $stmt->rowCount();
@@ -74,8 +30,8 @@ session_start();
 
         }
 
-        
-        // initialising column arrays
+
+        // initialising colum arrays
         $IDArr = [];
         $StockIDArr = [];
         $UserIDArr = [];
@@ -85,7 +41,7 @@ session_start();
         $DateNeededArr = [];
         $DateRequestedArr = [];
         $statusArr = [];
-        
+
         // add the value in Each row's data to their respective colums Arrays this is done so data can be modified prior to display 
         while($row = $stmt->fetch(PDO::FETCH_ASSOC)){
           //echo $row['ID'] . "<br>"; test
@@ -110,7 +66,7 @@ session_start();
         }
       //var_dump($IDArr); // works 
       //var_dump($ItemTypeIDArr); // broken
-      
+
 
       // Qry to find the sizes of their requests
       function sizesCompressionAdmin($ItemID,$con){
@@ -191,38 +147,45 @@ session_start();
         <h1>CadetLink</h1>
         
       </div>
-
-      <?php NavBar(); ?>
+      <div id="navbarDash">
+        <h2 class ="navBarDashTxt"> welcome <?php echo $_SESSION['rank']. " ";
+            echo $_SESSION['fname']. " ";
+            echo $_SESSION['lname'];?></h2>
+        <img class = "profilePic" src="images/defaltProfilePic.jpg" alt="SgtDefalt" width="auto" height="150">
+      </div>
+      <div id="container">
+        
         <div id="main">
             <h2>Virtual stores - Work in Progress </h2>
-
             <a href=#Requests.php >
               <button class ="button buttonPressed">Requests</button>
             </a>
             <a href=Stock.php >
               <button class ="button ">Stock</button>
             </a>
+            <a href=kitRequest.php >
+              <button class ="button ">Make A Request</button>
+            </a>
+            <fieldset>
             <?php
                if ($empty == 1){
                  echo "<b class ='error'> There Are No Requests</b>";
                }else{
             ?>
-            <div id = "PCDisplay">
               <table class = "tableDisplay">
                 
-
                 <tr>
                   <th>ID</th>
-                  <th>Stock ID</th>
-                  <th>User ID</th>
+                  <th>StockID</th>
+                  <th>UserID</th>
                   <th>Name</th>
                   <th>ItemTypeID</th>
-                  <th>size</th>
-                  <th>Nº Requested</th>
+                  <th>NumRequested</th>
                   <th>purpose</th>
-                  <!--<th>DateNeeded</th>-->
-                  <th>Date Requested</th>
+                  <!-- <th>DateNeeded</th> -->
+                  <th>DateRequested</th>
                   <th>status</th>
+                  <th>size</th>
                   <th>Issued?</th>
                   <th>Remove?</th>
                 </tr>
@@ -231,8 +194,8 @@ session_start();
                 $loop = 0;
                 //var_dump($IDArr); //test
                 // echo $empty; // test
-              
-                
+
+
                 while($loop < $count){ 
                   echo "<tr>";
                     echo "<td>" .  $IDArr[$loop] . "</td>" ;
@@ -240,12 +203,12 @@ session_start();
                     echo "<td>" .  $UserIDArr[$loop] . "</td>";
                     echo "<td>" .  findName($UserIDArr[$loop], $conn). "</td>";
                     echo "<td>" .  $ItemTypeIDArr[$loop] . "</td>";
-                    echo "<td>" . sizesCompressionAdmin($IDArr[$loop],$conn). "</td>";
                     echo "<td>" .  $NumRequestedArr[$loop] . "</td>"; 
                     echo "<td>" .  $purposeArr[$loop]. "</td>"; 
-                    //echo "<td>" .  $DateNeededArr[$loop]. "</td>"; 
+                    // echo "<td>" .  $DateNeededArr[$loop]. "</td>"; 
                     echo "<td>" .  $DateRequestedArr[$loop]. "</td>"; 
-                    echo "<td><button ID ='status" . $IDArr[$loop] . "' class = 'clear' onclick = 'changeStatus($IDArr[$loop])'>" . $statusArr[$loop]. "</button></td>";
+                    echo "<td>" . $statusArr[$loop]. "</td>";
+                    echo "<td>" . sizesCompressionAdmin($IDArr[$loop],$conn). "</td>";
                     echo "<td>
                     <form method='post' action ='IProcess.php'>
                     <input type='hidden' id = 'Idata' name='Idata' value=' $IDArr[$loop] '/>
@@ -253,84 +216,23 @@ session_start();
                     </form>
                     </td>";
                     echo "<td>
-                    <form method='post' action ='deleteRowRequests.php'>
+                    <form method='post' action ='deleteRow.php'>
                     <input type='hidden' id = 'Xdata' name='Xdata' value=' $IDArr[$loop] '/>
                     <input type='submit' name='X' value='X'/>
                     </form>
                     </td>";
+                    //echo "<td><a href=deleteRow.php> <button class ='button'>X</button </a></td>";// Old button
                   echo "</tr>";
                   
                   $loop = $loop + 1;
                   }
                 }
                 ?>
-              </table> 
-             
-            </div> <!--closes pc display   -->
-            <div id = "phoneDisplay">
-            <?php
-             for($i = 0; $i < $count; $i++ ){
-            ?>
-            <div class = "events">
-              <h3 class = "navBarDashTxt"><?php echo $ItemTypeIDArr[$i] ." ".sizesCompressionAdmin($IDArr[$i],$conn);?></h3>
-              <table class = "eventTable tableDisplay">
-                <tr>
-                  <td class = "eventTd">ID</td>
-                  <td class = "eventTd"><?php echo $IDArr[$i];?></td>
-                </tr>
-                <tr>
-                  <td class = "eventTd">Stock ID</td>
-                  <td class = "eventTd"><?php echo $StockIDArr[$i];?></td>
-                </tr>
-                <tr>
-                  <td class = "eventTd">User's details</td>
-                  <td class = "eventTd"><?php echo "Name: ".findName($UserIDArr[$i], $conn) ." ID: " . $UserIDArr[$i] ;?></td>
-                </tr>
-                <tr>
-                  <td class = "eventTd">Nº Requested</td>
-                  <td class = "eventTd"><?php echo $NumRequestedArr[$i];?></td>
-                </tr>
-                <tr>
-                  <td class = "eventTd">purpose</td>
-                  <td class = "eventTd"><?php echo $purposeArr[$i] ;?></td>
-                </tr>
-                <tr>
-                  <td class = "eventTd">Date Requested</td>
-                  <td class = "eventTd"><?php echo $DateRequestedArr[$i] ;?></td>
-                </tr>
-                <tr>
-                  <td class = "eventTd">status</td>
-                  <td class = "eventTd"><?php "<td><button ID ='status" . $IDArr[$i] . "' class = 'clear' onclick = 'changeStatus($IDArr[$i])'>" . $statusArr[$i]. "</button></td>" ;?></td>
-                </tr>
-              </table>
-              <ul>
-              
-                <li class = 'inline'><form method='post' action ='IProcess.php'>
-                <input type='hidden' id = 'Idata' name='Idata' value= <?php echo $IDArr[$i]?> />
-                <input type='submit' name='I' value='✓'  class = 'button'/>
-                </form></li>
-                <li class = 'inline'><form method='post' action ='deleteRowRequests.php'>
-                <input type='hidden' id = 'Xdata' name='Xdata' value = '<?php echo $IDArr[$i]?>' />
-                <input type='submit' name='X' value='Delete?' class = 'button'/>
-                </form></li>
-              </ul>
-
-              
-            </div>
-            <?php
-             } // close For loop 
-            ?>
-          </div>
-          <form method='get' action ='RSProcess.php'>
-              <input type='hidden' id = 'newStatus' name='newStatus' value='AWAITING ORDER'/>
-              <input type='hidden' id = 'oldStatus' name='oldStatus' value='ISSUED'/>
-              <input type='hidden' id = 'ID' name='ID' value='252'/>
-              <input type='submit' name='test' value='test'/>
-          </form>
+              </table>              
+            </fieldset>
         </div>
-        
+      </div>
       <div id="footer">
-
       </div>
     </body>
   </html>

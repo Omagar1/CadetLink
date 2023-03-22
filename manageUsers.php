@@ -265,15 +265,15 @@ while($row = $stmt->fetch(PDO::FETCH_ASSOC)){
               </table>
               <ul>
               <li class = "inline buttonList"><form method='post' action ='resetPWord.php'>
-                <input type='hidden' id = 'resetPWord' name='resetPWord' value='<?php $IDArr[$loop]?> '/>
+                <input type='hidden' id = 'resetPWordSS' name='resetPWordSS' value='<?php $IDArr[$i]?> '/>
                 <input type='submit' name='RP' value='Reset Password'/>
                 </form></li>
               <li class = "inline buttonList"><form method='post' action ='editUser.php'>
-                <input type='hidden' id = 'editUser' name='editUser' value='<?php $IDArr[$loop]?> '/>
+                <input type='hidden' id = 'editUserSS' name='editUserSS' value='<?php $IDArr[$i]?> '/>
                 <input type='submit' name='eU' value='edit'/>
                 </form></li>
               <li class = "inline buttonList"><form method='post' action ='deleteUser.php'>
-              <input type='hidden' id = 'Xdata' name='Xdata' value='<?php $IDArr[$loop]?>'/>
+              <input type='hidden' id = 'XdataSS' name='XdataSS' value='<?php $IDArr[$i]?>'/>
               <input type='submit' name='X' value='delete?'/>
               </form><li>
               </ul>

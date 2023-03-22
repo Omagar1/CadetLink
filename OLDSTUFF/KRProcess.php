@@ -2,10 +2,7 @@
 // starts session
 session_start();
 $errors = false;// make global
-
-
 require_once "ConnectDB.php";
-
 function addtoSizeRequest($itemRequestID, $sizeTypeID, $value, $unit, $con){
     $qry = "INSERT INTO `sizesRequest` (`itemID` ,`sizeTypeID`, `value`, `unit`)
 VALUES (?,?,?,?) ";
@@ -13,8 +10,7 @@ $stmt = $con->prepare($qry);
 $stmt->execute([$itemRequestID,$sizeTypeID,$value,$unit]);
 echo "completed <br>"; 
 }
-
-function arrMatch($arr, $numExpected){ // checks if any elements of the arrays are the same
+function arrMatch($arr, $numExpected){ // checks if any elemets of the arrays are the same
     $prevVal = 0;
     $matchCount = 0;
     array_push($arr, 0); // adds extra blank so it works when theres only one value 
@@ -23,7 +19,7 @@ function arrMatch($arr, $numExpected){ // checks if any elements of the arrays a
             $matchCount = $matchCount + 1;
             $matchedItemID = $val;
         }else{
-        	$matchCount = 0; // changes match count if not consecutively matched which means this will not match if matching values do not occur consecutively, this is fine for my purposes as the data will always be ordered 
+        	$matchCount = 0; // changes match count if not consecutively matched which means this will not match if matching values do not occur consecutively, this is fine for my perposes as the data will always be ordered 
         }
         if ($matchCount == $numExpected-1){ // the number of matched values will always be $numExpected-1 unless there is only one 
             return($matchedItemID);
@@ -46,7 +42,7 @@ function resultToVal($result){ // Removes the Weirdness that $result is normaly
             //var_dump($itemIDArr);
         };
       }
-    //\array_splice($itemIDArr, 0, 1);// removes dublicates, hopfully 
+    //array_splice($itemIDArr, 0, 1);// removes dublicates, hopfully 
     //test 
     echo "before: <br>";
     foreach ($itemIDArr as $val){
@@ -58,7 +54,6 @@ function resultToVal($result){ // Removes the Weirdness that $result is normaly
         if ($x % 2 == 0) { 
             unset($itemIDArr[$x]);
          } else{
-
          }
       }
     //test 
@@ -75,7 +70,6 @@ function resultToVal($result){ // Removes the Weirdness that $result is normaly
         return($matchedItemID);
     }
 }
-
 function addRequest($itemID, $NumRequested, $itemRequestID, $con){
     $qry = "SELECT NumInStore, NumReserved FROM items WHERE ID = ?;" ;
     $stmt = $con->prepare($qry);
@@ -135,7 +129,7 @@ echo $Size ."<br>";
 
 //----------------------------------- main code -----------------------------------
 
-if ($GLOBALS['errors'] == true){
+if ($GLOBALS['errors'] == true){ 
     echo "yay I RAN ERROR: ";
     echo $msg;
     header("location: kitRequest.php");
@@ -150,7 +144,7 @@ if ($GLOBALS['errors'] == true){
         $qry = "INSERT INTO `itemRequest` (`UserID`, `ItemTypeID`,`NumRequested`,`purpose`,`DateRequested`) VALUES (?,?,?,?,?)";
         //echo $qry;
         $stmt = $conn->prepare($qry);
-        //echo $UserID ."<br>".$ItemType."<br>". $NumRequested ."<br>".$purpose."<br>". $dateTimeRequested. "<br>"; testing
+        //echo $UserID ."<br>".$ItemType."<br>". $NumRequested ."<br>".$purpose."<br>". $dateTimeRequested. "<br>";
         $stmt->execute([$UserID,$ItemType,$NumRequested,$purpose,$dateTimeRequested]);
         // gets ID of last item added 
         $itemRequestID = $conn->lastInsertId();
@@ -183,10 +177,7 @@ if ($GLOBALS['errors'] == true){
             $shoeSize = $SizeArray[0];
             addtoSizeRequest($itemRequestID, 7, $shoeSize, "shoeSize", $conn);
             $SizeNum = 1; // for later function  
-
         }
-
-
 
         // find out if Kit requested Matches with Stock
         $qry = "SELECT sizes.itemID FROM ((sizes INNER JOIN sizesRequest ON sizes.value = sizesRequest.value) INNER JOIN items ON sizes.itemID = items.ID)  WHERE sizesRequest.itemID = :LItemID AND ItemTypeID = :itemTypeID ; ";
@@ -197,18 +188,16 @@ if ($GLOBALS['errors'] == true){
         $stmt->bindParam(':itemTypeID', $ItemType);
         $stmt->execute();
         $result = $stmt->fetchAll(); // result is an array of arrays 
-        
+
         $resultVal = resultToVal($result);
-        // Matches Sizes to find the StockID
         if ($SizeNum > 1 ){ // arrMatch($itemIDArr, $SizeNum) does not work with one value  
             $matchedItemID = arrMatch($resultVal, $SizeNum);
             echo "matched item id:".$matchedItemID . "<br>";
         }else{
-            $matchedItemID = $resultVal; // but if only one value we can assume that it is matched already
+            $matchedItemID = $resultVal;
             echo "matched item id:".$matchedItemID . "<br>";
         }
         $inStock = addRequest($matchedItemID, $NumRequested, $itemRequestID, $conn); // num request comes from line 11
-
         if ($inStock == 1){
             $msg = " <p><b class = 'success'>Item Requested In Stock And Now Reserved For You</b></p>";
             echo $msg;
@@ -222,13 +211,11 @@ if ($GLOBALS['errors'] == true){
             
         }
         header("location: kitRequest.php");
-
             //echo "$value <br>";
         //testing
         //echo $qry. "<br>";
         
         //var_dump($result);
-
         
     } catch (PDOException $e) {
         echo "Error : ".$e->getMessage();

@@ -55,7 +55,7 @@ require_once "functions.php";
           $msg =  "<p id = 'msg'><b class = 'error'>Password Must Not be Empty</b></p>";
           $_SESSION['msg'] = $msg;
           //echo $msg;
-          echo "<script>processForm('Pwd')</script>";
+          echo "<script>processForm('Pwd')</script>"; 
         }elseif(strlen($uname)<8){
           $msg =  "<p id = 'msg'><b class = 'error'>Cadet Number Must Not Be Under 8 Characters in length </b></p>";
           $_SESSION['msg'] = $msg;

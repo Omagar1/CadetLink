@@ -113,7 +113,7 @@ require_once "functions.php";
                   <td class = "eventTd">Work in Progress</td>
                 </tr>
               </table>
-              <a class="prev fade left  " onclick="plusSlides(-1)">❮</a>
+              <a class="prev fade left" onclick="plusSlides(-1)">❮</a>
               <a class="next fade right" onclick="plusSlides(1)">❯</a>
             </div>
             <?php

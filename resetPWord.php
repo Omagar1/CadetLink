@@ -53,10 +53,17 @@ if (isset($_POST['submitPR'])){
     if (isset($_POST['resetPWord'])){
       $userID = $_POST['resetPWord']; // for admin side
       $admin = true;
+      echo "I ran 1";// test 
+    }else if(isset($_POST['resetPWordSS'])){
+      $userID = $_POST['resetPWordSS']; // for admin side
+      $admin = true;
+      echo "I ran 2"; // test 
     }else{
       $userID = $_SESSION['UserID']; // for User side
       $admin = false;
+      echo "I ran 2"; // test 
     }
+    echo  "the user id is: ".$userID; //test 
 
     
 }
@@ -65,7 +72,7 @@ $sql = "SELECT * FROM users WHERE ID = ?;";
 $stmt = $conn->prepare($sql);
 $stmt->execute([$userID]);
 $result = $stmt->fetch(PDO::FETCH_ASSOC);
-
+var_dump($result); // test 
 // initialising Column arrays
 $rank = $result['rank'];
 $fname = $result['fname'];

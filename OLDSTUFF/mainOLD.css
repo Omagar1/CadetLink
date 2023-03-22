@@ -1,0 +1,141 @@
+* {
+  color: white;
+  font-family: 'Courier New', monospace;
+  
+}
+
+/* ----------------------------- Header Stuff -----------------------------  */
+#header {
+  background-color: rgb(0, 43, 23);
+  padding: 0%;
+  margin: 0;
+  font-family: 'Bebas Neue', cursive;
+  font-style: oblique;
+  text-align: center;
+}
+/* ----------------------------- Navbar Stuff -----------------------------  */
+#navbar {
+  background-color: white;
+  padding: 0%;
+  margin: 0px 0px;
+}
+.navBarTxt {
+  color: black;
+  text-align: center;
+  text-decoration: none;
+}
+.navBarTxt:hover {
+  background-color: rgb(255, 47, 47); 
+}
+.inline {
+  display: inline;
+}
+/* ----------------------------- Body stuff -----------------------------  */
+body {
+  background-image: url("images/mtpOLD.jpg");
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
+  margin: 0;
+  height: auto;
+}
+  #container{ 
+    min-height: 100%;
+    background-color: none;
+    border: none;
+  }
+
+    #main {
+      background-color: rgb(0, 43, 23, 0.938);
+      margin: 10%;
+      padding: 1%;
+      min-height: 500px;
+      text-align: center;
+      font-family: 'Bebas Neue', cursive;
+      font-style: oblique;
+    }
+    .dashbord{
+      padding: 1%;
+      margin: 10px 10px;
+    }
+    
+    .dashbordTroop{
+      background-color: rgb(139, 141, 0);
+      padding: 1%;
+      margin: 10px 10px;
+    }
+    .dashbordSection{
+      background-color: rgb(51, 153, 114);
+      padding: 1%;
+      margin: 10px 10px;
+    }
+    .dashbordSC{
+      background-color: rgb(141, 51, 153);
+      padding: 1%;
+      margin: 10px 10px;
+    }
+    .dashbordOrders{
+      background-color: rebeccapurple;
+      padding: 1%;
+      margin: 10px 10px;
+    }
+    .dashbordUniform{
+      background-color: rgb(0, 85, 0);
+      padding: 1%;
+      margin: 10px 10px;
+    }
+    .dashbordTrips{
+      background-color: rgb(255, 136, 0);
+      padding: 1%;
+      margin: 10px 10px;
+    }
+    .dashbordVPB{
+      background-color: blue;
+      padding: 1%;
+      margin: 10px 10px;
+    }
+    ul.no-bullets {
+      list-style-type: none;
+      margin: 0;
+      padding: 0;
+    }
+    .dasbordTxt{
+      list-style-type: none;
+      text-decoration: none;
+    }
+    li.dasbord:hover {
+      background-color: white; 
+    }
+    .dasbordTxt:hover {
+      color: black; 
+    } 
+    #radio{
+      margin: 0%;
+    }
+
+    b{
+      color: rgb(245, 234, 0)
+    }
+/* ----------------------------- Form stuff  -----------------------------  */
+      fieldset{
+        width: auto;
+      
+      }
+        option{
+          background-image: url("images/mtp.jpg");
+          background-color: rgb(0, 43, 23) ;
+        }
+
+        #radio {
+        
+        }
+      /* ----------------------------- footer stuff -----------------------------  */
+#footer {
+  background-color: rgb(0, 43, 23);
+  margin: 0;
+  padding: 5px;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  height: auto; 
+}

@@ -30,7 +30,7 @@ if (isset($_POST['submitAE']) or  isset($_POST['submitAEA'])){
   $tmpName = $_FILES["fileToUpload"]["tmp_name"]; // finding temporary name
   $UploadedName = $_FILES["fileToUpload"]["name"]; 
   $fileSize = $_FILES["fileToUpload"]["size"];
-  $fileType = $_FILES["fileToUpload"]["type"];
+  $fileType = trim($_FILES["fileToUpload"]["type"]);
   $fileError = $_FILES["fileToUpload"]["error"];
   $fileExtension = strtolower(pathinfo($UploadedName,PATHINFO_EXTENSION));
   
@@ -86,12 +86,12 @@ if (isset($_POST['submitAE']) or  isset($_POST['submitAEA'])){
   }
 
   // file validation
-  if ($_FILES["fileToUpload"]["size"] > 500000 and $errors != 1) { // Check file size
+  if ($_FILES["fileToUpload"]["size"] > 2000000 and $errors != 1) { // Check file size
     $msg =  "<p id = 'msg'><b class = 'error'>Sorry, your file is too large</b></p>";
     $_SESSION['msg'] = $msg;
     echo $msg;
     $errors = 1;
-  }elseif($fileExtension != "txt" and $fileExtension != "docx" and $fileExtension != "doc" and $fileExtension != "pdf" and $fileExtension != "") { //only allow certain file formats
+  }elseif($fileExtension == "txt" or $fileExtension == " docx" or $fileExtension == "doc" or $fileExtension == "pdf" and $fileExtension != "") { //only allow certain file formats
     $msg =  "<p id = 'msg'><b class = 'error'>Sorry, only txt, docx, doc and pdf files are allowed</b></p>";
     $_SESSION['msg'] = $msg;
     echo $msg;

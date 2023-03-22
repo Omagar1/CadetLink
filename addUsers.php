@@ -120,7 +120,7 @@ if (isset($_POST['submitAU']) or isset($_POST['submitAUA'])){
             <tr>
                 <td>Cadet Number</td>
                 <td><input type="text" id="Cnum" name="Cnum" placeholder = "e.g. 12345678" value="<?php
-                if(isset($Cnum)){
+                if(isset($Cnum)){ // to display previous entered data 
                   echo $Cnum;
                 }else{
                   echo"";
@@ -131,7 +131,7 @@ if (isset($_POST['submitAU']) or isset($_POST['submitAUA'])){
             <tr>
                 <td>Password <input type="checkbox" onclick="showPwd()" class= "button" value = "👁"></td>
                 <td><input type="password" id="PwdInput" name="Pwd" value="<?php
-                if(isset($Pwd)){
+                if(isset($Pwd)){ // to display previous entered data
                   echo $Pwd;
                 }else{
                   echo"Password";
@@ -141,12 +141,12 @@ if (isset($_POST['submitAU']) or isset($_POST['submitAUA'])){
             <tr>
                 <td>Rank</td>
                 <td><select id="rank" name="rank">
-                  <?php
+                  <?php // to find ranks from a look up table and output them in a dropdown input field 
                   $sql = "SELECT * FROM ranks;";
                   $stmt = $conn->prepare($sql);
                   $stmt->execute();
                   while($row = $stmt->fetch(PDO::FETCH_ASSOC)){
-                    if ($row["rank"] == $rank){
+                    if ($row["rank"] == $rank){ // to display previous entered data
                       echo "<option value=".$row["rank"]."selected>".$row["rank"]."</option>";
                     }else{
                       echo "<option value=".$row["rank"].">".$row["rank"]."</option>";
@@ -158,7 +158,7 @@ if (isset($_POST['submitAU']) or isset($_POST['submitAUA'])){
             <tr>
                 <td>First Name</td>
                 <td><input type="text" id="fname" name="fname" value="<?php
-                if(isset($fname)){
+                if(isset($fname)){ // to display previous entered data
                   echo $fname;
                 }else{
                   echo"";
@@ -168,7 +168,7 @@ if (isset($_POST['submitAU']) or isset($_POST['submitAUA'])){
             <tr>
                 <td>Last Name</td>
                 <td><input type="text" id="lname" name="lname" value="<?php
-                if(isset($lname)){
+                if(isset($lname)){ // to display previous entered data
                   echo $lname;
                 }else{
                   echo"";
@@ -178,12 +178,12 @@ if (isset($_POST['submitAU']) or isset($_POST['submitAUA'])){
             <tr>
                 <td>Troop</td>
                 <td><select id="troop" name="troop">
-                  <?php
+                  <?php // to find troops from a look up table and output them in a dropdown input field 
                   $sql = "SELECT * FROM troops;";
                   $stmt = $conn->prepare($sql);
                   $stmt->execute();
                   while($row = $stmt->fetch(PDO::FETCH_ASSOC)){
-                    if ($row["troopName"] == $troop){
+                    if ($row["troopName"] == $troop){ // to display previous entered data
                       echo "<option value='".$row["troopName"]."' selected>".$row["troopName"]."</option>";
                     }else{
                       echo "<option value='".$row["troopName"]."'>".$row["troopName"]."</option>";
@@ -193,8 +193,8 @@ if (isset($_POST['submitAU']) or isset($_POST['submitAUA'])){
                 </select><br></td>
             <tr>
             </table>
-            <input type="submit" name ="submitAU" class = "button" value="Add">
-            <input type="submit" name ="submitAUA" class = "button" value="Add and Add Another">
+            <input type="submit" name ="submitAU" class = "button" value="Add"> <!-- goes back to User management system -->
+            <input type="submit" name ="submitAUA" class = "button" value="Add and Add Another"> <!-- remains on page -->
             </form>
           </fieldset>
       </div>

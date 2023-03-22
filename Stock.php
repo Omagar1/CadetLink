@@ -490,6 +490,9 @@ while ($loop < $lenItemTypeIDArr){
               <br>
               <input type="submit" class = "button" value="find" name="find"> 
             </form>
+            <form method='post' action ='addNewStock.php'>
+                <input type="submit" class="button" name="addNew" value="Add New"/>
+            </form>
 
             <div id = "PCDisplay">
               <table class = "tableDisplay">
@@ -505,9 +508,7 @@ while ($loop < $lenItemTypeIDArr){
                   <th>edit?</th>
                   <th>delete?</th>
                 </tr>
-                <form method='post' action ='addNewStock.php'>
-                <input type="submit" class="button" name="addNew" value="Add New"/>
-                </form>
+                
 
                 <?php 
                   $loop = 0;

@@ -25,7 +25,7 @@ function head($pageName, $extra=null){
 
 function notLoggedIn(){
     //checks if not logged in 
-    if(!isset($_SESSION["loggedIn"]) and ($_SESSION["loggedIn"] != true) ){
+    if(!isset($_SESSION["loggedIn"]) or ($_SESSION["loggedIn"] !== true) ){
         header("location: index.php"); // if so redirects them to the loginpage page
       };
 }
@@ -77,7 +77,7 @@ function swapDateFormat($orgDate){// changes date from YYYY-MM-DD to DD-MM-YYYY
     //echo $newDate; // test 
     return $newDate ;
 }
-function stackPopAndRedirect(){
+/* function stackPopAndRedirect(){
     if(gettype($_SESSION["previous"]) == "array"){
         array_pop($_SESSION["previous"]); // delete the top of the stack, which should be the page which this page was called from pages
         //echo end($_SESSION["previous"]); // test 
@@ -85,5 +85,5 @@ function stackPopAndRedirect(){
     }else{
         header("location: LOProcess.php"); // if nothing in the stack then then users should not be logged in so this logs them out 
     }
-}
+} */
 ?>
